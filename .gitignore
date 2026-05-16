@@ -1,1 +1,4 @@
 .helper
+*.o
+*.a
+a.out
