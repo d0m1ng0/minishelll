@@ -6,7 +6,7 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 16:01:22 by anegorov          #+#    #+#             */
-/*   Updated: 2026/05/16 18:40:15 by anegorov         ###   ########.fr       */
+/*   Updated: 2026/05/16 18:47:29 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,15 +86,21 @@ t_cmd	*parser(t_token *tokens)
 	current_cmd = cmd;
 	while (tokens)
 	{
-		// if (tokens->type == TOKEN_PIPE)
-		// {
-		// 	current_cmd->next = create_cmd();
-		// 	if (!current_cmd->next)
-		// 		return (NULL);//destroy_exit()
-		// 	current_cmd = current_cmd->next;
-		// }
-		// else
-		add_token_to_cmd(current_cmd, tokens);
+		if (tokens->type == TOKEN_PIPE)
+		{
+			if (!current_cmd->argv || !tokens->next
+				|| tokens->next->type == TOKEN_PIPE)
+			{
+				printf("Syntax error: unexpected pipe\n");
+				return (NULL);//destroy_exit()
+			}
+			current_cmd->next = create_cmd();
+			if (!current_cmd->next)
+				return (NULL);//destroy_exit()
+			current_cmd = current_cmd->next;
+		}
+		else
+			add_token_to_cmd(current_cmd, tokens);
 		tokens = tokens->next;
 	}
 	return (cmd);
