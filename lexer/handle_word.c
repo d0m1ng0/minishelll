@@ -6,13 +6,13 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 12:48:10 by anegorov          #+#    #+#             */
-/*   Updated: 2026/05/16 17:46:16 by anegorov         ###   ########.fr       */
+/*   Updated: 2026/05/16 18:21:11 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/lexer.h"
 
-static void	handle_no_quote(char *c, t_quote *quote_state)
+static void	handle_no_quote(char c, t_quote *quote_state)
 {
 	if (c == '\'')
 		*quote_state = SINGLE_QUOTE;
@@ -20,7 +20,7 @@ static void	handle_no_quote(char *c, t_quote *quote_state)
 		*quote_state = DOUBLE_QUOTE;
 }
 
-static void	handle_second_quote(char *c, t_quote *quote_state)
+static void	handle_second_quote(char c, t_quote *quote_state)
 {
 	if (*quote_state == SINGLE_QUOTE && c == '\'')
 		*quote_state = NO_QUOTE;
@@ -28,7 +28,7 @@ static void	handle_second_quote(char *c, t_quote *quote_state)
 		*quote_state = NO_QUOTE;
 }
 
-void	scan_word(t_lexer *lexer)
+static void	scan_word(t_lexer *lexer)
 {
 	char	c;
 	t_quote	quote_state;
@@ -39,17 +39,17 @@ void	scan_word(t_lexer *lexer)
 		c = lexer->input[lexer->pos];
 		if (quote_state == NO_QUOTE)
 		{
-			handle_no_quote(&c, &quote_state);
+			handle_no_quote(c, &quote_state);
 			if (ft_isspace(c) || ft_isoperator(c))
 				break ;
 		}
 		else
-			handle_second_quote(&c, &quote_state);
+			handle_second_quote(c, &quote_state);
 		lexer->pos++;
 	}
 }
 
-char	*extract_word(char *word, char *input, size_t start, size_t len)
+static char	*extract_word(char *word, char *input, size_t start, size_t len)
 {
 	size_t	i;
 	size_t	j;
@@ -62,12 +62,12 @@ char	*extract_word(char *word, char *input, size_t start, size_t len)
 	{
 		if (quote_state == NO_QUOTE)
 		{
-			handle_no_quote(&input[start + i], &quote_state);
+			handle_no_quote(input[start + i], &quote_state);
 			if (quote_state == NO_QUOTE)
 				word[j++] = input[start + i];
 		}
-		else if (quote_state == SINGLE_QUOTE && input[start + i] == '\''
-			|| quote_state == DOUBLE_QUOTE && input[start + i] == '"')
+		else if ((quote_state == SINGLE_QUOTE && input[start + i] == '\'')
+			|| (quote_state == DOUBLE_QUOTE && input[start + i] == '"'))
 			quote_state = NO_QUOTE;
 		else
 			word[j++] = input[start + i];
@@ -89,7 +89,7 @@ void	handle_word(t_lexer *lexer)
 	if (!word)
 		return ;
 		// destroy_all_exit(lexer);
-	extract_word(char *word, lexer->input, start, lexer->pos - start);
+	extract_word(word, lexer->input, start, lexer->pos - start);
 	if (!word)
 		return ;
 		// destroy_all_exit(lexer);
