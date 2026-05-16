@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   build_cmds.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/16 16:23:04 by anegorov          #+#    #+#             */
-/*   Updated: 2026/05/16 18:54:11 by anegorov         ###   ########.fr       */
+/*   Created: 2026/05/16 18:50:40 by anegorov          #+#    #+#             */
+/*   Updated: 2026/05/16 18:52:44 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,34 +32,4 @@ t_cmd	*build_cmds(char *line)
 	// print_tokens(lexer->tokens);
 	cmd = parser(lexer->tokens);
 	return (cmd);
-}
-
-int	main(void)
-{
-	t_cmd	*cmd;
-	char	*line;
-	size_t	i;
-	
-
-	while (1)
-	{
-		line = readline("minishell> ");
-		if (!line)
-			break ;
-		cmd = build_cmds(line);
-		if (!cmd)
-			printf("memory error\n");// free everything ;execute();free everything
-		while (cmd)
-		{
-			i = 0;
-			while (cmd->argv && cmd->argv[i])
-			{
-				printf("ARGV[%zu]: %s\n", i, cmd->argv[i]);
-				i++;
-			}
-			cmd = cmd->next;
-		}
-		// free everything ;execute();free everything
-	}
-	return (0);
 }
