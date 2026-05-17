@@ -6,7 +6,7 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/17 15:17:49 by anegorov          #+#    #+#             */
-/*   Updated: 2026/05/17 19:08:43 by anegorov         ###   ########.fr       */
+/*   Updated: 2026/05/17 19:34:44 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,16 @@ int	builtin_echo(char **argv)
 	}
 	if (newline)
 		printf("\n");
+	return (0);
+}
+
+int	builtin_pwd(void)
+{
+	char	buf[1024];
+
+	if (getcwd(buf, sizeof(buf)))
+		printf("%s\n", buf);
+	else
+		perror("pwd");
 	return (0);
 }

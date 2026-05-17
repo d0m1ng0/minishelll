@@ -6,7 +6,7 @@
 #    By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/05/16 12:07:21 by dverdini          #+#    #+#              #
-#    Updated: 2026/05/17 18:38:34 by anegorov         ###   ########.fr        #
+#    Updated: 2026/05/17 19:36:06 by anegorov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ LIB = libft.a
 SRC = \
 lexer/lexer.c lexer/handle_operator.c lexer/handle_word.c lexer/lexer_utils.c lexer/token_utils.c \
 parser/parser.c parser/cmd_building.c\
+builtin/builtin.c builtin/echo.c\
 main.c build_cmds.c
 
 SRCS=$(addprefix $(SRC_DIR)/, $(SRC))

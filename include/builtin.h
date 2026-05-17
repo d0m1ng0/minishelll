@@ -6,7 +6,7 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/17 15:16:35 by anegorov          #+#    #+#             */
-/*   Updated: 2026/05/17 19:23:09 by anegorov         ###   ########.fr       */
+/*   Updated: 2026/05/17 19:31:54 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef struct s_builtin
 int		is_builtin(char *cmd);
 int		is_equal(char *a, char *b);
 int		builtin_echo(char **argv);
+int		builtin_pwd(void);
 void	run_builtin(t_cmd *cmd);
 
 #endif

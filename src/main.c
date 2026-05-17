@@ -6,7 +6,7 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 16:23:04 by anegorov          #+#    #+#             */
-/*   Updated: 2026/05/17 19:24:20 by anegorov         ###   ########.fr       */
+/*   Updated: 2026/05/17 19:33:10 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,29 @@ void	executor(t_cmd *cmd)
 	}
 }
 
+void	print_cmd(t_cmd *cmd)
+{
+	size_t	i;
+	t_cmd	*tmp;
+
+	tmp = cmd;
+	while (tmp)
+	{
+		i = 0;
+		while (tmp->argv && tmp->argv[i])
+		{
+			printf("ARGV[%zu]: %s file: %s output: %s\n", i,
+				tmp->argv[i], tmp->infile, tmp->outfile);
+			i++;
+		}
+		tmp = tmp->next;
+	}
+}
+
 int	main(void)
 {
 	t_cmd	*cmd;
-	t_cmd	*tmp;
 	char	*line;
-	size_t	i;
 
 	while (1)
 	{
@@ -60,18 +77,7 @@ int	main(void)
 		cmd = build_cmds(line);
 		if (!cmd)
 			return (free(line), printf("memory error\n"), 1);
-		tmp = cmd;
-		while (tmp)
-		{
-			i = 0;
-			while (tmp->argv && tmp->argv[i])
-			{
-				printf("ARGV[%zu]: %s file: %s output: %s\n", i,
-					tmp->argv[i], tmp->infile, tmp->outfile);
-				i++;
-			}
-			tmp = tmp->next;
-		}
+		//print_cmd(cmd);
 		// expend(*, $var);execute();free everything
 		executor(cmd);
 		free(line);
