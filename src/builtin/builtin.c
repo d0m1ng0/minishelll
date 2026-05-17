@@ -6,7 +6,7 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/17 15:15:55 by anegorov          #+#    #+#             */
-/*   Updated: 2026/05/17 19:34:22 by anegorov         ###   ########.fr       */
+/*   Updated: 2026/05/17 19:44:57 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,6 @@ void	run_builtin(t_cmd *cmd)
 		builtin_echo(cmd->argv);
 	else if (is_equal(cmd->argv[0], "pwd"))
 		builtin_pwd();
+	else if (is_equal(cmd->argv[0], "cd"))
+		builtin_cd(cmd->argv);
 }
