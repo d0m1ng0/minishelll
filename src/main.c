@@ -6,7 +6,7 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 16:23:04 by anegorov          #+#    #+#             */
-/*   Updated: 2026/05/17 19:33:10 by anegorov         ###   ########.fr       */
+/*   Updated: 2026/05/17 19:56:59 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,14 @@ void	print_cmd(t_cmd *cmd)
 	}
 }
 
-int	main(void)
+int	main(int argc, char **argv, char **envp)
 {
 	t_cmd	*cmd;
 	char	*line;
 
+	(void)argc;
+	(void)argv;
+	(void)envp;
 	while (1)
 	{
 		line = readline("minishell> ");

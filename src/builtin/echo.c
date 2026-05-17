@@ -6,7 +6,7 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/17 15:17:49 by anegorov          #+#    #+#             */
-/*   Updated: 2026/05/17 19:45:17 by anegorov         ###   ########.fr       */
+/*   Updated: 2026/05/17 19:56:31 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,6 @@ int	builtin_cd(char **argv)
 	if (!argv[1])
 		return (printf("cd: missing path\n"), 1);
 	if (chdir(argv[1]) != 0)
-        return (perror("cd"), 1);
+		return (perror("cd"), 1);
 	return (0);
 }
