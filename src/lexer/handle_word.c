@@ -6,11 +6,11 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 12:48:10 by anegorov          #+#    #+#             */
-/*   Updated: 2026/05/16 18:21:11 by anegorov         ###   ########.fr       */
+/*   Updated: 2026/05/17 18:17:41 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/lexer.h"
+#include "../../include/lexer.h"
 
 static void	handle_no_quote(char c, t_quote *quote_state)
 {
@@ -77,7 +77,7 @@ static char	*extract_word(char *word, char *input, size_t start, size_t len)
 	return (word);
 }
 
-void	handle_word(t_lexer *lexer)
+int	handle_word(t_lexer *lexer)
 {
 	size_t	start;
 	t_token	*new_token;
@@ -87,19 +87,15 @@ void	handle_word(t_lexer *lexer)
 	scan_word(lexer);
 	word = malloc(sizeof(char) * (lexer->pos - start + 1));
 	if (!word)
-		return ;
-		// destroy_all_exit(lexer);
+		return (1);
 	extract_word(word, lexer->input, start, lexer->pos - start);
-	if (!word)
-		return ;
-		// destroy_all_exit(lexer);
 	new_token = ft_new_token(TOKEN_WORD, word);
 	if (!new_token)
 	{
-		if (word)
-			free(word);
-		return ;
-		// destroy_all_exit(lexer);
+		free(word);
+		return (1);
 	}
+	free(word);
 	add_token(&lexer->tokens, new_token);
+	return (0);
 }

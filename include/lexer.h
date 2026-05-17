@@ -6,7 +6,7 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 11:24:42 by anegorov          #+#    #+#             */
-/*   Updated: 2026/05/16 16:54:18 by anegorov         ###   ########.fr       */
+/*   Updated: 2026/05/17 16:04:54 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,10 @@ size_t	ft_strlen(const char *str);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 char	*ft_strdup(const char *str);
 char	*ft_substr(const char *s, unsigned int start, size_t len);
-void	handle_operator(t_lexer *lexer);
-void	handle_word(t_lexer *lexer);
+int		handle_operator(t_lexer *lexer);
+int		handle_word(t_lexer *lexer);
 t_lexer	*lexer_init(char *input);
-void	tokenize(t_lexer *lexer);
+int		tokenize(t_lexer *lexer);
+void	free_lexer(t_lexer *lexer);
 
 #endif

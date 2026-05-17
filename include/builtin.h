@@ -1,35 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   build_cmds.c                                       :+:      :+:    :+:   */
+/*   builtin.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/16 18:50:40 by anegorov          #+#    #+#             */
-/*   Updated: 2026/05/16 18:52:44 by anegorov         ###   ########.fr       */
+/*   Created: 2026/05/17 15:16:35 by anegorov          #+#    #+#             */
+/*   Updated: 2026/05/17 19:23:09 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexer.h"
-#include "parser.h"
+#ifndef BUILTIN_H
+# define BUILTIN_H
 
-void	print_tokens(t_token *tokens)
+# include "libft.h"
+# include "parser.h"
+
+typedef struct s_builtin
 {
-	while (tokens)
-	{
-		printf("Token: Type=%d, Value=%s\n", tokens->type, tokens->value);
-		tokens = tokens->next;
-	}
-}
+	char	*name;
+	int		(*func)(t_cmd *cmd);
+}	t_builtin;
 
-t_cmd	*build_cmds(char *line)
-{
-	t_lexer	*lexer;
-	t_cmd	*cmd;
+int		is_builtin(char *cmd);
+int		is_equal(char *a, char *b);
+int		builtin_echo(char **argv);
+void	run_builtin(t_cmd *cmd);
 
-	lexer = lexer_init(line);
-	tokenize(lexer);
-	// print_tokens(lexer->tokens);
-	cmd = parser(lexer->tokens);
-	return (cmd);
-}
+#endif

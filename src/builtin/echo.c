@@ -1,23 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer_utils.c                                      :+:      :+:    :+:   */
+/*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/16 11:24:34 by anegorov          #+#    #+#             */
-/*   Updated: 2026/05/16 17:46:53 by anegorov         ###   ########.fr       */
+/*   Created: 2026/05/17 15:17:49 by anegorov          #+#    #+#             */
+/*   Updated: 2026/05/17 19:08:43 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/lexer.h"
+#include "../../include/builtin.h"
 
-int	ft_isspace(char c)
+int	builtin_echo(char **argv)
 {
-	return (c == ' ' || c == '\t' || c == '\n');
-}
+	int	i;
+	int	newline;
 
-int	ft_isoperator(char c)
-{
-	return (c == '|' || c == '<' || c == '>');
+	i = 1;
+	newline = 1;
+	if (argv[i] && is_equal(argv[i], "-n"))
+	{
+		newline = 0;
+		i++;
+	}
+	while (argv[i])
+	{
+		printf("%s", argv[i]);
+		if (argv[i + 1])
+			printf(" ");
+		i++;
+	}
+	if (newline)
+		printf("\n");
+	return (0);
 }

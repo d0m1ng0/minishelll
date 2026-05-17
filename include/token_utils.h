@@ -6,7 +6,7 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 12:16:46 by anegorov          #+#    #+#             */
-/*   Updated: 2026/05/16 13:31:45 by anegorov         ###   ########.fr       */
+/*   Updated: 2026/05/17 15:19:59 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,6 @@ typedef struct s_token
 
 t_token	*ft_new_token(t_token_type type, const char *value);
 void	add_token(t_token **head, t_token *new_token);
+void	free_tokens(t_token *tokens);
 
 #endif

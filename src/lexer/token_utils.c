@@ -6,11 +6,11 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 12:17:39 by anegorov          #+#    #+#             */
-/*   Updated: 2026/05/16 17:47:33 by anegorov         ###   ########.fr       */
+/*   Updated: 2026/05/17 18:17:58 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/token_utils.h"
+#include "../../include/token_utils.h"
 
 t_token	*ft_new_token(t_token_type type, const char *value)
 {
@@ -20,10 +20,11 @@ t_token	*ft_new_token(t_token_type type, const char *value)
 	if (!token)
 		return (NULL);
 	token->type = type;
-	token->value = ft_strdup(value);
+	if (value)
+		token->value = ft_strdup(value);
 	if (!token->value)
 	{
-		free(token);// destroy_all_exit(token);
+		free(token);
 		return (NULL);
 	}
 	token->next = NULL;
@@ -43,4 +44,18 @@ void	add_token(t_token **head, t_token *new_token)
 	while (current->next)
 		current = current->next;
 	current->next = new_token;
+}
+
+void	free_tokens(t_token *tokens)
+{
+	t_token	*tmp;
+
+	while (tokens)
+	{
+		tmp = tokens;
+		tokens = tokens->next;
+		if (tmp->value)
+			free(tmp->value);
+		free(tmp);
+	}
 }

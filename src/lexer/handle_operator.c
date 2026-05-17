@@ -6,25 +6,26 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 12:28:54 by anegorov          #+#    #+#             */
-/*   Updated: 2026/05/16 16:35:51 by anegorov         ###   ########.fr       */
+/*   Updated: 2026/05/17 18:17:37 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/lexer.h"
-#include "../include/token_utils.h"
+#include "../../include/lexer.h"
+#include "../../include/token_utils.h"
 
-static void	handle_pipe(t_lexer *lexer)
+static int	handle_pipe(t_lexer *lexer)
 {
 	t_token	*new_token;
 
 	new_token = ft_new_token(TOKEN_PIPE, "|");
-	//if (!new_token)
-		//destroy_all_exit(lexer);
+	if (!new_token)
+		return (1);
 	add_token(&lexer->tokens, new_token);
 	lexer->pos++;
+	return (0);
 }
 
-static void	handle_input_redirection(t_lexer *lexer)
+static int	handle_input_redirection(t_lexer *lexer)
 {
 	t_token	*new_token;
 
@@ -38,12 +39,13 @@ static void	handle_input_redirection(t_lexer *lexer)
 		new_token = ft_new_token(TOKEN_REDIR_IN, "<");
 		lexer->pos++;
 	}
+	if (!new_token)
+		return (1);
 	add_token(&lexer->tokens, new_token);
-	//if (!new_token)
-		//destroy_all_exit(lexer);
+	return (0);
 }
 
-static void	handle_output_redirection(t_lexer *lexer)
+static int	handle_output_redirection(t_lexer *lexer)
 {
 	t_token	*new_token;
 
@@ -57,17 +59,19 @@ static void	handle_output_redirection(t_lexer *lexer)
 		new_token = ft_new_token(TOKEN_REDIR_OUT, ">");
 		lexer->pos++;
 	}
+	if (!new_token)
+		return (1);
 	add_token(&lexer->tokens, new_token);
-	//if (!new_token)
-		//destroy_all_exit(lexer);
+	return (0);
 }
 
-void	handle_operator(t_lexer *lexer)
+int	handle_operator(t_lexer *lexer)
 {
 	if (lexer->input[lexer->pos] == '|')
-		handle_pipe(lexer);
+		return (handle_pipe(lexer));
 	else if (lexer->input[lexer->pos] == '<')
-		handle_input_redirection(lexer);
+		return (handle_input_redirection(lexer));
 	else if (lexer->input[lexer->pos] == '>')
-		handle_output_redirection(lexer);
+		return (handle_output_redirection(lexer));
+	return (0);
 }
