@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin.c                                          :+:      :+:    :+:   */
+/*   builtins_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/17 15:15:55 by anegorov          #+#    #+#             */
-/*   Updated: 2026/05/17 19:44:57 by anegorov         ###   ########.fr       */
+/*   Created: 2026/05/21 10:05:41 by anegorov          #+#    #+#             */
+/*   Updated: 2026/05/21 12:03:11 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,19 @@ int	is_builtin(char *cmd)
 	return (0);
 }
 
-void	run_builtin(t_cmd *cmd)
+int	run_builtin(t_cmd *cmd, t_env **env)
 {
 	if (is_equal(cmd->argv[0], "echo"))
-		builtin_echo(cmd->argv);
+		return (builtin_echo(cmd->argv));
 	else if (is_equal(cmd->argv[0], "pwd"))
-		builtin_pwd();
+		return (builtin_pwd());
 	else if (is_equal(cmd->argv[0], "cd"))
-		builtin_cd(cmd->argv);
+		return (builtin_cd(cmd->argv));
+	else if (is_equal(cmd->argv[0], "env"))
+		return (builtin_env(*env));
+	else if (is_equal(cmd->argv[0], "export"))
+		return (builtin_export(env, cmd->argv));
+	else if (is_equal(cmd->argv[0], "unset"))
+		return (builtin_unset(env, cmd->argv));
+	return (0);
 }

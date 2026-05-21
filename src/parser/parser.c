@@ -6,7 +6,7 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 16:01:22 by anegorov          #+#    #+#             */
-/*   Updated: 2026/05/17 18:18:11 by anegorov         ###   ########.fr       */
+/*   Updated: 2026/05/21 09:59:00 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ static t_cmd	*create_cmd(void)
 	cmd->outfile = NULL;
 	cmd->append = 0;
 	cmd->next = NULL;
+	cmd->heredoc_delimiter = NULL;
 	return (cmd);
 }
 

@@ -6,7 +6,7 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/17 15:16:35 by anegorov          #+#    #+#             */
-/*   Updated: 2026/05/17 19:45:35 by anegorov         ###   ########.fr       */
+/*   Updated: 2026/05/21 12:18:20 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "libft.h"
 # include "parser.h"
+# include "env.h"
 
 typedef struct s_builtin
 {
@@ -27,6 +28,9 @@ int		is_equal(char *a, char *b);
 int		builtin_echo(char **argv);
 int		builtin_pwd(void);
 int		builtin_cd(char **argv);
-void	run_builtin(t_cmd *cmd);
+int		builtin_env(t_env *env);
+int		builtin_export(t_env **env, char **argv);
+int		builtin_unset(t_env **env, char **argv);
+int		run_builtin(t_cmd *cmd, t_env **env);
 
 #endif

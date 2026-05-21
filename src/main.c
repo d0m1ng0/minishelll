@@ -6,7 +6,7 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 16:23:04 by anegorov          #+#    #+#             */
-/*   Updated: 2026/05/17 19:56:59 by anegorov         ###   ########.fr       */
+/*   Updated: 2026/05/21 12:06:47 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include <stdlib.h>
 
 #include "builtin.h"
+#include "env.h"
 
 t_cmd	*build_cmds(char *line);
 
@@ -26,23 +27,26 @@ t_cmd	*build_cmds(char *line);
 // }
 
 
-void	execute_single_cmd(t_cmd *cmd)
+int	execute_single_cmd(t_cmd *cmd, t_env **env)
 {
 	if (!cmd->argv || !cmd->argv[0])
-		return ;
+		return (0);
 	if (is_builtin(cmd->argv[0]))
-		run_builtin(cmd);
+		return (run_builtin(cmd, env));
 	// else
 	// 	run_external(cmd);
+	return (0);
 }
 
-void	executor(t_cmd *cmd)
+int	executor(t_cmd *cmd, t_env **env)
 {
 	while (cmd)
 	{
-		execute_single_cmd(cmd);
+		if (execute_single_cmd(cmd, env))
+			return (1);//error memmory
 		cmd = cmd->next;
 	}
+	return (0);
 }
 
 void	print_cmd(t_cmd *cmd)
@@ -64,14 +68,28 @@ void	print_cmd(t_cmd *cmd)
 	}
 }
 
+void	print_env(t_env *env)
+{
+	while (env)
+	{
+		if (env->exported == 1)
+			printf("Key = %s Value = %s\n", env->key, env->value);
+		env = env->next;
+	}
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_cmd	*cmd;
 	char	*line;
+	t_env	*env;
 
 	(void)argc;
 	(void)argv;
-	(void)envp;
+	env_init(&env, envp);
+	if (!env)
+		return (printf("memory error\n"), 1);
+	// print_env(env);
 	while (1)
 	{
 		line = readline("minishell> ");
@@ -79,12 +97,13 @@ int	main(int argc, char **argv, char **envp)
 			break ;
 		cmd = build_cmds(line);
 		if (!cmd)
-			return (free(line), printf("memory error\n"), 1);
+			return (free(line), env_clear(&env), printf("memory error\n"), 1);
 		//print_cmd(cmd);
 		// expend(*, $var);execute();free everything
-		executor(cmd);
+		executor(cmd, &env);
 		free(line);
 		free_cmds(cmd);
 	}
+	env_clear(&env);
 	return (0);
 }
