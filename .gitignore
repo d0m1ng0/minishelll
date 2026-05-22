@@ -2,3 +2,5 @@
 *.o
 *.a
 a.out
+ctags
+minishell
