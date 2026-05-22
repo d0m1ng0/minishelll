@@ -6,14 +6,14 @@
 #    By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/05/16 12:07:21 by dverdini          #+#    #+#              #
-#    Updated: 2026/05/21 10:10:27 by anegorov         ###   ########.fr        #
+#    Updated: 2026/05/22 17:48:42 by anegorov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -MMD -MP
+CFLAGS = -Wall -Wextra -Werror -MMD -MP -g3 -O0
 
 SRC_DIR = src
 OBJ_DIR = obj
@@ -25,7 +25,8 @@ SRC = \
 lexer/lexer.c lexer/handle_operator.c lexer/handle_word.c lexer/lexer_utils.c lexer/token_utils.c \
 parser/parser.c parser/cmd_building.c\
 builtin/builtins.c builtin/builtins2.c builtin/builtins_utils.c\
-env/env_init.c
+env/env_init.c env/env_utils.c\
+expander/expander.c\
 main.c build_cmds.c
 
 SRCS=$(addprefix $(SRC_DIR)/, $(SRC))
