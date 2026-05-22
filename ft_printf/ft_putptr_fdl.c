@@ -1,24 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_putptr_fdl.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dverdini <dverdini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/17 10:30:51 by dverdini          #+#    #+#             */
-/*   Updated: 2026/05/22 12:18:58 by dverdini         ###   ########.fr       */
+/*   Created: 2026/02/23 14:33:43 by dverdini          #+#    #+#             */
+/*   Updated: 2026/02/23 14:44:08 by dverdini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef  MINISHELL_H
-# define MINISHELL_H
+#include "ft_printf.h"
 
-# include <stdlib.h>
-# include <stdio.h>
-# include <readline/readline.h>
-# include <readline/history.h>
+int	ft_putptr_fdl(unsigned long n, int fd)
+{
+	int		len;
+	char	*base;
 
-
-char	*ms_read_line(void);
-
-#endif
+	len = 0;
+	base = "0123456789abcdef";
+	if (n >= 16)
+		len += ft_putptr_fdl(n / 16, fd);
+	len += ft_putchar_fdl(base[n % 16], fd);
+	return (len);
+}

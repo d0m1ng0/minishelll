@@ -1,24 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_putnbr_fdl.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dverdini <dverdini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/17 10:30:51 by dverdini          #+#    #+#             */
-/*   Updated: 2026/05/22 12:18:58 by dverdini         ###   ########.fr       */
+/*   Created: 2026/02/23 14:29:18 by dverdini          #+#    #+#             */
+/*   Updated: 2026/02/23 14:30:09 by dverdini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef  MINISHELL_H
-# define MINISHELL_H
+#include "ft_printf.h"
 
-# include <stdlib.h>
-# include <stdio.h>
-# include <readline/readline.h>
-# include <readline/history.h>
+int	ft_putnbr_fdl(int n, int fd)
+{
+	long	n_l;
+	int		len;
 
-
-char	*ms_read_line(void);
-
-#endif
+	n_l = n;
+	len = 0;
+	if (n_l < 0)
+	{
+		n_l = -n_l;
+		len += ft_putchar_fdl('-', fd);
+	}
+	if (n_l >= 10)
+	{
+		len += ft_putnbr_fdl(n_l / 10, fd);
+	}
+	len += ft_putchar_fdl(n_l % 10 + '0', fd);
+	return (len);
+}

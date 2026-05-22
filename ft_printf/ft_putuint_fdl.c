@@ -1,24 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_putuint_fdl.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dverdini <dverdini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/17 10:30:51 by dverdini          #+#    #+#             */
-/*   Updated: 2026/05/22 12:18:58 by dverdini         ###   ########.fr       */
+/*   Created: 2026/02/23 14:31:11 by dverdini          #+#    #+#             */
+/*   Updated: 2026/02/23 14:31:50 by dverdini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef  MINISHELL_H
-# define MINISHELL_H
+#include "ft_printf.h"
 
-# include <stdlib.h>
-# include <stdio.h>
-# include <readline/readline.h>
-# include <readline/history.h>
+int	ft_putuint_fdl(unsigned int n, int fd)
+{
+	int	len;
 
-
-char	*ms_read_line(void);
-
-#endif
+	len = 0;
+	if (n >= 10)
+	{
+		len += ft_putuint_fdl(n / 10, fd);
+	}
+	len += ft_putchar_fdl(n % 10 + '0', fd);
+	return (len);
+}

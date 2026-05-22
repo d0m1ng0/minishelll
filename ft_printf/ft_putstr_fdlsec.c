@@ -1,24 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_putstr_fdlsec.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dverdini <dverdini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/17 10:30:51 by dverdini          #+#    #+#             */
-/*   Updated: 2026/05/22 12:18:58 by dverdini         ###   ########.fr       */
+/*   Created: 2026/02/23 14:28:43 by dverdini          #+#    #+#             */
+/*   Updated: 2026/02/23 14:28:48 by dverdini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef  MINISHELL_H
-# define MINISHELL_H
+#include "ft_printf.h"
 
-# include <stdlib.h>
-# include <stdio.h>
-# include <readline/readline.h>
-# include <readline/history.h>
+int	ft_putstr_fdlsec(char *s, int fd)
+{
+	int	l;
 
-
-char	*ms_read_line(void);
-
-#endif
+	if (!s)
+	{
+		write(fd, "(null)", 6);
+		return (6);
+	}
+	else
+	{
+		l = ft_strlen(s);
+		write(fd, s, l);
+	}
+	return (l);
+}

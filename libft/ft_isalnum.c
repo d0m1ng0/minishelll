@@ -1,24 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_isalnum.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dverdini <dverdini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/17 10:30:51 by dverdini          #+#    #+#             */
-/*   Updated: 2026/05/22 12:18:58 by dverdini         ###   ########.fr       */
+/*   Created: 2025/11/13 17:52:09 by dverdini          #+#    #+#             */
+/*   Updated: 2025/12/15 20:56:04 by dverdini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef  MINISHELL_H
-# define MINISHELL_H
+#include "libft.h"
 
-# include <stdlib.h>
-# include <stdio.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-
-
-char	*ms_read_line(void);
-
-#endif
+int	ft_isalnum(int c)
+{
+	return (('A' <= c && c <= 'Z')
+		|| ('a' <= c && c <= 'z')
+		|| ('0' <= c && c <= '9'));
+}
+/*
+		DESCRIPTION
+			Checks  for  an alphanumeric character; \
+			it is equivalent to (isalpha(c) || isdigit(c)).
+		RETURN VALUE
+       		The  values  returned are nonzero if the character c falls\
+		into the tested class, and zero if not.
+*/

@@ -1,24 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dverdini <dverdini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/17 10:30:51 by dverdini          #+#    #+#             */
-/*   Updated: 2026/05/22 12:18:58 by dverdini         ###   ########.fr       */
+/*   Created: 2025/11/17 16:03:47 by dverdini          #+#    #+#             */
+/*   Updated: 2025/12/15 20:54:42 by dverdini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef  MINISHELL_H
-# define MINISHELL_H
+#include "libft.h"
 
-# include <stdlib.h>
-# include <stdio.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-
-
-char	*ms_read_line(void);
-
-#endif
+void	ft_bzero(void *s, size_t n)
+{
+	ft_memset(s, 0, n);
+}
+/*
+	DESCRIPTION
+		Erases the data in the n bytes of the memory starting st the\
+		location pointed to by s, by writing zeros (bytes containing \
+		'\0') to that area.
+	RETURN
+		Nothing.	
+LESSON:
+1. t_bzero is implemented by calling ft_memset with the constant \
+value '\0\' or 0 or 0x00.
+*/
