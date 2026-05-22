@@ -6,7 +6,7 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/21 09:29:20 by anegorov          #+#    #+#             */
-/*   Updated: 2026/05/21 13:03:58 by anegorov         ###   ########.fr       */
+/*   Updated: 2026/05/22 19:37:52 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,13 @@ void	env_clear(t_env **env)
 	*env = NULL;
 }
 
-char	*get_env_value(t_env *env, char *key)
+int	is_varchar(char c, int i)
 {
-	while (env)
-	{
-		if (ft_strncmp(env->key, key, ft_strlen(key) + 1) == 0)
-			return (env->value);
-		env = env->next;
-	}
-	return (NULL);
+	if (i == 0 && (ft_isalpha(c) || c == '_'))
+		return (1);
+	if (i && (ft_isalnum(c) || c == '_'))
+		return (1);
+	return (0);
 }
 
 t_env	*env_new(char *envp)
@@ -52,8 +50,10 @@ t_env	*env_new(char *envp)
 	if (!new_env)
 		return (NULL);
 	i = 0;
-	while (envp[i] && envp[i] != '=')
+	while (envp[i] && envp[i] != '=')// && is_varchar(envp[i], i))
 		i++;
+	// if (!is_varchar(envp[i], i))
+	// 	return (printf("export: '%s': not a valid identifier\n", envp), new_env);
 	key = ft_substr(envp, 0, i);
 	if (!key)
 		return (free(new_env), NULL);

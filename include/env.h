@@ -6,7 +6,7 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/21 09:28:18 by anegorov          #+#    #+#             */
-/*   Updated: 2026/05/22 15:53:08 by anegorov         ###   ########.fr       */
+/*   Updated: 2026/05/22 19:30:54 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define ENV_H
 
 # include "libft.h"
+# include <stdio.h>
 
 typedef struct s_env
 {
@@ -30,5 +31,6 @@ void	remove_env_var(t_env **env, char *key);
 char	*get_env_value(t_env *env, char *key);
 void	env_init(t_env **env, char **envp);
 size_t	env_size(t_env	*env);
+t_env	*find_env(t_env *env, char *key);
 
 #endif

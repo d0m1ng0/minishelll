@@ -6,7 +6,7 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 14:14:15 by anegorov          #+#    #+#             */
-/*   Updated: 2026/05/22 15:41:05 by anegorov         ###   ########.fr       */
+/*   Updated: 2026/05/22 18:20:12 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,9 @@ typedef struct s_expand
 }	t_expand;
 
 int	expand_var(t_cmd *cmd, t_shell *shell);
+int	init_expand(t_expand *exp);
+int	handle_quotes(char *str, t_expand *exp);
+int	append_str(t_expand *exp, char *str);
+int	append_char(t_expand *exp, char c);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 18:50:40 by anegorov          #+#    #+#             */
-/*   Updated: 2026/05/17 19:23:46 by anegorov         ###   ########.fr       */
+/*   Updated: 2026/05/22 18:25:08 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,9 @@ t_cmd	*build_cmds(char *line)
 	free_lexer(lexer);
 	if (!cmd)
 	{
-		printf("memory error\n");
-		exit(1);
+		// printf("memory error\n");
+		// exit(1);
+		return (NULL);
 	}
 	return (cmd);
 }

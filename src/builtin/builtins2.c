@@ -6,7 +6,7 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/21 10:08:07 by anegorov          #+#    #+#             */
-/*   Updated: 2026/05/21 13:04:47 by anegorov         ###   ########.fr       */
+/*   Updated: 2026/05/22 19:22:33 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ int	builtin_export(t_env **env, char **argv)
 {
 	size_t	i;
 	t_env	*new_env;
+	t_env	*old;
 
 	i = 1;
 	if (!argv[1])
@@ -103,7 +104,17 @@ int	builtin_export(t_env **env, char **argv)
 		if (!new_env)
 			return (1);
 		new_env->exported = 1;
-		env_add_back(env, new_env);
+		old = find_env(*env, new_env->key);
+		if (old)
+		{
+			free(old->value);
+			old->value = ft_strdup(new_env->value);
+			if (!old->value)
+				return (1);
+			env_clear(&new_env);
+		}
+		else
+			env_add_back(env, new_env);
 		i++;
 	}
 	return (0);
