@@ -6,7 +6,7 @@
 #    By: dverdini <dverdini@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/05/16 12:07:21 by dverdini          #+#    #+#              #
-#    Updated: 2026/05/22 12:37:26 by dverdini         ###   ########.fr        #
+#    Updated: 2026/05/23 13:19:59 by dverdini         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,18 @@ RM = rm -f
 # ------------------------------------------------------------------------------
 
 SRCS = src/main.c \
-	src/read_line.c 
+	src/read_line.c \
+	src/cleanup/cleanup.c \
+	src/lexer/free_tokens.c\
+	src/lexer/lexer.c\
+	src/lexer/print_tokens.c\
+	src/lexer/read_word.c\
+	src/lexer/token_utils.c\
+	src/prompt/add_history.c\
+	src/prompt/handle_EOF.c\
+	src/prompt/read_line.c\
+	src/utils/is_operator.c\
+	src/utils/is_space.c
 
 OBJS = $(SRCS:.c=.o)
 
