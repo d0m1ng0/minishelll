@@ -2,6 +2,3 @@
 *.o
 *.a
 a.out
-ctags
-tags
-minishell

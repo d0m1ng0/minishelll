@@ -3,37 +3,44 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dverdini <dverdini@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/23 13:09:05 by dverdini          #+#    #+#             */
-/*   Updated: 2026/05/23 13:11:48 by dverdini         ###   ########.fr       */
+/*   Created: 2026/05/16 11:24:39 by anegorov          #+#    #+#             */
+/*   Updated: 2026/05/17 18:17:52 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../include/lexer.h"
 
-t_token	*ms_lexer(char *line)
+int	tokenize(t_lexer *lexer)
 {
-	t_token	*tokens;
-	char	*word;
-	int		i;
-
-	i = 0;
-	tokens = NULL;
-	while (line[i])
+	while (lexer->input[lexer->pos] != '\0')
 	{
-		if (ms_is_space(line[i]))
-			i++;
-		else if (line[i] == '|')
+		if (ft_isspace(lexer->input[lexer->pos]))
+			lexer->pos++;
+		else if (ft_isoperator(lexer->input[lexer->pos]))
 		{
-			ms_add_token_back(&tokens, ms_create_token(TYPE_PIPE, ft_strdup("|")));
-			i++;
+			if (handle_operator(lexer) == 1)
+				return (1);
 		}
 		else
 		{
-			word = ms_read_word(line, &i);
-			ms_add_token_back(&tokens, ms_create_token(TYPE_WORD, word));
+			if (handle_word(lexer) == 1)
+				return (1);
 		}
 	}
-	return (tokens);
+	return (0);
+}
+
+t_lexer	*lexer_init(char *input)
+{
+	t_lexer	*lexer;
+
+	lexer = malloc(sizeof(t_lexer));
+	if (!lexer)
+		return (NULL);
+	lexer->input = input;
+	lexer->pos = 0;
+	lexer->tokens = NULL;
+	return (lexer);
 }

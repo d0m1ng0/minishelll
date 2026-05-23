@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   token_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dverdini <dverdini@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/23 13:11:05 by dverdini          #+#    #+#             */
-/*   Updated: 2026/05/23 13:11:56 by dverdini         ###   ########.fr       */
+/*   Created: 2026/05/16 12:17:39 by anegorov          #+#    #+#             */
+/*   Updated: 2026/05/17 18:17:58 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../include/token_utils.h"
 
-t_token	*ms_create_token(t_type type, char *value)
+t_token	*ft_new_token(t_token_type type, const char *value)
 {
 	t_token	*token;
 
@@ -20,25 +20,42 @@ t_token	*ms_create_token(t_type type, char *value)
 	if (!token)
 		return (NULL);
 	token->type = type;
-	token->value = value;
+	if (value)
+		token->value = ft_strdup(value);
+	if (!token->value)
+	{
+		free(token);
+		return (NULL);
+	}
 	token->next = NULL;
 	return (token);
 }
 
-void	ms_add_token_back(t_token **tokens, t_token *new)
+void	add_token(t_token **head, t_token *new_token)
 {
-	t_token	*token_last;
+	t_token	*current;
 
-	if (!tokens || !new)
-		return ;
-	if (!*tokens)
+	if (!*head)
 	{
-		*tokens = new;
+		*head = new_token;
 		return ;
 	}
-	token_last = *tokens;
-	while (token_last->next)
-		token_last = token_last->next;
-	token_last->next = new;
+	current = *head;
+	while (current->next)
+		current = current->next;
+	current->next = new_token;
 }
 
+void	free_tokens(t_token *tokens)
+{
+	t_token	*tmp;
+
+	while (tokens)
+	{
+		tmp = tokens;
+		tokens = tokens->next;
+		if (tmp->value)
+			free(tmp->value);
+		free(tmp);
+	}
+}

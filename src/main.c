@@ -3,70 +3,88 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dverdini <dverdini@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/17 10:47:36 by dverdini          #+#    #+#             */
-/*   Updated: 2026/05/23 13:16:13 by dverdini         ###   ########.fr       */
+/*   Created: 2026/05/16 16:23:04 by anegorov          #+#    #+#             */
+/*   Updated: 2026/05/17 19:56:59 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "lexer.h"
+#include "parser.h"
 
-/*
-#include <.h>
-#include ".h"
+#include <stdio.h>
+#include <stdlib.h>
 
-main
+#include "builtin.h"
 
-inizializzo la shell
-[]while infinito:
-[ok]	leggo una linea mostrando il prompt con readline
-	
-[ok]	se readline ritorna NULL:
-	    esco dalla shell
-	
-[ok]	se la linea non è vuota:
-	    aggiungo alla history
-	
-[]	passo la linea al lexer/parser
-	
-[]	eseguo il risultato
-	
-[]	libero la linea e le strutture temporanee
+t_cmd	*build_cmds(char *line);
 
-fine programma
-*/
-
-//#include "minishell.h"
+// void execute_cmd(t_cmd *cmd)
+// {
+// 	getenv("PATH");
+// }
 
 
-int	main(void)//int argc, char **argv)
+void	execute_single_cmd(t_cmd *cmd)
 {
-	t_token	*tokens;
+	if (!cmd->argv || !cmd->argv[0])
+		return ;
+	if (is_builtin(cmd->argv[0]))
+		run_builtin(cmd);
+	// else
+	// 	run_external(cmd);
+}
 
+void	executor(t_cmd *cmd)
+{
+	while (cmd)
+	{
+		execute_single_cmd(cmd);
+		cmd = cmd->next;
+	}
+}
+
+void	print_cmd(t_cmd *cmd)
+{
+	size_t	i;
+	t_cmd	*tmp;
+
+	tmp = cmd;
+	while (tmp)
+	{
+		i = 0;
+		while (tmp->argv && tmp->argv[i])
+		{
+			printf("ARGV[%zu]: %s file: %s output: %s\n", i,
+				tmp->argv[i], tmp->infile, tmp->outfile);
+			i++;
+		}
+		tmp = tmp->next;
+	}
+}
+
+int	main(int argc, char **argv, char **envp)
+{
+	t_cmd	*cmd;
 	char	*line;
 
-	tokens = NULL;
+	(void)argc;
+	(void)argv;
+	(void)envp;
 	while (1)
 	{
-		line = ms_read_line();
-		if (ms_handle_EOF(line))
+		line = readline("minishell> ");
+		if (!line)
 			break ;
-		ms_add_history(line);
-		tokens = ms_lexer(line);
-		ms_print_tokens(tokens);
-		ms_free_tokens(tokens);
-		//ms_debug_print_line(line);
-		ms_cleanup_line(line);
+		cmd = build_cmds(line);
+		if (!cmd)
+			return (free(line), printf("memory error\n"), 1);
+		//print_cmd(cmd);
+		// expend(*, $var);execute();free everything
+		executor(cmd);
+		free(line);
+		free_cmds(cmd);
 	}
 	return (0);
 }
-/*DEPRECATED - MINISHELL PROJECT IS UNDERCONSTRUCTION
- * void	ms_debug_print_line(char *line)
-{
-	if (!line)
-		return ;
-	ft_printf("%s\n", line);
-}
-*/
-

@@ -3,75 +3,52 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dverdini <dverdini@student.42.fr>          +#+  +:+       +#+         #
+#    By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/05/16 12:07:21 by dverdini          #+#    #+#              #
-#    Updated: 2026/05/23 13:19:59 by dverdini         ###   ########.fr        #
+#    Updated: 2026/05/17 19:36:06 by anegorov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-FT_PRINTF_DIR = ./ft_printf
-
-FT_PRINTF = $(FT_PRINTF_DIR)/libftprintf.a
-
-LIBFT_DIR = ./libft
-
-LIBFT = $(LIBFT_DIR)/libft.a
-
-# ----------------------- BONUS ------------------------------------------------
-# ------------------------------------------------------------------------------
-
 CC = cc
+CFLAGS = -Wall -Wextra -Werror -MMD -MP
 
-CFLAGS = -Wall -Wextra -Werror -lreadline -Iincludes -I$(LIBFT_DIR) -I$(FT_PRINTF_DIR)
+SRC_DIR = src
+OBJ_DIR = obj
+INC_DIR = include
 
-RM = rm -f
+LIB = libft.a
 
-# ------------------------------------------------------------------------------
+SRC = \
+lexer/lexer.c lexer/handle_operator.c lexer/handle_word.c lexer/lexer_utils.c lexer/token_utils.c \
+parser/parser.c parser/cmd_building.c\
+builtin/builtin.c builtin/echo.c\
+main.c build_cmds.c
 
-SRCS = src/main.c \
-	src/read_line.c \
-	src/cleanup/cleanup.c \
-	src/lexer/free_tokens.c\
-	src/lexer/lexer.c\
-	src/lexer/print_tokens.c\
-	src/lexer/read_word.c\
-	src/lexer/token_utils.c\
-	src/prompt/add_history.c\
-	src/prompt/handle_EOF.c\
-	src/prompt/read_line.c\
-	src/utils/is_operator.c\
-	src/utils/is_space.c
+SRCS=$(addprefix $(SRC_DIR)/, $(SRC))
 
-OBJS = $(SRCS:.c=.o)
+OBJ = $(SRC:src/%.c=$(OBJ_DIR)/%.o)
+OBJS=$(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
+DEP = $(OBJS:.o=.d)
+
 
 all: $(NAME)
 
-$(NAME): $(OBJS) $(FT_PRINTF) $(LIBFT) 
-	$(CC) $(CFLAGS) $(OBJS) $(FT_PRINTF) $(LIBFT) -o $(NAME)
+$(NAME): $(OBJS)
+	$(CC) $(OBJS) $(LIB) -o $(NAME) -lreadline
 
-$(FT_PRINTF):
-	@make -C $(FT_PRINTF_DIR)
+$(OBJ_DIR)/%.o: src/%.c
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) -I$(INC_DIR) -c $< -o $@
 
-$(LIBFT):
-	@make -C $(LIBFT_DIR)
-
-%.o:%.c 
-	$(CC) $(CFLAGS) -c $< -o  $@
+-include $(DEP)
 
 clean:
-	$(RM) $(OBJS)
-	@make -C $(FT_PRINTF_DIR) clean
-	@make -C $(LIBFT_DIR) clean
+	rm -rf $(OBJ_DIR)
 
 fclean: clean
-	$(RM) $(NAME)
-	@make -C $(FT_PRINTF_DIR) fclean
-	@make -C $(LIBFT_DIR) fclean
+	rm -f $(NAME)
 
 re: fclean all
-
-.PHONY: all clean fclean re
-
