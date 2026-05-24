@@ -6,7 +6,7 @@
 /*   By: dverdini <dverdini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 16:36:08 by dverdini          #+#    #+#             */
-/*   Updated: 2026/05/24 20:08:13 by dverdini         ###   ########.fr       */
+/*   Updated: 2026/05/24 20:21:13 by dverdini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,13 @@ void	ms_run_external(t_cmd *cmd, char **envp)
 		// -------------------------------------
 		if (cmd->outfile)
 		{
-			fd = open(cmd->outfile,
-				O_CREAT | O_WRONLY | O_TRUNC, 0644);
+
+			if (cmd->append)
+				fd = open(cmd->outfile,
+						O_CREAT | O_WRONLY | O_APPEND, 0644);
+			else
+				fd = open(cmd->outfile,
+						O_CREAT | O_WRONLY | O_TRUNC, 0644);
 			if (fd < 0)
 			{
 				perror("open");
@@ -77,8 +82,13 @@ void	ms_execute_single_cmd(t_cmd *cmd, char **envp)
 			return ;
 		if (cmd->outfile)
 		{
-			fd_file = open(cmd->outfile,
-					O_CREAT | O_WRONLY | O_TRUNC, 0644);
+			if (cmd->append)
+				fd_file = open(cmd->outfile,
+						O_CREAT | O_WRONLY | O_APPEND, 0644);
+			else
+				fd_file = open(cmd->outfile,
+						O_CREAT | O_WRONLY | O_TRUNC, 0644);
+
 			if (fd_file < 0)
 			{	
 				perror("open");
