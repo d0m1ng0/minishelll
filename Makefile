@@ -6,7 +6,7 @@
 #    By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/05/16 12:07:21 by dverdini          #+#    #+#              #
-#    Updated: 2026/05/24 11:48:32 by dverdini         ###   ########.fr        #
+#    Updated: 2026/05/24 13:56:12 by dverdini         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,9 @@ parser/parser.c parser/cmd_building.c\
 builtin/builtin.c builtin/echo.c\
 main.c build_cmds.c \
 debug/print_cmds.c \
-executor/executor.c
+executor/executor.c \
+executor/path.c \
+utils/free_split.c
 SRCS=$(addprefix $(SRC_DIR)/, $(SRC))
 
 OBJ = $(SRC:src/%.c=$(OBJ_DIR)/%.o)

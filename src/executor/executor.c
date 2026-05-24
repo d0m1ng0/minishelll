@@ -6,7 +6,7 @@
 /*   By: dverdini <dverdini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 16:36:08 by dverdini          #+#    #+#             */
-/*   Updated: 2026/05/24 12:43:52 by dverdini         ###   ########.fr       */
+/*   Updated: 2026/05/24 13:41:52 by dverdini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@ void	ms_run_external(t_cmd *cmd, char **envp)
 	(void)cmd;
 	(void)envp;
 	pid_t	pid;
+	char	*path;
 
+	path = ms_find_cmd_path(cmd->argv[0], envp);
 	// --- DEBUG MSG-----------------
 	ft_printf("#=======================================================\n");
 	ft_printf("external command launched\n");
@@ -29,7 +31,10 @@ void	ms_run_external(t_cmd *cmd, char **envp)
 	// ------------------------------
 	pid = fork();
 	if (pid == 0)
-		execve("/usr/bin/ls", cmd->argv, envp);
+		// --- HARDCODED -----------------------
+		//execve("/usr/bin/ls", cmd->argv, envp);
+		// -------------------------------------
+		execve(path, cmd->argv, envp);
 	else if (pid > 0)
 		waitpid(pid, NULL, 0);
 }
