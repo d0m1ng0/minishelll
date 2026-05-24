@@ -6,7 +6,7 @@
 #    By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/05/16 12:07:21 by dverdini          #+#    #+#              #
-#    Updated: 2026/05/17 19:36:06 by anegorov         ###   ########.fr        #
+#    Updated: 2026/05/24 11:48:32 by dverdini         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,13 +20,16 @@ OBJ_DIR = obj
 INC_DIR = include
 
 LIB = libft.a
+FT_PRINTF_DIR = ft_printf
+FT_PRINTF = $(FT_PRINTF_DIR)/libftprintf.a
 
 SRC = \
 lexer/lexer.c lexer/handle_operator.c lexer/handle_word.c lexer/lexer_utils.c lexer/token_utils.c \
 parser/parser.c parser/cmd_building.c\
 builtin/builtin.c builtin/echo.c\
-main.c build_cmds.c
-
+main.c build_cmds.c \
+debug/print_cmds.c \
+executor/executor.c
 SRCS=$(addprefix $(SRC_DIR)/, $(SRC))
 
 OBJ = $(SRC:src/%.c=$(OBJ_DIR)/%.o)
@@ -36,12 +39,16 @@ DEP = $(OBJS:.o=.d)
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
-	$(CC) $(OBJS) $(LIB) -o $(NAME) -lreadline
+$(FT_PRINTF):
+	@make -C $(FT_PRINTF_DIR)
+
+$(NAME): $(OBJS) $(LIB) $(FT_PRINTF)
+	$(CC) $(OBJS) $(LIB) $(FT_PRINTF) -o $(NAME) -lreadline
+
 
 $(OBJ_DIR)/%.o: src/%.c
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) -I$(INC_DIR) -c $< -o $@
+	$(CC) $(CFLAGS) -I$(INC_DIR)  -I$(FT_PRINTF_DIR) -c $< -o $@
 
 -include $(DEP)
 

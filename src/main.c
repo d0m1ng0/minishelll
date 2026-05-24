@@ -6,7 +6,7 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 16:23:04 by anegorov          #+#    #+#             */
-/*   Updated: 2026/05/17 19:56:59 by anegorov         ###   ########.fr       */
+/*   Updated: 2026/05/24 12:18:15 by dverdini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@
 
 #include "builtin.h"
 
+#include "debug.h"
+#include "executor.h"
+
 t_cmd	*build_cmds(char *line);
 
 // void execute_cmd(t_cmd *cmd)
@@ -25,7 +28,7 @@ t_cmd	*build_cmds(char *line);
 // 	getenv("PATH");
 // }
 
-
+/* COMMENTED SINCE I AM CREATING EXECUTOR
 void	execute_single_cmd(t_cmd *cmd)
 {
 	if (!cmd->argv || !cmd->argv[0])
@@ -44,7 +47,7 @@ void	executor(t_cmd *cmd)
 		cmd = cmd->next;
 	}
 }
-
+*/
 void	print_cmd(t_cmd *cmd)
 {
 	size_t	i;
@@ -71,7 +74,7 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	(void)argv;
-	(void)envp;
+	//(void)envp;
 	while (1)
 	{
 		line = readline("minishell> ");
@@ -81,8 +84,9 @@ int	main(int argc, char **argv, char **envp)
 		if (!cmd)
 			return (free(line), printf("memory error\n"), 1);
 		//print_cmd(cmd);
+		print_cmds(cmd);
 		// expend(*, $var);execute();free everything
-		executor(cmd);
+		ms_executor(cmd, envp);
 		free(line);
 		free_cmds(cmd);
 	}
