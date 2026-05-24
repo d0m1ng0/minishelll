@@ -6,7 +6,7 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 16:01:22 by anegorov          #+#    #+#             */
-/*   Updated: 2026/05/17 18:18:11 by anegorov         ###   ########.fr       */
+/*   Updated: 2026/05/24 17:39:46 by dverdini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,10 +99,22 @@ t_cmd	*parser(t_token *tokens)
 			if (handle_pipe(&current, tokens))
 				return (free_cmds(cmd), NULL);
 		}
+/*		// --- ANTONINA ------------------------------------------------
 		else
 		{
 			if (add_token_to_cmd(current, tokens))
 				return (free_cmds(cmd), NULL);
+		}
+*/		// -------------------------------------------------------------
+		// --- DOMINGO ------------------------------------------------
+		else
+		{
+			add_token_to_cmd(current, tokens);
+			if (tokens->type == TOKEN_REDIR_IN
+				|| tokens->type == TOKEN_REDIR_OUT
+				|| tokens->type == TOKEN_APPEND
+				|| tokens->type == TOKEN_HEREDOC)
+				tokens = tokens->next;
 		}
 		tokens = tokens->next;
 	}
