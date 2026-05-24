@@ -6,7 +6,7 @@
 /*   By: dverdini <dverdini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 16:36:08 by dverdini          #+#    #+#             */
-/*   Updated: 2026/05/24 18:21:35 by dverdini         ###   ########.fr       */
+/*   Updated: 2026/05/24 20:08:13 by dverdini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,20 @@
 #include <unistd.h>
 #include <sys/wait.h>
 #include <fcntl.h>
+#include <stdlib.h>
 
 void	ms_run_external(t_cmd *cmd, char **envp)
 {
-	(void)cmd;
-	(void)envp;
 	int	fd;
 	pid_t	pid;
 	char	*path;
 	
 	path = ms_find_cmd_path(cmd->argv[0], envp);
+	if (!path)
+	{
+		ft_printf("%s: command not found\n", cmd->argv[0]);
+		return ;
+	}
 	// --- DEBUG MSG-----------------
 	ft_printf("#=======================================================\n");
 	ft_printf("external command launched\n");
@@ -42,30 +46,58 @@ void	ms_run_external(t_cmd *cmd, char **envp)
 			fd = open(cmd->outfile,
 				O_CREAT | O_WRONLY | O_TRUNC, 0644);
 			if (fd < 0)
-				return ;
-			dup2(fd, STDOUT_FILENO);
+			{
+				perror("open");
+				exit(1);
+			}
+			dup2(fd, STDOUT_FILENO);// --- ADD DEBUG: if (... < 0)
 			close(fd);
 		}
 		execve(path, cmd->argv, envp);
+		perror("execve");
+		exit(EXIT_FAILURE);
 	}
 	else if (pid > 0)
 		waitpid(pid, NULL, 0);
+	free(path);
 }
 
 void	ms_execute_single_cmd(t_cmd *cmd, char **envp)
 {
+	int	stdout_saved;
+	int	fd_file;
+
+	stdout_saved = -1;
 	if (!cmd->argv || !cmd->argv[0])
 		return ;
 	if (is_builtin(cmd->argv[0]))
+	{
+		stdout_saved = dup(STDOUT_FILENO);
+		if (stdout_saved < 0)
+			return ;
+		if (cmd->outfile)
+		{
+			fd_file = open(cmd->outfile,
+					O_CREAT | O_WRONLY | O_TRUNC, 0644);
+			if (fd_file < 0)
+			{	
+				perror("open");
+				close(stdout_saved);
+				return ;
+			}
+			dup2(fd_file, STDOUT_FILENO);
+			close(fd_file);
+		}
 		run_builtin(cmd);
+		dup2(stdout_saved, STDOUT_FILENO);
+		close(stdout_saved);
+	}
 	else
 		ms_run_external(cmd, envp);
 }
 
 void	ms_executor(t_cmd *cmd, char **envp)
 {
-	(void)envp;
-
 	// --- DEBUG MSG-----------------
 	ft_printf("#=======================================================\n");
 	ft_printf("executor launched\n");
