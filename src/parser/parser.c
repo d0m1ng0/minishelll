@@ -6,7 +6,7 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 16:01:22 by anegorov          #+#    #+#             */
-/*   Updated: 2026/05/24 17:39:46 by dverdini         ###   ########.fr       */
+/*   Updated: 2026/05/25 13:12:52 by dverdini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@ static t_cmd	*create_cmd(void)
 	cmd->infile = NULL;
 	cmd->outfile = NULL;
 	cmd->append = 0;
+	// --- DOMINGO ---------------------------------------------------------
+	cmd->heredoc_delimiter = NULL;
+	// ---------------------------------------------------------------------
 	cmd->next = NULL;
 	return (cmd);
 }
@@ -99,16 +102,12 @@ t_cmd	*parser(t_token *tokens)
 			if (handle_pipe(&current, tokens))
 				return (free_cmds(cmd), NULL);
 		}
-/*		// --- ANTONINA ------------------------------------------------
 		else
 		{
 			if (add_token_to_cmd(current, tokens))
 				return (free_cmds(cmd), NULL);
-		}
-*/		// -------------------------------------------------------------
+		
 		// --- DOMINGO ------------------------------------------------
-		else
-		{
 			add_token_to_cmd(current, tokens);
 			if (tokens->type == TOKEN_REDIR_IN
 				|| tokens->type == TOKEN_REDIR_OUT
@@ -116,6 +115,7 @@ t_cmd	*parser(t_token *tokens)
 				|| tokens->type == TOKEN_HEREDOC)
 				tokens = tokens->next;
 		}
+		// ------------------------------------------------------------
 		tokens = tokens->next;
 	}
 	return (cmd);
