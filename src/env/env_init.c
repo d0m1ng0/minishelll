@@ -6,7 +6,7 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/21 09:29:20 by anegorov          #+#    #+#             */
-/*   Updated: 2026/05/22 19:37:52 by anegorov         ###   ########.fr       */
+/*   Updated: 2026/05/26 12:33:59 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,20 @@ void	env_clear(t_env **env)
 	*env = NULL;
 }
 
-int	is_varchar(char c, int i)
+int	is_var_valid(char *s)
 {
-	if (i == 0 && (ft_isalpha(c) || c == '_'))
-		return (1);
-	if (i && (ft_isalnum(c) || c == '_'))
-		return (1);
-	return (0);
+	int	i;
+
+	i = 0;
+	while (s[i] && s[i] != '=')
+	{
+		if (i == 0 && !(ft_isalpha(s[i]) || s[i] == '_'))
+			return (0);
+		if (i && !(ft_isalnum(s[i]) || s[i] == '_'))
+			return (0);
+		i++;
+	}
+	return (1);
 }
 
 t_env	*env_new(char *envp)
@@ -50,10 +57,8 @@ t_env	*env_new(char *envp)
 	if (!new_env)
 		return (NULL);
 	i = 0;
-	while (envp[i] && envp[i] != '=')// && is_varchar(envp[i], i))
+	while (envp[i] && envp[i] != '=')
 		i++;
-	// if (!is_varchar(envp[i], i))
-	// 	return (printf("export: '%s': not a valid identifier\n", envp), new_env);
 	key = ft_substr(envp, 0, i);
 	if (!key)
 		return (free(new_env), NULL);
@@ -67,21 +72,6 @@ t_env	*env_new(char *envp)
 	new_env->key = key;
 	new_env->next = NULL;
 	return (new_env);
-}
-
-void	env_add_back(t_env **env, t_env *new_env)
-{
-	t_env	*tmp;
-
-	if (!*env)
-	{
-		*env = new_env;
-		return ;
-	}
-	tmp = *env;
-	while (tmp->next)
-		tmp = tmp->next;
-	tmp->next = new_env;
 }
 
 void	env_init(t_env **env, char **envp)
@@ -100,4 +90,17 @@ void	env_init(t_env **env, char **envp)
 		env_add_back(env, new_env);
 		i++;
 	}
+}
+
+int	update_env_value(t_env *old, t_env *new_env)
+{
+	if (old && new_env->value)
+	{
+		free(old->value);
+		old->value = ft_strdup(new_env->value);
+		if (!old->value)
+			return (1);
+		env_clear(&new_env);
+	}
+	return (0);
 }

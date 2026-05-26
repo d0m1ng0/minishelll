@@ -6,7 +6,7 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/21 09:28:18 by anegorov          #+#    #+#             */
-/*   Updated: 2026/05/22 19:30:54 by anegorov         ###   ########.fr       */
+/*   Updated: 2026/05/26 12:34:13 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,7 @@ char	*get_env_value(t_env *env, char *key);
 void	env_init(t_env **env, char **envp);
 size_t	env_size(t_env	*env);
 t_env	*find_env(t_env *env, char *key);
+int		is_var_valid(char *s);
+int		update_env_value(t_env *old, t_env *new_env);
 
 #endif

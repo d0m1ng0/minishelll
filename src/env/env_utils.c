@@ -6,7 +6,7 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/21 11:11:23 by anegorov          #+#    #+#             */
-/*   Updated: 2026/05/22 19:27:48 by anegorov         ###   ########.fr       */
+/*   Updated: 2026/05/26 11:52:51 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,19 @@ char	*get_env_value(t_env *env, char *key)
 		env = env->next;
 	}
 	return (NULL);
+}
+
+void	env_add_back(t_env **env, t_env *new_env)
+{
+	t_env	*tmp;
+
+	if (!*env)
+	{
+		*env = new_env;
+		return ;
+	}
+	tmp = *env;
+	while (tmp->next)
+		tmp = tmp->next;
+	tmp->next = new_env;
 }
