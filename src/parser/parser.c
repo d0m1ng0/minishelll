@@ -6,7 +6,7 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 16:01:22 by anegorov          #+#    #+#             */
-/*   Updated: 2026/05/25 13:12:52 by dverdini         ###   ########.fr       */
+/*   Updated: 2026/05/26 07:51:57 by dverdini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ static t_cmd	*create_cmd(void)
 	cmd->heredoc_delimiter = NULL;
 	// ---------------------------------------------------------------------
 	cmd->next = NULL;
+	cmd->heredoc_delimiter = NULL;
 	return (cmd);
 }
 
@@ -108,7 +109,6 @@ t_cmd	*parser(t_token *tokens)
 				return (free_cmds(cmd), NULL);
 		
 		// --- DOMINGO ------------------------------------------------
-			add_token_to_cmd(current, tokens);
 			if (tokens->type == TOKEN_REDIR_IN
 				|| tokens->type == TOKEN_REDIR_OUT
 				|| tokens->type == TOKEN_APPEND

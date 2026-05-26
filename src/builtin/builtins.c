@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
+/*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/17 15:17:49 by anegorov          #+#    #+#             */
-/*   Updated: 2026/05/17 19:56:31 by anegorov         ###   ########.fr       */
+/*   Created: 2026/05/21 12:12:24 by anegorov          #+#    #+#             */
+/*   Updated: 2026/05/21 12:12:26 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,29 @@ int	builtin_cd(char **argv)
 		return (printf("cd: missing path\n"), 1);
 	if (chdir(argv[1]) != 0)
 		return (perror("cd"), 1);
+	return (0);
+}
+
+int	builtin_env(t_env *env)
+{
+	while (env)
+	{
+		if (env->exported == 1)
+			printf("%s=%s\n", env->key, env->value);
+		env = env->next;
+	}
+	return (0);
+}
+
+int	builtin_unset(t_env **env, char **argv)
+{
+	size_t	i;
+
+	i = 1;
+	while (argv[i])
+	{
+		remove_env_var(env, argv[i]);
+		i++;
+	}
 	return (0);
 }

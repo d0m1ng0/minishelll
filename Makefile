@@ -6,14 +6,14 @@
 #    By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/05/16 12:07:21 by dverdini          #+#    #+#              #
-#    Updated: 2026/05/24 13:56:12 by dverdini         ###   ########.fr        #
+#    Updated: 2026/05/25 14:47:26 by dverdini         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -MMD -MP
+CFLAGS = -Wall -Wextra -Werror -MMD -MP -g3 -O0
 
 SRC_DIR = src
 OBJ_DIR = obj
@@ -26,12 +26,15 @@ FT_PRINTF = $(FT_PRINTF_DIR)/libftprintf.a
 SRC = \
 lexer/lexer.c lexer/handle_operator.c lexer/handle_word.c lexer/lexer_utils.c lexer/token_utils.c \
 parser/parser.c parser/cmd_building.c\
-builtin/builtin.c builtin/echo.c\
-main.c build_cmds.c \
 debug/print_cmds.c \
 executor/executor.c \
 executor/path.c \
-utils/free_split.c
+utils/free_split.c \
+builtin/builtins.c builtin/builtins2.c builtin/builtins_utils.c\
+env/env_init.c env/env_utils.c\
+expander/expander.c\
+main.c build_cmds.c
+
 SRCS=$(addprefix $(SRC_DIR)/, $(SRC))
 
 OBJ = $(SRC:src/%.c=$(OBJ_DIR)/%.o)

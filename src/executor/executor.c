@@ -6,13 +6,14 @@
 /*   By: dverdini <dverdini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 16:36:08 by dverdini          #+#    #+#             */
-/*   Updated: 2026/05/24 20:21:13 by dverdini         ###   ########.fr       */
+/*   Updated: 2026/05/25 15:05:47 by dverdini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executor.h"
 #include "ft_printf.h"
 #include "builtin.h"
+#include "env.h"
 #include <unistd.h>
 #include <sys/wait.h>
 #include <fcntl.h>
@@ -67,7 +68,7 @@ void	ms_run_external(t_cmd *cmd, char **envp)
 	free(path);
 }
 
-void	ms_execute_single_cmd(t_cmd *cmd, char **envp)
+void	ms_execute_single_cmd(t_cmd *cmd, char **envp, t_env **env)
 {
 	int	stdout_saved;
 	int	fd_file;
@@ -98,7 +99,7 @@ void	ms_execute_single_cmd(t_cmd *cmd, char **envp)
 			dup2(fd_file, STDOUT_FILENO);
 			close(fd_file);
 		}
-		run_builtin(cmd);
+		run_builtin(cmd, env);
 		dup2(stdout_saved, STDOUT_FILENO);
 		close(stdout_saved);
 	}
@@ -106,7 +107,7 @@ void	ms_execute_single_cmd(t_cmd *cmd, char **envp)
 		ms_run_external(cmd, envp);
 }
 
-void	ms_executor(t_cmd *cmd, char **envp)
+void	ms_executor(t_cmd *cmd, char **envp, t_env **env)
 {
 	// --- DEBUG MSG-----------------
 	ft_printf("#=======================================================\n");
@@ -115,7 +116,7 @@ void	ms_executor(t_cmd *cmd, char **envp)
 	// ------------------------------
 	while (cmd)
 	{
-		ms_execute_single_cmd(cmd, envp);
+		ms_execute_single_cmd(cmd, envp, env);
 		cmd = cmd->next;
 	}
 }

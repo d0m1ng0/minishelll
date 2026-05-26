@@ -1,36 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin.h                                          :+:      :+:    :+:   */
+/*   expander.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/17 15:16:35 by anegorov          #+#    #+#             */
-/*   Updated: 2026/05/21 12:18:20 by anegorov         ###   ########.fr       */
+/*   Created: 2026/05/22 14:14:15 by anegorov          #+#    #+#             */
+/*   Updated: 2026/05/22 15:41:05 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_H
-# define BUILTIN_H
+#ifndef EXPANDER_H
+# define EXPANDER_H
 
-# include "libft.h"
+# include "lexer.h"
 # include "parser.h"
 # include "env.h"
 
-typedef struct s_builtin
+typedef struct s_shell
 {
-	char	*name;
-	int		(*func)(t_cmd *cmd);
-}	t_builtin;
+	t_env	*env;
+	int		exit_status;
+}	t_shell;
 
-int		is_builtin(char *cmd);
-int		is_equal(char *a, char *b);
-int		builtin_echo(char **argv);
-int		builtin_pwd(void);
-int		builtin_cd(char **argv);
-int		builtin_env(t_env *env);
-int		builtin_export(t_env **env, char **argv);
-int		builtin_unset(t_env **env, char **argv);
-int		run_builtin(t_cmd *cmd, t_env **env);
+typedef struct s_expand
+{
+	size_t	i;
+	t_quote	state;
+	char	*result;
+}	t_expand;
+
+int	expand_var(t_cmd *cmd, t_shell *shell);
 
 #endif
