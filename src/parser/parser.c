@@ -6,7 +6,7 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 16:01:22 by anegorov          #+#    #+#             */
-/*   Updated: 2026/05/21 09:59:00 by anegorov         ###   ########.fr       */
+/*   Updated: 2026/05/27 12:08:26 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,8 @@ t_cmd	*parser(t_token *tokens)
 		{
 			if (add_token_to_cmd(current, tokens))
 				return (free_cmds(cmd), NULL);
+			if (tokens->type != TOKEN_WORD)
+				tokens = tokens->next;
 		}
 		tokens = tokens->next;
 	}

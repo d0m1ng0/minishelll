@@ -6,7 +6,7 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 16:23:04 by anegorov          #+#    #+#             */
-/*   Updated: 2026/05/22 18:23:41 by anegorov         ###   ########.fr       */
+/*   Updated: 2026/05/27 12:13:34 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,13 +106,14 @@ int	main(int argc, char **argv, char **envp)
 		cmd = build_cmds(line);
 		if (!cmd)
 			return (free(line), env_clear(&env), printf("memory error\n"), 1);
-		//print_cmd(cmd);
+		// print_cmd(cmd);
+		// printf("-------------------------\n");
 		shell.env = env;
 		shell.exit_status = 0;
 		if (expand_var(cmd, &shell))
 			return (free(line), env_clear(&env), printf("memory error\n"), free_cmds(cmd), 1);
 		print_cmd(cmd);
-		// expand(*, $var);execute();free everything
+		// execute();free everything
 		executor(cmd, &env);
 		free(line);
 		free_cmds(cmd);
