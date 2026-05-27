@@ -6,7 +6,7 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 16:23:04 by anegorov          #+#    #+#             */
-/*   Updated: 2026/05/27 15:31:10 by anegorov         ###   ########.fr       */
+/*   Updated: 2026/05/27 16:41:16 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,8 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	(void)argv;
-	if (!init_shell(&shell, envp))
-		return (env_clear(&shell.env), perror("memory: "), 1);
+	if (init_shell(&shell, envp))
+		return (env_clear(&shell.env), perror("memory here: "), 1);
 	while (1)
 	{
 		line = readline("minishell> ");
