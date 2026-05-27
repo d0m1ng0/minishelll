@@ -6,7 +6,7 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 12:44:24 by anegorov          #+#    #+#             */
-/*   Updated: 2026/05/22 19:15:48 by anegorov         ###   ########.fr       */
+/*   Updated: 2026/05/27 12:24:05 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,7 @@ int		ft_isoperator(char c);
 size_t	ft_strlen(const char *str);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 char	*ft_strdup(const char *str);
-
+/* ---------------------- DOMINGO ------------------------------------- */
+void	free_split(char **string); 
+/* ----------------------  FINE   ------------------------------------- */
 #endif

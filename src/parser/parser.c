@@ -6,7 +6,11 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 16:01:22 by anegorov          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2026/05/27 12:08:26 by anegorov         ###   ########.fr       */
+=======
+/*   Updated: 2026/05/26 07:51:57 by dverdini         ###   ########.fr       */
+>>>>>>> 1831365c26c676d59d4f843c297759890578a7cf
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +27,9 @@ static t_cmd	*create_cmd(void)
 	cmd->infile = NULL;
 	cmd->outfile = NULL;
 	cmd->append = 0;
+	// --- DOMINGO ---------------------------------------------------------
+	cmd->heredoc_delimiter = NULL;
+	// ---------------------------------------------------------------------
 	cmd->next = NULL;
 	cmd->heredoc_delimiter = NULL;
 	return (cmd);

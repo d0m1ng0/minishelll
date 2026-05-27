@@ -6,7 +6,11 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 16:23:04 by anegorov          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2026/05/27 12:13:34 by anegorov         ###   ########.fr       */
+=======
+/*   Updated: 2026/05/25 14:58:22 by dverdini         ###   ########.fr       */
+>>>>>>> 1831365c26c676d59d4f843c297759890578a7cf
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,35 +24,10 @@
 #include "env.h"
 #include "expander.h"
 
+#include "debug.h"
+#include "executor.h"
+
 t_cmd	*build_cmds(char *line);
-
-// void execute_cmd(t_cmd *cmd)
-// {
-// 	getenv("PATH");
-// }
-
-
-int	execute_single_cmd(t_cmd *cmd, t_env **env)
-{
-	if (!cmd->argv || !cmd->argv[0])
-		return (0);
-	if (is_builtin(cmd->argv[0]))
-		return (run_builtin(cmd, env));
-	// else
-	// 	run_external(cmd);
-	return (0);
-}
-
-int	executor(t_cmd *cmd, t_env **env)
-{
-	while (cmd)
-	{
-		if (execute_single_cmd(cmd, env))
-			return (1);//error memmory
-		cmd = cmd->next;
-	}
-	return (0);
-}
 
 void	print_cmd(t_cmd *cmd)
 {
@@ -106,15 +85,15 @@ int	main(int argc, char **argv, char **envp)
 		cmd = build_cmds(line);
 		if (!cmd)
 			return (free(line), env_clear(&env), printf("memory error\n"), 1);
-		// print_cmd(cmd);
-		// printf("-------------------------\n");
 		shell.env = env;
 		shell.exit_status = 0;
 		if (expand_var(cmd, &shell))
 			return (free(line), env_clear(&env), printf("memory error\n"), free_cmds(cmd), 1);
 		print_cmd(cmd);
-		// execute();free everything
+		//free everything
 		executor(cmd, &env);
+		// expand(*, $var);execute();free everything
+		ms_executor(cmd, envp, &env);
 		free(line);
 		free_cmds(cmd);
 	}
