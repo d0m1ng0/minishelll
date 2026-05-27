@@ -6,7 +6,7 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/21 12:12:24 by anegorov          #+#    #+#             */
-/*   Updated: 2026/05/27 14:23:04 by anegorov         ###   ########.fr       */
+/*   Updated: 2026/05/27 15:49:24 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	builtin_pwd(void)
 	if (getcwd(buf, sizeof(buf)))
 		printf("%s\n", buf);
 	else
-		print_error("pwd", NULL, strerror(errno));
+		return (print_error("pwd", NULL, strerror(errno)), 1);
 	return (0);
 }
 

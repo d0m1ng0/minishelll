@@ -6,7 +6,7 @@
 #    By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/05/16 12:07:21 by dverdini          #+#    #+#              #
-#    Updated: 2026/05/27 13:00:13 by anegorov         ###   ########.fr        #
+#    Updated: 2026/05/27 15:33:58 by anegorov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ utils/free_split.c \
 builtin/builtins.c builtin/builtins2.c builtin/builtins_utils.c\
 env/env_init.c env/env_utils.c\
 expander/expander.c expander/expander_utils.c\
+core/shell.c core/build_pipeline.c\
 main.c build_cmds.c
 
 SRCS=$(addprefix $(SRC_DIR)/, $(SRC))
