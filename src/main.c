@@ -6,7 +6,7 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 16:23:04 by anegorov          #+#    #+#             */
-/*   Updated: 2026/05/27 12:36:37 by anegorov         ###   ########.fr       */
+/*   Updated: 2026/05/27 14:42:14 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,15 @@ void	print_cmd(t_cmd *cmd)
 	tmp = cmd;
 	while (tmp)
 	{
+		printf("----- CMD -----\n");
 		i = 0;
 		while (tmp->argv && tmp->argv[i])
 		{
-			printf("ARGV[%zu]: %s file: %s output: %s\n", i,
-				tmp->argv[i], tmp->infile, tmp->outfile);
+			printf("ARGV[%zu]: %s\n", i, tmp->argv[i]);
 			i++;
 		}
+		printf("INFILE: %s\n", tmp->infile ? tmp->infile : "NULL");
+		printf("OUTFILE: %s\n", tmp->outfile ? tmp->outfile : "NULL");
 		tmp = tmp->next;
 	}
 }
@@ -71,8 +73,9 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	env_init(&env, envp);
 	if (!env)
-		return (printf("memory error\n"), 1);
-	// print_env(env);
+		return (perror("memory error\n"), 1);
+	shell.env = env;
+	shell.exit_status = 0;
 	while (1)
 	{
 		line = readline("minishell> ");
@@ -80,15 +83,10 @@ int	main(int argc, char **argv, char **envp)
 			break ;
 		cmd = build_cmds(line);
 		if (!cmd)
-			return (free(line), env_clear(&env), printf("memory error\n"), 1);
-		shell.env = env;
-		shell.exit_status = 0;
+			return (free(line), env_clear(&env), perror("memory error\n"), 1);
 		if (expand_var(cmd, &shell))
-			return (free(line), env_clear(&env), printf("memory error\n"), free_cmds(cmd), 1);
+			return (free(line), env_clear(&env), perror("memory error\n"), free_cmds(cmd), 1);
 		print_cmd(cmd);
-		//free everything
-		executor(cmd, &env);
-		// expand(*, $var);execute();free everything
 		ms_executor(cmd, envp, &env);
 		free(line);
 		free_cmds(cmd);

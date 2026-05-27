@@ -6,7 +6,7 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 12:48:10 by anegorov          #+#    #+#             */
-/*   Updated: 2026/05/22 18:21:17 by anegorov         ###   ########.fr       */
+/*   Updated: 2026/05/27 13:35:35 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,10 @@ static char	*extract_word(char *word, char *input, size_t start, size_t len)
 		if (quote_state == NO_QUOTE)
 		{
 			handle_no_quote(input[start + i], &quote_state);
-			// if (quote_state == NO_QUOTE)
-			// 	word[j++] = input[start + i];
 		}
 		else if ((quote_state == SINGLE_QUOTE && input[start + i] == '\'')
 			|| (quote_state == DOUBLE_QUOTE && input[start + i] == '"'))
 			quote_state = NO_QUOTE;
-		// else
 		word[j++] = input[start + i];
 		i++;
 	}

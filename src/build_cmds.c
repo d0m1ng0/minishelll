@@ -6,7 +6,7 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 18:50:40 by anegorov          #+#    #+#             */
-/*   Updated: 2026/05/27 12:24:47 by anegorov         ###   ########.fr       */
+/*   Updated: 2026/05/27 13:48:34 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,17 +37,14 @@ t_cmd	*build_cmds(char *line)
 		free_lexer(lexer);
 		return (NULL);
 	}
-	//--- print tokes to debug ---
-	//print_tokens(lexer->tokens);
-	//----------------------------
 	cmd = parser(lexer->tokens);
 	free_lexer(lexer);
 	if (!cmd)
 	{
-		// printf("memory error\n");
-		// exit(1);
 		return (NULL);
 	}
 	return (cmd);
 }
-//print_tokens(lexer->tokens);
+	//--- print tokes to debug ---
+	//print_tokens(lexer->tokens);
+	//----------------------------

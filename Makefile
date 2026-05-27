@@ -6,7 +6,7 @@
 #    By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/05/16 12:07:21 by dverdini          #+#    #+#              #
-#    Updated: 2026/05/27 12:22:46 by anegorov         ###   ########.fr        #
+#    Updated: 2026/05/27 13:00:13 by anegorov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,6 @@ FT_PRINTF = $(FT_PRINTF_DIR)/libftprintf.a
 SRC = \
 lexer/lexer.c lexer/handle_operator.c lexer/handle_word.c lexer/lexer_utils.c lexer/token_utils.c \
 parser/parser.c parser/cmd_building.c\
-debug/print_cmds.c \
 executor/executor.c \
 executor/path.c \
 utils/free_split.c \

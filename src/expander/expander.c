@@ -6,7 +6,7 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/21 13:13:53 by anegorov          #+#    #+#             */
-/*   Updated: 2026/05/22 18:37:31 by anegorov         ###   ########.fr       */
+/*   Updated: 2026/05/27 13:32:04 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int	expand_var(t_cmd *cmd, t_shell *shell)
 	while (cmd)
 	{
 		i = 0;
-		while (cmd->argv[i])
+		while (cmd->argv && cmd->argv[i])
 		{
 			if (process_arg(&cmd->argv[i], shell))
 				return (1);

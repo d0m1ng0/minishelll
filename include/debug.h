@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   debug.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dverdini <dverdini@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/24 10:18:35 by dverdini          #+#    #+#             */
-/*   Updated: 2026/05/24 10:22:07 by dverdini         ###   ########.fr       */
+/*   Updated: 2026/05/27 14:03:33 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DEBUG_H
 # define DEBUG_H
 
-#include "parser.h"
+# include "parser.h"
 
 void	print_cmds(t_cmd *cmds);
 

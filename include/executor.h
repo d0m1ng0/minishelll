@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dverdini <dverdini@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 16:46:04 by dverdini          #+#    #+#             */
-/*   Updated: 2026/05/25 15:07:18 by dverdini         ###   ########.fr       */
+/*   Updated: 2026/05/27 14:03:40 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define EXECUTOR_H
 
 # include "parser.h"
-#include "env.h"
+# include "env.h"
 
 /* --------------------------------------------------------------------------*/
 void	ms_executor(t_cmd *cmd, char **envp, t_env **env);

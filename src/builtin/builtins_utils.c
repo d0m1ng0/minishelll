@@ -6,7 +6,7 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/21 10:05:41 by anegorov          #+#    #+#             */
-/*   Updated: 2026/05/21 12:03:11 by anegorov         ###   ########.fr       */
+/*   Updated: 2026/05/27 14:13:56 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,29 @@ int	run_builtin(t_cmd *cmd, t_env **env)
 	else if (is_equal(cmd->argv[0], "unset"))
 		return (builtin_unset(env, cmd->argv));
 	return (0);
+}
+
+void	print_export_error(char *arg)
+{
+	ft_putstr_fd("export: '", 2);
+	ft_putstr_fd(arg, 2);
+	ft_putstr_fd("': not a valid identifier\n", 2);
+}
+
+void	print_error(char *cmd, char *arg, char *msg)
+{
+	ft_putstr_fd("minishell: ", 2);
+	if (cmd)
+	{
+		ft_putstr_fd(cmd, 2);
+		ft_putstr_fd(": ", 2);
+	}
+	if (arg)
+	{
+		ft_putstr_fd("'", 2);
+		ft_putstr_fd(arg, 2);
+		ft_putstr_fd("': ", 2);
+	}
+	ft_putstr_fd(msg, 2);
+	ft_putstr_fd("\n", 2);
 }

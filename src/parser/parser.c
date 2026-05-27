@@ -6,7 +6,7 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 16:01:22 by anegorov          #+#    #+#             */
-/*   Updated: 2026/05/27 12:37:27 by anegorov         ###   ########.fr       */
+/*   Updated: 2026/05/27 12:40:07 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static int	handle_pipe(t_cmd **current, t_token *tokens)
 {
 	if (!(*current)->argv || !tokens->next || tokens->next->type == TOKEN_PIPE)
 	{
-		printf("syntax error near unexpected token `|'\n");
+		ft_putstr_fd("syntax error near unexpected token `|'\n", 2);
 		return (1);
 	}
 	(*current)->next = create_cmd();

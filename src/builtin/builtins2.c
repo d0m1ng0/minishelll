@@ -6,7 +6,7 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/21 10:08:07 by anegorov          #+#    #+#             */
-/*   Updated: 2026/05/26 12:37:26 by anegorov         ###   ########.fr       */
+/*   Updated: 2026/05/27 14:15:41 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,23 +89,23 @@ int	print_export(t_env *env)
 	return (0);
 }
 
-int	builtin_export(t_env **env, char **argv)
+int	builtin_export(t_env **env, char **ar)
 {
 	size_t	i;
 	t_env	*new_env;
 	t_env	*old;
 
 	i = 1;
-	if (!argv[1])
+	if (!ar[1])
 		return (print_export(*env));
-	while (argv[i])
+	while (ar[i])
 	{
-		if (!is_var_valid(argv[i]))
+		if (!is_var_valid(ar[i]))
 		{
-			printf("export: '%s': not a valid identifier\n", argv[i++]);
+			print_error("export", ar[i], "not a valid identifier");
 			continue ;
 		}
-		new_env = env_new(argv[i]);
+		new_env = env_new(ar[i]);
 		if (!new_env)
 			return (1);
 		old = find_env(*env, new_env->key);
