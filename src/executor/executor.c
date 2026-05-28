@@ -6,7 +6,7 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 16:36:08 by dverdini          #+#    #+#             */
-/*   Updated: 2026/05/28 11:16:00 by anegorov         ###   ########.fr       */
+/*   Updated: 2026/05/28 11:34:29 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,11 @@ void	ms_run_external(t_cmd *cmd, char **envp)
 	free(path);
 }
 
-void	ms_execute_single_cmd(t_cmd *cmd, char **envp, t_env **env, t_shell *shell)
+void	ms_execute_single_cmd(t_cmd *cmd, t_env **env, t_shell *shell)
 {
 	int	stdout_saved;
 	int	fd_file;
+	char	**envp;
 
 	stdout_saved = -1;
 	if (!cmd->argv || !cmd->argv[0])
@@ -107,10 +108,16 @@ void	ms_execute_single_cmd(t_cmd *cmd, char **envp, t_env **env, t_shell *shell)
 		close(stdout_saved);
 	}
 	else
+	{
+		envp = env_to_envp(*env);
+		if (!envp)
+			exit(1);//memmory error
 		ms_run_external(cmd, envp);
+		free_envp(envp);
+	}
 }
 
-void	ms_executor(t_cmd *cmd, char **envp, t_env **env, t_shell *shell)
+void	ms_executor(t_cmd *cmd, t_env **env, t_shell *shell)
 {
 	// --- DEBUG MSG-----------------
 	ft_printf("#=======================================================\n");
@@ -119,7 +126,7 @@ void	ms_executor(t_cmd *cmd, char **envp, t_env **env, t_shell *shell)
 	// ------------------------------
 	while (cmd)
 	{
-		ms_execute_single_cmd(cmd, envp, env, shell);
+		ms_execute_single_cmd(cmd, env, shell);
 		cmd = cmd->next;
 	}
 }

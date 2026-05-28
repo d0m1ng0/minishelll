@@ -6,7 +6,7 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 16:46:04 by dverdini          #+#    #+#             */
-/*   Updated: 2026/05/28 10:46:04 by anegorov         ###   ########.fr       */
+/*   Updated: 2026/05/28 11:34:52 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 # include "shell.h"
 
 /* --------------------------------------------------------------------------*/
-void	ms_executor(t_cmd *cmd, char **envp, t_env **env, t_shell *sh);
-void	ms_execute_single_cmd(t_cmd *cm, char **en, t_env **env, t_shell *sh);
+void	ms_executor(t_cmd *cmd, t_env **env, t_shell *shell);
+void	ms_execute_single_cmd(t_cmd *cmd, t_env **env, t_shell *shell);
 
 char	*ms_get_path_value(char **envp);
 char	*ms_create_path_candidate(char *dir, char *cmd);

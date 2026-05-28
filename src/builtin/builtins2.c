@@ -6,7 +6,7 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/21 10:08:07 by anegorov          #+#    #+#             */
-/*   Updated: 2026/05/27 16:33:48 by anegorov         ###   ########.fr       */
+/*   Updated: 2026/05/28 12:57:31 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ static int	handle_export_arg(t_env **env, char *arg)
 	new_env = env_new(arg);
 	if (!new_env)
 		return (-1);
+	new_env->exported = 1;
 	old = find_env(*env, new_env->key);
 	if (update_env_value(old, new_env))
 		return (-1);

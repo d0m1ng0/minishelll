@@ -6,7 +6,7 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 16:23:04 by anegorov          #+#    #+#             */
-/*   Updated: 2026/05/28 10:42:28 by anegorov         ###   ########.fr       */
+/*   Updated: 2026/05/28 12:56:07 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,63 @@
 // 	}
 // }
 
+// int	main(int argc, char **argv, char **envp)
+// {
+// 	t_cmd	*cmd;
+// 	char	*line;
+// 	t_shell	shell;
+
+// 	(void)argc;
+// 	(void)argv;
+// 	if (init_shell(&shell, envp))
+// 		return (env_clear(&shell.env), perror("memory here: "), 1);
+// 	while (1)
+// 	{
+// 		line = readline("minishell> ");
+// 		if (!line)
+// 			break ;
+// 		cmd = build_pipeline(line, &shell);
+// 		if (!cmd)
+// 			return (free(line), env_clear(&shell.env), perror("memory: "), 1);
+// 		ms_executor(cmd, &shell.env, &shell);
+// 		free(line);
+// 		free_cmds(cmd);
+// 	}
+// 	env_clear(&shell.env);
+// 	return (0);
+// }
+
+int	execute_single_cmd(t_cmd *cmd, t_env **env, t_shell *shell)
+{
+	if (!cmd->argv || !cmd->argv[0])
+		return (0);
+	if (is_builtin(cmd->argv[0]))
+		return (run_builtin(cmd, env, shell));
+	return (0);
+}
+// else
+	// 	run_external(cmd);
+
+int	executor(t_cmd *cmd, t_env **env, t_shell *shell)
+{
+	int	status;
+
+	while (cmd)
+	{
+		status = execute_single_cmd(cmd, env, shell);
+		if (status == -1)
+		{
+			perror("minishell");
+			exit(1);
+		}
+		shell->exit_status = status;
+		cmd = cmd->next;
+		if (shell->should_exit)
+			exit(shell->exit_status);
+	}
+	return (0);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_cmd	*cmd;
@@ -71,7 +128,7 @@ int	main(int argc, char **argv, char **envp)
 		cmd = build_pipeline(line, &shell);
 		if (!cmd)
 			return (free(line), env_clear(&shell.env), perror("memory: "), 1);
-		ms_executor(cmd, envp, &shell.env, &shell);
+		executor(cmd, &shell.env, &shell);
 		free(line);
 		free_cmds(cmd);
 	}
