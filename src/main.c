@@ -6,7 +6,7 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 16:23:04 by anegorov          #+#    #+#             */
-/*   Updated: 2026/05/27 16:41:16 by anegorov         ###   ########.fr       */
+/*   Updated: 2026/05/28 10:42:28 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	main(int argc, char **argv, char **envp)
 		cmd = build_pipeline(line, &shell);
 		if (!cmd)
 			return (free(line), env_clear(&shell.env), perror("memory: "), 1);
-		ms_executor(cmd, envp, &shell.env);
+		ms_executor(cmd, envp, &shell.env, &shell);
 		free(line);
 		free_cmds(cmd);
 	}

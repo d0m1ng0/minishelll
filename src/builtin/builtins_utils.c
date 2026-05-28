@@ -6,7 +6,7 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/21 10:05:41 by anegorov          #+#    #+#             */
-/*   Updated: 2026/05/27 16:33:59 by anegorov         ###   ########.fr       */
+/*   Updated: 2026/05/28 10:39:11 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	is_builtin(char *cmd)
 	return (0);
 }
 
-int	run_builtin(t_cmd *cmd, t_env **env)
+int	run_builtin(t_cmd *cmd, t_env **env, t_shell *shell)
 {
 	if (is_equal(cmd->argv[0], "echo"))
 		return (builtin_echo(cmd->argv));
@@ -55,6 +55,8 @@ int	run_builtin(t_cmd *cmd, t_env **env)
 		return (builtin_export(env, cmd->argv));
 	else if (is_equal(cmd->argv[0], "unset"))
 		return (builtin_unset(env, cmd->argv));
+	else if (is_equal(cmd->argv[0], "exit"))
+		return (builtin_exit(cmd->argv, shell));
 	return (0);
 }
 

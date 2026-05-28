@@ -6,7 +6,7 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/27 14:57:07 by anegorov          #+#    #+#             */
-/*   Updated: 2026/05/27 15:23:10 by anegorov         ###   ########.fr       */
+/*   Updated: 2026/05/28 10:47:10 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,6 @@ int	init_shell(t_shell *shell, char **envp)
 		return (1);
 	shell->env = env;
 	shell->exit_status = 0;
+	shell->should_exit = 0;
 	return (0);
 }

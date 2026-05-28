@@ -25,6 +25,7 @@ src/lexer
 src/parser
 src/main.c
 src/build_cmds.c
+src/core
 include
 "
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dverdini <dverdini@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 16:36:08 by dverdini          #+#    #+#             */
-/*   Updated: 2026/05/25 15:05:47 by dverdini         ###   ########.fr       */
+/*   Updated: 2026/05/28 11:16:00 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	ms_run_external(t_cmd *cmd, char **envp)
 	free(path);
 }
 
-void	ms_execute_single_cmd(t_cmd *cmd, char **envp, t_env **env)
+void	ms_execute_single_cmd(t_cmd *cmd, char **envp, t_env **env, t_shell *shell)
 {
 	int	stdout_saved;
 	int	fd_file;
@@ -99,7 +99,10 @@ void	ms_execute_single_cmd(t_cmd *cmd, char **envp, t_env **env)
 			dup2(fd_file, STDOUT_FILENO);
 			close(fd_file);
 		}
-		run_builtin(cmd, env);
+		shell->exit_status = run_builtin(cmd, env, shell);
+		//shell->exit_status == -1 exit;memmory error
+		//check shell->should_exit if == 1 shouid exit if only one command
+		//and it needs to save exit_status to another next command
 		dup2(stdout_saved, STDOUT_FILENO);
 		close(stdout_saved);
 	}
@@ -107,7 +110,7 @@ void	ms_execute_single_cmd(t_cmd *cmd, char **envp, t_env **env)
 		ms_run_external(cmd, envp);
 }
 
-void	ms_executor(t_cmd *cmd, char **envp, t_env **env)
+void	ms_executor(t_cmd *cmd, char **envp, t_env **env, t_shell *shell)
 {
 	// --- DEBUG MSG-----------------
 	ft_printf("#=======================================================\n");
@@ -116,7 +119,7 @@ void	ms_executor(t_cmd *cmd, char **envp, t_env **env)
 	// ------------------------------
 	while (cmd)
 	{
-		ms_execute_single_cmd(cmd, envp, env);
+		ms_execute_single_cmd(cmd, envp, env, shell);
 		cmd = cmd->next;
 	}
 }

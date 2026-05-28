@@ -6,7 +6,7 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/27 15:24:46 by anegorov          #+#    #+#             */
-/*   Updated: 2026/05/27 15:36:35 by anegorov         ###   ########.fr       */
+/*   Updated: 2026/05/28 10:17:04 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ t_cmd	*build_pipeline(char *line, t_shell *shell)
 	free_lexer(lexer);
 	if (!cmd)
 		return (NULL);
-    if (expand_var(cmd, shell))
+	if (expand_var(cmd, shell))
 	{
-        return (free_cmds(cmd), NULL);
+		return (free_cmds(cmd), NULL);
 	}
 	return (cmd);
 }

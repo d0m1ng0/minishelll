@@ -6,7 +6,7 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 14:14:15 by anegorov          #+#    #+#             */
-/*   Updated: 2026/05/22 18:20:12 by anegorov         ###   ########.fr       */
+/*   Updated: 2026/05/28 10:48:42 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,7 @@
 # include "lexer.h"
 # include "parser.h"
 # include "env.h"
-
-typedef struct s_shell
-{
-	t_env	*env;
-	int		exit_status;
-}	t_shell;
+# include "shell.h"
 
 typedef struct s_expand
 {

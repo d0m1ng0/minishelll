@@ -6,7 +6,7 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/27 14:58:25 by anegorov          #+#    #+#             */
-/*   Updated: 2026/05/27 15:39:57 by anegorov         ###   ########.fr       */
+/*   Updated: 2026/05/28 10:46:55 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ typedef struct s_shell
 {
 	t_env	*env;
 	int		exit_status;
+	int		should_exit;
 }	t_shell;
 
 int		init_shell(t_shell *shell, char **envp);
