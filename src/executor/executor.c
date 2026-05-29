@@ -6,7 +6,7 @@
 /*   By: dverdini <dverdini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 16:36:08 by dverdini          #+#    #+#             */
-/*   Updated: 2026/05/29 12:08:34 by dverdini         ###   ########.fr       */
+/*   Updated: 2026/05/29 22:27:25 by dverdini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,49 @@ void	ms_execute_in_child(t_cmd *cmd, char **envp, t_env **env)
 	free(path);
 	exit(EXIT_FAILURE);
 }
-
 void	ms_execute_pipe(t_cmd *cmd, char **envp, t_env **env)
+{
+	int	fd_prev;
+	int	fd[2];
+	pid_t	pid;
+
+	(void)envp;
+	(void)env;
+	fd_prev = -1;
+	while(cmd)
+	{
+		if (cmd->next)
+			pipe(fd);
+		pid = fork();
+		if (pid == 0)
+		{
+			if (fd_prev != -1)
+			{
+				dup2(fd_prev, STDIN_FILENO);
+				close(fd_prev);
+			}
+			if (cmd->next)
+			{
+				dup2(fd[1], STDOUT_FILENO);
+				close(fd[0]);
+				close(fd[1]);
+			}
+			ms_execute_in_child(cmd, envp, env);
+		}
+		if (fd_prev != -1)
+			close(fd_prev);
+		if (cmd->next)
+		{
+			close(fd[1]);
+			fd_prev = fd[0];
+		}
+		cmd = cmd->next;
+
+	}
+	while (wait(NULL) > 0)
+		;
+}
+/*void	ms_execute_pipe(t_cmd *cmd, char **envp, t_env **env)
 {
 	int	fd[2];
 	pid_t	pid1;
@@ -103,7 +144,7 @@ void	ms_execute_pipe(t_cmd *cmd, char **envp, t_env **env)
 	waitpid(pid1, NULL, 0);
 	waitpid(pid2, NULL, 0);
 }
-
+*/
 void	ms_run_external(t_cmd *cmd, char **envp)
 {
 	int	fd;
