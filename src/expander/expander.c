@@ -6,7 +6,7 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/21 13:13:53 by anegorov          #+#    #+#             */
-/*   Updated: 2026/05/27 13:32:04 by anegorov         ###   ########.fr       */
+/*   Updated: 2026/05/29 18:28:34 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static int	handle_dollar(char *str, t_expand *exp, t_shell *shell)
 	if (!value)
 		return (1);
 	if (append_str(exp, value))
-		return (free(value), 0);
+		return (free(value), 1);
 	free(value);
 	return (0);
 }
@@ -74,8 +74,7 @@ static int	process_arg(char **arg, t_shell *shell)
 		return (1);
 	while ((*arg)[exp.i])
 	{
-		if (handle_quotes(*arg, &exp))
-			continue ;
+		handle_quotes((*arg)[exp.i], &exp);
 		if ((*arg)[exp.i] == '$'
 			&& exp.state != SINGLE_QUOTE)
 		{

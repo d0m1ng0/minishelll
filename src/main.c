@@ -6,7 +6,7 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 16:23:04 by anegorov          #+#    #+#             */
-/*   Updated: 2026/05/28 12:56:07 by anegorov         ###   ########.fr       */
+/*   Updated: 2026/05/29 20:37:11 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,9 @@
 #include "builtin.h"
 #include "env.h"
 #include "expander.h"
-#include "debug.h"
 #include "executor.h"
-
 #include "shell.h"
+#include "get_next_line.h"
 
 // void	print_cmd(t_cmd *cmd)
 // {
@@ -110,6 +109,23 @@ int	executor(t_cmd *cmd, t_env **env, t_shell *shell)
 	return (0);
 }
 
+char	*get_line(void)
+{
+	char	*line;
+	size_t	len;
+
+	if (isatty(STDIN_FILENO))
+		line = readline("minishell> ");
+	else
+		line = get_next_line(STDIN_FILENO);
+	if (!line)
+		return (NULL);
+	len = ft_strlen(line);
+	if (len > 0 && line[len - 1] == '\n')
+		line[len - 1] = '\0';
+	return (line);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_cmd	*cmd;
@@ -122,7 +138,7 @@ int	main(int argc, char **argv, char **envp)
 		return (env_clear(&shell.env), perror("memory here: "), 1);
 	while (1)
 	{
-		line = readline("minishell> ");
+		line = get_line();
 		if (!line)
 			break ;
 		cmd = build_pipeline(line, &shell);
@@ -133,5 +149,5 @@ int	main(int argc, char **argv, char **envp)
 		free_cmds(cmd);
 	}
 	env_clear(&shell.env);
-	return (0);
+	return (shell.exit_status);
 }

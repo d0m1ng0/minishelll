@@ -6,7 +6,7 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 18:18:28 by anegorov          #+#    #+#             */
-/*   Updated: 2026/05/22 18:19:58 by anegorov         ###   ########.fr       */
+/*   Updated: 2026/05/29 17:44:27 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,35 +19,6 @@ int	init_expand(t_expand *exp)
 	exp->result = ft_strdup("");
 	if (!exp->result)
 		return (1);
-	return (0);
-}
-
-int	handle_quotes(char *str, t_expand *exp)
-{
-	if (str[exp->i] == '\'' && exp->state == NO_QUOTE)
-	{
-		exp->state = SINGLE_QUOTE;
-		exp->i++;
-		return (1);
-	}
-	if (str[exp->i] == '\'' && exp->state == SINGLE_QUOTE)
-	{
-		exp->state = NO_QUOTE;
-		exp->i++;
-		return (1);
-	}
-	if (str[exp->i] == '"' && exp->state == DOUBLE_QUOTE)
-	{
-		exp->state = NO_QUOTE;
-		exp->i++;
-		return (1);
-	}
-	if (str[exp->i] == '"' && exp->state == NO_QUOTE)
-	{
-		exp->state = DOUBLE_QUOTE;
-		exp->i++;
-		return (1);
-	}
 	return (0);
 }
 

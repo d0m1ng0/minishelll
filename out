@@ -1,0 +1,16 @@
+minishell> echo hello
+hello
+minishell> echo a b c
+a b c
+minishell> pwd
+/sgoinfre/goinfre/Perso/anegorov/minishell_common
+minishell> ls
+minishell> echo ""
+
+minishell> echo ''
+
+minishell> echo "hello world"
+hello world
+minishell> echo 'hello world'
+hello world
+minishell> 

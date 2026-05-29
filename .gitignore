@@ -8,3 +8,5 @@ vgcore.*
 debug
 *.swp
 tags
+tests/*
+*.sh
