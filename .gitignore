@@ -10,3 +10,4 @@ debug
 tags
 tests/*
 *.sh
+file_to_test/*

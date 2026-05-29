@@ -1,4 +1,0 @@
-a.c b.c
-c.txt
-*.xyz
-a.c bash.out bash_out b.c build.sh c.txt 'df' df ft_printf in include includes libft libft.a Makefile mine.out mine_out minishell obj out README.md run_tests.sh src tests
