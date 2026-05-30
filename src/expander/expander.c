@@ -6,7 +6,7 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/21 13:13:53 by anegorov          #+#    #+#             */
-/*   Updated: 2026/05/29 18:28:34 by anegorov         ###   ########.fr       */
+/*   Updated: 2026/05/30 18:40:07 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,11 @@ static int	process_arg(char **arg, t_shell *shell)
 		return (1);
 	while ((*arg)[exp.i])
 	{
-		handle_quotes((*arg)[exp.i], &exp);
+		if (handle_quotes((*arg)[exp.i], &exp))
+		{
+			exp.i++;
+			continue ;
+		}
 		if ((*arg)[exp.i] == '$'
 			&& exp.state != SINGLE_QUOTE)
 		{

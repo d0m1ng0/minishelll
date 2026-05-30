@@ -6,7 +6,7 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 16:01:22 by anegorov          #+#    #+#             */
-/*   Updated: 2026/05/27 12:40:07 by anegorov         ###   ########.fr       */
+/*   Updated: 2026/05/30 18:04:49 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,10 @@ static int	add_token_to_cmd(t_cmd *cmd, t_token *token)
 		return (handle_redir_append(cmd, token));
 	else if (token->type == TOKEN_HEREDOC)
 		return (handle_heredoc(cmd, token));
-	printf("Syntax error: unexpected token type %d\n", token->type);
+	ft_putstr_fd("Syntax error: unexpected token type\n", 2);
 	return (1);
 }
+//void	print_error(char *cmd, char *arg, char *msg)
 
 static int	handle_pipe(t_cmd **current, t_token *tokens)
 {

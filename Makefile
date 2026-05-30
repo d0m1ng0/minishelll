@@ -6,7 +6,7 @@
 #    By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/05/16 12:07:21 by dverdini          #+#    #+#              #
-#    Updated: 2026/05/29 23:29:52 by dverdini         ###   ########.fr        #
+#    Updated: 2026/05/30 17:41:28 by anegorov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,8 +34,7 @@ env/env_init.c env/env_utils.c env/env_to_envp.c\
 expander/expander.c expander/expander_utils.c expander/wildcard.c expander/remove_quotes.c expander/wildcard_utils.c\
 core/shell.c core/build_pipeline.c\
 main.c \
-debug/print_cmds.c
-#gnl/get_next_line.c gnl/get_next_line_utils.c\
+gnl/get_next_line.c gnl/get_next_line_utils.c\
 
 SRCS=$(addprefix $(SRC_DIR)/, $(SRC))
 

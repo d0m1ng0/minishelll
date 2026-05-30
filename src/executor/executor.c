@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dverdini <dverdini@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/29 23:11:54 by dverdini          #+#    #+#             */
-/*   Updated: 2026/05/30 11:30:16 by dverdini         ###   ########.fr       */
+/*   Updated: 2026/05/30 17:55:19 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,12 +216,12 @@ void	ms_execute_single_cmd(t_cmd *cmd, t_env **env, t_shell *shell)
 	char	**envp;
 
 	stdout_saved = -1;
-	ft_printf("ENTER SINGLE\n");
+	// ft_printf("ENTER SINGLE\n");
 	if (!cmd->argv || !cmd->argv[0])
 		return ;
 	if (is_builtin(cmd->argv[0]))
 	{
-		ft_printf("ENTER BUILTIN\n");
+		// ft_printf("ENTER BUILTIN\n");
 		stdout_saved = dup(STDOUT_FILENO);
 		if (stdout_saved < 0)
 			return ;
@@ -252,7 +252,7 @@ void	ms_execute_single_cmd(t_cmd *cmd, t_env **env, t_shell *shell)
 	}
 	else
 	{
-		ft_printf("ENTER EXTERNAL\n");
+		// ft_printf("ENTER EXTERNAL\n");
 		envp = env_to_envp(*env);
 		if (!envp)
 			exit(1);//memmory error

@@ -6,7 +6,7 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 16:23:04 by anegorov          #+#    #+#             */
-/*   Updated: 2026/05/30 11:37:36 by dverdini         ###   ########.fr       */
+/*   Updated: 2026/05/30 17:43:39 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ int	execute_single_cmd(t_cmd *cmd, t_env **env, t_shell *shell)
 }
 */
 /* --- ANTONINA - GNL ---------------------------------------------------*/
-/*
+
 char	*get_line(void)
 {
 	char	*line;
@@ -129,12 +129,12 @@ char	*get_line(void)
 		line[len - 1] = '\0';
 	return (line);
 }
-*/
 
-char	*get_line(void)
-{
-	return (readline("minishell> "));
-}
+// char	*get_line(void)
+// {
+// 	return (readline("minishell> "));
+// }
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_cmd	*cmd;
@@ -151,7 +151,6 @@ int	main(int argc, char **argv, char **envp)
 		if (!line)
 			break ;
 		cmd = build_pipeline(line, &shell);
-		print_cmds(cmd);
 		if (!cmd)
 			return (free(line), env_clear(&shell.env), perror("memory: "), 1);
 		ms_executor(cmd, &shell.env, &shell);
