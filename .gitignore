@@ -2,6 +2,12 @@
 *.o
 *.a
 a.out
+.nfs*
+.vscode
+vgcore.*
 debug
 *.swp
 tags
+tests/*
+*.sh
+file_to_test/*

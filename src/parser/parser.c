@@ -6,7 +6,7 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 16:01:22 by anegorov          #+#    #+#             */
-/*   Updated: 2026/05/26 07:51:57 by dverdini         ###   ########.fr       */
+/*   Updated: 2026/05/27 12:40:07 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,6 @@ static t_cmd	*create_cmd(void)
 	cmd->infile = NULL;
 	cmd->outfile = NULL;
 	cmd->append = 0;
-	// --- DOMINGO ---------------------------------------------------------
-	cmd->heredoc_delimiter = NULL;
-	// ---------------------------------------------------------------------
 	cmd->next = NULL;
 	cmd->heredoc_delimiter = NULL;
 	return (cmd);
@@ -77,7 +74,7 @@ static int	handle_pipe(t_cmd **current, t_token *tokens)
 {
 	if (!(*current)->argv || !tokens->next || tokens->next->type == TOKEN_PIPE)
 	{
-		printf("syntax error near unexpected token `|'\n");
+		ft_putstr_fd("syntax error near unexpected token `|'\n", 2);
 		return (1);
 	}
 	(*current)->next = create_cmd();
@@ -107,15 +104,9 @@ t_cmd	*parser(t_token *tokens)
 		{
 			if (add_token_to_cmd(current, tokens))
 				return (free_cmds(cmd), NULL);
-		
-		// --- DOMINGO ------------------------------------------------
-			if (tokens->type == TOKEN_REDIR_IN
-				|| tokens->type == TOKEN_REDIR_OUT
-				|| tokens->type == TOKEN_APPEND
-				|| tokens->type == TOKEN_HEREDOC)
+			if (tokens->type != TOKEN_WORD)
 				tokens = tokens->next;
 		}
-		// ------------------------------------------------------------
 		tokens = tokens->next;
 	}
 	return (cmd);

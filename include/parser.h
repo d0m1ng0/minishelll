@@ -6,7 +6,7 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 16:00:54 by anegorov          #+#    #+#             */
-/*   Updated: 2026/05/17 18:12:19 by anegorov         ###   ########.fr       */
+/*   Updated: 2026/05/27 12:58:20 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define PARSER_H
 
 # include "token_utils.h"
+# include "libft.h"
 
 typedef struct s_cmd
 {

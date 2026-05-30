@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: dverdini <dverdini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/23 16:36:08 by dverdini          #+#    #+#             */
-/*   Updated: 2026/05/29 22:27:25 by dverdini         ###   ########.fr       */
+/*   Created: 2026/05/29 23:11:54 by dverdini          #+#    #+#             */
+/*   Updated: 2026/05/30 11:30:16 by dverdini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include <sys/wait.h>
 #include <fcntl.h>
 #include <stdlib.h>
+//#include <stddef.h>
 
 /*
 pms_execute_pipe()
@@ -44,7 +45,7 @@ pms_execute_pipe()
 }
 */
 
-void	ms_execute_in_child(t_cmd *cmd, char **envp, t_env **env)
+void	ms_execute_in_child(t_cmd *cmd, char **envp, t_env **env, t_shell *shell)
 {
 	char	*path;
 
@@ -52,8 +53,8 @@ void	ms_execute_in_child(t_cmd *cmd, char **envp, t_env **env)
 		exit(EXIT_SUCCESS);
 	if (is_builtin(cmd->argv[0]))
 	{
-		run_builtin(cmd, env);
-		exit(EXIT_SUCCESS);
+		shell->exit_status = run_builtin(cmd, env, shell);
+		exit(shell->exit_status);
 	}
 	path = ms_find_cmd_path(cmd->argv[0], envp);
 	if (!path)
@@ -66,19 +67,17 @@ void	ms_execute_in_child(t_cmd *cmd, char **envp, t_env **env)
 	free(path);
 	exit(EXIT_FAILURE);
 }
-void	ms_execute_pipe(t_cmd *cmd, char **envp, t_env **env)
+void	ms_execute_pipe(t_cmd *cmd, char **envp, t_env **env, t_shell *shell)
 {
 	int	fd_prev;
 	int	fd[2];
 	pid_t	pid;
 
-	(void)envp;
-	(void)env;
 	fd_prev = -1;
 	while(cmd)
 	{
-		if (cmd->next)
-			pipe(fd);
+		if (cmd->next && pipe(fd) < 0)
+			return ;
 		pid = fork();
 		if (pid == 0)
 		{
@@ -93,7 +92,7 @@ void	ms_execute_pipe(t_cmd *cmd, char **envp, t_env **env)
 				close(fd[0]);
 				close(fd[1]);
 			}
-			ms_execute_in_child(cmd, envp, env);
+			ms_execute_in_child(cmd, envp, env, shell);
 		}
 		if (fd_prev != -1)
 			close(fd_prev);
@@ -210,16 +209,19 @@ void	ms_run_external(t_cmd *cmd, char **envp)
 	free(path);
 }
 
-void	ms_execute_single_cmd(t_cmd *cmd, char **envp, t_env **env)
+void	ms_execute_single_cmd(t_cmd *cmd, t_env **env, t_shell *shell)
 {
 	int	stdout_saved;
 	int	fd_file;
+	char	**envp;
 
 	stdout_saved = -1;
+	ft_printf("ENTER SINGLE\n");
 	if (!cmd->argv || !cmd->argv[0])
 		return ;
 	if (is_builtin(cmd->argv[0]))
 	{
+		ft_printf("ENTER BUILTIN\n");
 		stdout_saved = dup(STDOUT_FILENO);
 		if (stdout_saved < 0)
 			return ;
@@ -241,35 +243,54 @@ void	ms_execute_single_cmd(t_cmd *cmd, char **envp, t_env **env)
 			dup2(fd_file, STDOUT_FILENO);
 			close(fd_file);
 		}
-		run_builtin(cmd, env);
+		shell->exit_status = run_builtin(cmd, env, shell);
+		//shell->exit_status == -1 exit;memmory error
+		//check shell->should_exit if == 1 shouid exit if only one command
+		//and it needs to save exit_status to another next command
 		dup2(stdout_saved, STDOUT_FILENO);
 		close(stdout_saved);
 	}
 	else
+	{
+		ft_printf("ENTER EXTERNAL\n");
+		envp = env_to_envp(*env);
+		if (!envp)
+			exit(1);//memmory error
 		ms_run_external(cmd, envp);
+		free_envp(envp);
+	}
 }
 
-void	ms_executor(t_cmd *cmd, char **envp, t_env **env)
+void	ms_executor(t_cmd *cmd, t_env **env, t_shell *shell)
 {
 	// --- DEBUG MSG-----------------
 //	ft_printf("#=======================================================\n");
 //	ft_printf("executor launched\n");
 //	ft_printf("#=======================================================\n");
 	// ------------------------------
+	char	**envp;
+
 	if (!cmd)
+		return ;
+	if (!env)
 		return ;
 	if (cmd->next)
 	{
-		ms_execute_pipe(cmd, envp, env);
+		envp = env_to_envp(*env);
+		if (!envp)
+			return ;
+		ms_execute_pipe(cmd, envp, env, shell);
+		free_envp(envp);
 		return ;
 	}
-	ms_execute_single_cmd(cmd, envp, env);
+	ms_execute_single_cmd(cmd, env, shell);
 /*	while (cmd)
 	{
 		if (cmd && cmd->next)
 			ms_execute_pipe(cmd, envp, env);
 		else
 			ms_execute_single_cmd(cmd, envp, env);
+		ms_execute_single_cmd(cmd, env, shell);
 		cmd = cmd->next;
 	}
 */

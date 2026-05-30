@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_word.c                                        :+:      :+:    :+:   */
+/*   shell.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/23 13:10:25 by dverdini          #+#    #+#             */
-/*   Updated: 2026/05/27 13:55:59 by anegorov         ###   ########.fr       */
+/*   Created: 2026/05/27 14:57:07 by anegorov          #+#    #+#             */
+/*   Updated: 2026/05/28 10:47:10 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "shell.h"
 
-char	*ms_read_word(char *line, int *i)
+int	init_shell(t_shell *shell, char **envp)
 {
-	int		start;
-	char	*word;
+	t_env	*env;
 
-	start = *i;
-	while (line[*i] && !ms_is_space(line[*i])
-		&& !ms_is_operator(line[*i]))
-	{
-		(*i)++;
-	}
-	word = ft_substr(line, start, *i - start);
-	return (word);
+	if (!shell)
+		return (0);
+	shell->env = NULL;
+	env_init(&env, envp);
+	if (!env)
+		return (1);
+	shell->env = env;
+	shell->exit_status = 0;
+	shell->should_exit = 0;
+	return (0);
 }

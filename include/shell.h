@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_word.c                                        :+:      :+:    :+:   */
+/*   shell.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/23 13:10:25 by dverdini          #+#    #+#             */
-/*   Updated: 2026/05/27 13:55:59 by anegorov         ###   ########.fr       */
+/*   Created: 2026/05/27 14:58:25 by anegorov          #+#    #+#             */
+/*   Updated: 2026/05/28 10:46:55 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef SHELL_H
+# define SHELL_H
 
-char	*ms_read_word(char *line, int *i)
+# include "env.h"
+# include "parser.h"
+
+typedef struct s_shell
 {
-	int		start;
-	char	*word;
+	t_env	*env;
+	int		exit_status;
+	int		should_exit;
+}	t_shell;
 
-	start = *i;
-	while (line[*i] && !ms_is_space(line[*i])
-		&& !ms_is_operator(line[*i]))
-	{
-		(*i)++;
-	}
-	word = ft_substr(line, start, *i - start);
-	return (word);
-}
+int		init_shell(t_shell *shell, char **envp);
+t_cmd	*build_pipeline(char *line, t_shell *shell);
+
+#endif

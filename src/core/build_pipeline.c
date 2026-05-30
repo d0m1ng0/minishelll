@@ -1,28 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   build_cmds.c                                       :+:      :+:    :+:   */
+/*   build_pipeline.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/16 18:50:40 by anegorov          #+#    #+#             */
-/*   Updated: 2026/05/27 15:02:08 by anegorov         ###   ########.fr       */
+/*   Created: 2026/05/27 15:24:46 by anegorov          #+#    #+#             */
+/*   Updated: 2026/05/29 17:41:50 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 #include "parser.h"
+#include "shell.h"
+#include "expander.h"
 
-// void	print_tokens(t_token *tokens)
-// {
-// 	while (tokens)
-// 	{
-// 		printf("Token: Type=%d, Value=%s\n", tokens->type, tokens->value);
-// 		tokens = tokens->next;
-// 	}
-// }
-
-t_cmd	*build_cmds(char *line)
+t_cmd	*build_pipeline(char *line, t_shell *shell)
 {
 	t_lexer	*lexer;
 	t_cmd	*cmd;
@@ -40,11 +33,12 @@ t_cmd	*build_cmds(char *line)
 	cmd = parser(lexer->tokens);
 	free_lexer(lexer);
 	if (!cmd)
-	{
 		return (NULL);
-	}
+	if (expand_var(cmd, shell))
+		return (free_cmds(cmd), NULL);
+	if (expand_wildcards(cmd))
+		return (free_cmds(cmd), NULL);
+	if (remove_quotes(cmd))
+		return (free_cmds(cmd), NULL);
 	return (cmd);
 }
-	//--- print tokes to debug ---
-	//print_tokens(lexer->tokens);
-	//----------------------------

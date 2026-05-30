@@ -6,7 +6,7 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/17 17:37:01 by anegorov          #+#    #+#             */
-/*   Updated: 2026/05/17 18:18:05 by anegorov         ###   ########.fr       */
+/*   Updated: 2026/05/27 12:54:53 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,12 @@ int	handle_redir_in(t_cmd *cmd, t_token *token)
 {
 	token = token->next;
 	if (!token)
-		return (printf("syntax error near unexpected token `newline'\n"), 1);
+	{
+		ft_putstr_fd("syntax error near unexpected token `newline'\n", 2);
+		return (1);
+	}
 	else if (token->type != TOKEN_WORD)
-		return (printf("syntax error near unexpected token `>'\n"), 1);
+		return (ft_putstr_fd("syntax error near unexpected token `>'\n", 2), 1);
 	if (cmd->infile)
 		free(cmd->infile);
 	cmd->infile = ft_strdup(token->value);
@@ -58,9 +61,15 @@ int	handle_redir_out(t_cmd *cmd, t_token *token)
 {
 	token = token->next;
 	if (!token)
-		return (printf("syntax error near unexpected token `newline'\n"), 1);
+	{
+		ft_putstr_fd("syntax error near unexpected token `newline'\n", 2);
+		return (1);
+	}
 	else if (token->type != TOKEN_WORD)
-		return (printf("syntax error near unexpected token `>'\n"), 1);
+	{
+		ft_putstr_fd("syntax error near unexpected token `<'\n", 2);
+		return (1);
+	}
 	if (cmd->outfile)
 		free(cmd->outfile);
 	cmd->outfile = ft_strdup(token->value);
@@ -74,9 +83,15 @@ int	handle_heredoc(t_cmd *cmd, t_token *token)
 {
 	token = token->next;
 	if (!token)
-		return (printf("syntax error near unexpected token `newline'\n"), 1);
+	{
+		ft_putstr_fd("syntax error near unexpected token `newline'\n", 2);
+		return (1);
+	}
 	if (token->type != TOKEN_WORD)
-		return (printf("syntax error near unexpected token `<<'\n"), 1);
+	{
+		ft_putstr_fd("syntax error near unexpected token `<<'\n", 2);
+		return (1);
+	}
 	if (cmd->heredoc_delimiter)
 		free(cmd->heredoc_delimiter);
 	cmd->heredoc_delimiter = ft_strdup(token->value);
@@ -89,9 +104,15 @@ int	handle_redir_append(t_cmd *cmd, t_token *token)
 {
 	token = token->next;
 	if (!token)
-		return (printf("syntax error near unexpected token `newline'\n"), 1);
+	{
+		ft_putstr_fd("syntax error near unexpected token `newline'\n", 2);
+		return (1);
+	}
 	else if (token->type != TOKEN_WORD)
-		return (printf("syntax error near unexpected token `>>'\n"), 1);
+	{
+		ft_putstr_fd("syntax error near unexpected token `>>'\n", 2);
+		return (1);
+	}
 	if (cmd->outfile)
 		free(cmd->outfile);
 	cmd->outfile = ft_strdup(token->value);

@@ -6,7 +6,7 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/21 09:29:20 by anegorov          #+#    #+#             */
-/*   Updated: 2026/05/21 13:03:58 by anegorov         ###   ########.fr       */
+/*   Updated: 2026/05/28 12:56:30 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,20 @@ void	env_clear(t_env **env)
 	*env = NULL;
 }
 
-char	*get_env_value(t_env *env, char *key)
+int	is_var_valid(char *s)
 {
-	while (env)
+	int	i;
+
+	i = 0;
+	while (s[i] && s[i] != '=')
 	{
-		if (ft_strncmp(env->key, key, ft_strlen(key) + 1) == 0)
-			return (env->value);
-		env = env->next;
+		if (i == 0 && !(ft_isalpha(s[i]) || s[i] == '_'))
+			return (0);
+		if (i && !(ft_isalnum(s[i]) || s[i] == '_'))
+			return (0);
+		i++;
 	}
-	return (NULL);
+	return (1);
 }
 
 t_env	*env_new(char *envp)
@@ -69,21 +74,6 @@ t_env	*env_new(char *envp)
 	return (new_env);
 }
 
-void	env_add_back(t_env **env, t_env *new_env)
-{
-	t_env	*tmp;
-
-	if (!*env)
-	{
-		*env = new_env;
-		return ;
-	}
-	tmp = *env;
-	while (tmp->next)
-		tmp = tmp->next;
-	tmp->next = new_env;
-}
-
 void	env_init(t_env **env, char **envp)
 {
 	t_env	*new_env;
@@ -100,4 +90,17 @@ void	env_init(t_env **env, char **envp)
 		env_add_back(env, new_env);
 		i++;
 	}
+}
+
+int	update_env_value(t_env *old, t_env *new_env)
+{
+	if (old && new_env->value)
+	{
+		free(old->value);
+		old->value = ft_strdup(new_env->value);
+		if (!old->value)
+			return (1);
+		env_clear(&new_env);
+	}
+	return (0);
 }
