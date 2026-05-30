@@ -6,7 +6,7 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 16:46:04 by dverdini          #+#    #+#             */
-/*   Updated: 2026/05/30 11:33:35 by dverdini         ###   ########.fr       */
+/*   Updated: 2026/05/30 18:50:20 by dverdini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,6 @@ char	*ms_get_path_value(char **envp);
 char	*ms_create_path_candidate(char *dir, char *cmd);
 char	*ms_find_cmd_path(char *cmd, char **envp);
 void	ms_run_external(t_cmd *cmd, char **envp);
+int	ms_run_heredoc(t_cmd *cmd);
 /* --------------------------------------------------------------------------*/
 #endif
