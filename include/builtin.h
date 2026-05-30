@@ -6,7 +6,7 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/17 15:16:35 by anegorov          #+#    #+#             */
-/*   Updated: 2026/05/28 10:40:20 by anegorov         ###   ########.fr       */
+/*   Updated: 2026/05/30 21:45:41 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ typedef struct s_builtin
 int		is_builtin(char *cmd);
 int		is_equal(char *a, char *b);
 int		builtin_echo(char **argv);
-int		builtin_pwd(void);
-int		builtin_cd(char **argv);
+int		builtin_pwd(t_shell *shell);
+int		builtin_cd(char **argv, t_shell *shell);
 int		builtin_env(t_env *env);
 int		builtin_export(t_env **env, char **argv);
 int		builtin_unset(t_env **env, char **argv);

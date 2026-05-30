@@ -1,0 +1,7 @@
+echo hello
+echo a b c
+pwd
+echo ""
+echo ''
+echo "hello world"
+echo 'hello world'

@@ -6,7 +6,7 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/21 10:05:41 by anegorov          #+#    #+#             */
-/*   Updated: 2026/05/28 10:39:11 by anegorov         ###   ########.fr       */
+/*   Updated: 2026/05/30 21:45:17 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ int	run_builtin(t_cmd *cmd, t_env **env, t_shell *shell)
 	if (is_equal(cmd->argv[0], "echo"))
 		return (builtin_echo(cmd->argv));
 	else if (is_equal(cmd->argv[0], "pwd"))
-		return (builtin_pwd());
+		return (builtin_pwd(shell));
 	else if (is_equal(cmd->argv[0], "cd"))
-		return (builtin_cd(cmd->argv));
+		return (builtin_cd(cmd->argv, shell));
 	else if (is_equal(cmd->argv[0], "env"))
 		return (builtin_env(*env));
 	else if (is_equal(cmd->argv[0], "export"))

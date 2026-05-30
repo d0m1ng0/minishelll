@@ -1,0 +1,17 @@
+cd /sgoinfre/goinfre/Perso/anegorov/minishell_common/file_to_test
+echo *.c
+echo *c
+echo *dsf
+echo sr*
+echo *.txt
+echo *.xyz
+echo *
+echo *.c
+echo "*.c"
+echo '*.c'
+echo a*.c
+echo "a"*.c
+echo a"*".c
+
+echo "bu"*.sh
+echo "*.sh"
