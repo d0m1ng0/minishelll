@@ -6,7 +6,7 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 16:23:04 by anegorov          #+#    #+#             */
-/*   Updated: 2026/05/30 11:37:36 by dverdini         ###   ########.fr       */
+/*   Updated: 2026/05/30 18:17:30 by dverdini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 #include "shell.h"
 #include "get_next_line.h"
 #include "debug.h"
+#include "signals.h"
 
 // void	print_cmd(t_cmd *cmd)
 // {
@@ -133,7 +134,7 @@ char	*get_line(void)
 
 char	*get_line(void)
 {
-	return (readline("minishell> "));
+	return (readline("minish-1.0$ "));
 }
 int	main(int argc, char **argv, char **envp)
 {
@@ -145,11 +146,17 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	if (init_shell(&shell, envp))
 		return (env_clear(&shell.env), perror("memory here: "), 1);
+	ms_signals_setup();
 	while (1)
 	{
 		line = get_line();
 		if (!line)
 			break ;
+		if (line[0] == '\0')
+		{
+			free(line);
+			continue ;
+		}
 		cmd = build_pipeline(line, &shell);
 		print_cmds(cmd);
 		if (!cmd)
