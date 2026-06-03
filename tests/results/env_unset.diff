@@ -1,19 +1,19 @@
---- tests/results/env_unset_bash.out	2026-05-30 22:44:54.065845126 +0200
-+++ tests/results/env_unset_mine.out	2026-05-30 22:44:54.068845003 +0200
+--- tests/results/env_unset_bash.out	2026-06-03 13:06:21.322815662 +0200
++++ tests/results/env_unset_mine.out	2026-06-03 13:06:21.325815554 +0200
 @@ -1,14 +1,13 @@
  42
 -
 +42
  SHELL=/bin/bash
- SESSION_MANAGER=local/unix:@/tmp/.ICE-unix/866991,unix/unix:/tmp/.ICE-unix/866991
+ SESSION_MANAGER=local/unix:@/tmp/.ICE-unix/80648,unix/unix:/tmp/.ICE-unix/80648
  COLORTERM=truecolor
  HISTCONTROL=ignoredups
 -XDG_MENU_PREFIX=gnome-
  TERM_PROGRAM_VERSION=1.120.0
  PTYXIS_PROFILE=9c2f61df4a0442ae3eda73ad69c25d0c
--HOSTNAME=f4r7s12.paris.42.school
+-HOSTNAME=f4r7s10.paris.42.school
  HISTSIZE=1000
-+HOSTNAME=f4r7s12.paris.42.school
++HOSTNAME=f4r7s10.paris.42.school
  KPROXY_URL=https://kproxy.fr-par-2.42.school:8445
  SSH_AUTH_SOCK=/run/user/44519380/keyring/ssh
  MEMORY_PRESSURE_WRITE=c29tZSAyMDAwMDAgMjAwMDAwMAA=
@@ -28,8 +28,8 @@
  LOGNAME=anegorov
 +XDG_SESSION_DESKTOP=gnome
  XDG_SESSION_TYPE=wayland
- SYSTEMD_EXEC_PID=868355
- XAUTHORITY=/run/user/44519380/.mutter-Xwaylandauth.A5X1P3
+ SYSTEMD_EXEC_PID=81643
+ XAUTHORITY=/run/user/44519380/.mutter-Xwaylandauth.QQOBQ3
 @@ -50,7 +49,7 @@
  USER=anegorov
  VSCODE_GIT_IPC_HANDLE=/run/user/44519380/vscode-git-bdd126b2fc.sock
@@ -41,7 +41,7 @@
  XDG_RUNTIME_DIR=/run/user/44519380
 @@ -70,4 +69,5 @@
  FLATPAK_TTY_PROGRESS=1
- OLDPWD=/sgoinfre/goinfre/Perso/anegorov/minishell_common/test
+ OLDPWD=/sgoinfre/goinfre/Perso/anegorov/minishell_common/file_to_test
  TERM_PROGRAM=vscode
 -_=/usr/bin/env
 +_=./minishell

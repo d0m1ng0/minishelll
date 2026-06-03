@@ -6,7 +6,7 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/30 22:19:19 by anegorov          #+#    #+#             */
-/*   Updated: 2026/05/30 22:21:44 by anegorov         ###   ########.fr       */
+/*   Updated: 2026/06/03 12:51:10 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,24 @@ int	ft_strcmp(char *s1, char *s2)
 		s1++;
 		s2++;
 	}
+	while (*s1 == '\'' || *s1 == '\"')
+			s1++;
+		while (*s2 == '\'' || *s2 == '\"')
+			s2++;
+	return (ft_tolower(*s1) - ft_tolower(*s2));
+}
+
+int	ft_strcmp_withquotes(char *s1, char *s2)
+{
+	if (!s1 || !s2)
+		return (0);
+	while (*s1 && *s2)
+	{
+		if (ft_tolower(*s1) != ft_tolower(*s2))
+			return (ft_tolower(*s1) - ft_tolower(*s2));
+		s1++;
+		s2++;
+	}
 	return (ft_tolower(*s1) - ft_tolower(*s2));
 }
 
@@ -57,9 +75,19 @@ void	sort_matches(char **arr)
 		j = i + 1;
 		while (arr[j])
 		{
+			// printf("Comparing [%s] and [%s]\n", arr[i], arr[j]);
 			cmp = ft_strcmp(arr[i], arr[j]);
+			// printf("Result: %d\n", cmp);
 			if (cmp > 0)
 				ft_strswap(&arr[i], &arr[j]);
+			else if (cmp == 0)
+			{
+				// printf("Comparing with quotes [%s] and [%s]\n", arr[i], arr[j]);
+				cmp = ft_strcmp_withquotes(arr[i], arr[j]);
+				// printf("Result with quotes: %d\n", cmp);
+				if (cmp > 0)
+					ft_strswap(&arr[i], &arr[j]);
+			}
 			j++;
 		}
 		i++;

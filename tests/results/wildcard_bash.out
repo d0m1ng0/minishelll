@@ -4,12 +4,13 @@ a.c b.c
 sr*
 c.txt
 *.xyz
-a.c b.c c.txt "df" 'df' df in lak mak mine.out mine_out out
+a.c b.c c.txt "df" 'df' df df"s" df's' dfs in lak mak Min mine.out mine_out out
 a.c b.c
 *.c
 *.c
 a.c
 a.c
 a*.c
+a.c
 bu*.sh
 *.sh

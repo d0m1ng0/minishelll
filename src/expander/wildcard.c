@@ -6,7 +6,7 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/29 14:42:39 by anegorov          #+#    #+#             */
-/*   Updated: 2026/05/30 22:43:24 by anegorov         ###   ########.fr       */
+/*   Updated: 2026/06/03 12:50:46 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ t_wc	expand_wildcard(char *pattern)
 	entry = readdir(dir);
 	while (entry)
 	{
-		if (handle_entry(&res, entry, pattern))
+		if (handle_entry(&res, entry, clean))
 			return (closedir(dir), free_split(res.matches),
 				init_wc(&res, 2), res);
 		entry = readdir(dir);

@@ -1,22 +1,13 @@
---- tests/results/export_bash.out	2026-05-30 22:44:54.075844717 +0200
-+++ tests/results/export_mine.out	2026-05-30 22:44:54.079844554 +0200
-@@ -2,7 +2,7 @@
- hello world
- hello world
- build.sh
--a b c
-+a b c 
- a b ca b c
- declare -x A="hello"
- declare -x B="hello world"
+--- tests/results/export_bash.out	2026-06-03 13:06:21.333815264 +0200
++++ tests/results/export_mine.out	2026-06-03 13:06:21.336815156 +0200
 @@ -55,7 +55,7 @@
  declare -x QT_IM_MODULE="ibus"
- declare -x SESSION_MANAGER="local/unix:@/tmp/.ICE-unix/866991,unix/unix:/tmp/.ICE-unix/866991"
+ declare -x SESSION_MANAGER="local/unix:@/tmp/.ICE-unix/80648,unix/unix:/tmp/.ICE-unix/80648"
  declare -x SHELL="/bin/bash"
 -declare -x SHLVL="5"
 +declare -x SHLVL="4"
  declare -x SSH_AUTH_SOCK="/run/user/44519380/keyring/ssh"
- declare -x SYSTEMD_EXEC_PID="868355"
+ declare -x SYSTEMD_EXEC_PID="81643"
  declare -x TERM="xterm-256color"
 @@ -80,6 +80,7 @@
  declare -x XDG_SESSION_DESKTOP="gnome"
@@ -28,12 +19,12 @@
  declare -x C="hello world"
 @@ -132,7 +133,7 @@
  declare -x R
- declare -x SESSION_MANAGER="local/unix:@/tmp/.ICE-unix/866991,unix/unix:/tmp/.ICE-unix/866991"
+ declare -x SESSION_MANAGER="local/unix:@/tmp/.ICE-unix/80648,unix/unix:/tmp/.ICE-unix/80648"
  declare -x SHELL="/bin/bash"
 -declare -x SHLVL="5"
 +declare -x SHLVL="4"
  declare -x SSH_AUTH_SOCK="/run/user/44519380/keyring/ssh"
- declare -x SYSTEMD_EXEC_PID="868355"
+ declare -x SYSTEMD_EXEC_PID="81643"
  declare -x TERM="xterm-256color"
 @@ -157,6 +158,7 @@
  declare -x XDG_SESSION_DESKTOP="gnome"
