@@ -6,7 +6,7 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/29 23:11:54 by dverdini          #+#    #+#             */
-/*   Updated: 2026/05/30 17:55:19 by anegorov         ###   ########.fr       */
+/*   Updated: 2026/06/03 13:26:04 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,49 @@
 #include <sys/wait.h>
 #include <fcntl.h>
 #include <stdlib.h>
+#include <readline/readline.h>
+
 //#include <stddef.h>
+
+static int	ft_strcmp(char *s1, char *s2)
+{
+	int	i;
+
+	i = 0;
+	while (s1[i] && s1[i] == s2[i])
+	{
+		i++;
+	}
+	return ((unsigned)s1[i] - (unsigned)s2[i]);
+}
+
+int	ms_run_heredoc(t_cmd *cmd)
+{
+	int		fd_pipe[2];
+
+	char	*line;
+	if (pipe(fd_pipe) <0)
+		return (1);
+	ft_printf("DELIMITER=[%s]\n", cmd->heredoc_delimiter);
+	while (1)
+	{
+		line = readline("> ");
+		if (!line)
+			break ;
+		if (ft_strcmp(line, cmd->heredoc_delimiter) == 0)
+		{
+			free(line);
+			break ;
+		}
+		write(fd_pipe[1], line, ft_strlen(line));
+		write(fd_pipe[1], "\n", 1);
+		free(line);
+	}
+	close(fd_pipe[1]);
+	dup2(fd_pipe[0], STDIN_FILENO);
+	close(fd_pipe[0]);
+	return (0);
+}
 
 /*
 pms_execute_pipe()
@@ -164,6 +206,10 @@ void	ms_run_external(t_cmd *cmd, char **envp)
 	pid = fork();
 	if (pid == 0)
 	{
+		/* --- HEREDOC -----------------------------------------*/
+		if (cmd->heredoc_delimiter)
+			ms_run_heredoc(cmd);
+
 		// --- HARDCODED -----------------------
 		//execve("/usr/bin/ls", cmd->argv, envp);
 		// -------------------------------------
