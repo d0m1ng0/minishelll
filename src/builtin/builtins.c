@@ -6,7 +6,7 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/21 12:12:24 by anegorov          #+#    #+#             */
-/*   Updated: 2026/06/03 13:06:17 by anegorov         ###   ########.fr       */
+/*   Updated: 2026/06/03 14:57:52 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ int	builtin_echo(char **argv)
 	while (argv[i])
 	{
 		printf("%s", argv[i]);
-		if (argv[i + 1] && argv[i + 1][0] != '\0')
+		if ((argv[i + 1] && argv[i + 1][0] != '\0' && !argv[i + 2]) ||
+			(argv[i + 1] && argv[i + 2]))
 			printf(" ");
 		i++;
 	}

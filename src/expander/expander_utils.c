@@ -6,7 +6,7 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 18:18:28 by anegorov          #+#    #+#             */
-/*   Updated: 2026/05/29 17:44:27 by anegorov         ###   ########.fr       */
+/*   Updated: 2026/06/03 13:33:54 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,13 @@ int	append_char(t_expand *exp, char c)
 	if (!exp->result)
 		return (1);
 	return (0);
+}
+
+void	ft_strswap(char **a, char **b)
+{
+	char	*tmp;
+
+	tmp = *a;
+	*a = *b;
+	*b = tmp;
 }

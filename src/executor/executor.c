@@ -6,7 +6,7 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/29 23:11:54 by dverdini          #+#    #+#             */
-/*   Updated: 2026/06/03 13:26:04 by anegorov         ###   ########.fr       */
+/*   Updated: 2026/06/03 14:32:33 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 #include <fcntl.h>
 #include <stdlib.h>
 #include <readline/readline.h>
+#include "expander.h"
 
 //#include <stddef.h>
 
@@ -290,7 +291,12 @@ void	ms_execute_single_cmd(t_cmd *cmd, t_env **env, t_shell *shell)
 			close(fd_file);
 		}
 		shell->exit_status = run_builtin(cmd, env, shell);
-		//shell->exit_status == -1 exit;memmory error
+		//------antonina exit
+		if (shell->exit_status == -1)
+			exit(1); // memory error
+		if (shell->should_exit && !cmd->next)//if only one command
+			exit(shell->exit_status);
+		//----------end code antonina exit
 		//check shell->should_exit if == 1 shouid exit if only one command
 		//and it needs to save exit_status to another next command
 		dup2(stdout_saved, STDOUT_FILENO);
@@ -329,6 +335,11 @@ void	ms_executor(t_cmd *cmd, t_env **env, t_shell *shell)
 		free_envp(envp);
 		return ;
 	}
+	//-----antonina----------
+	// else
+	// 	set_env_value(env, "_", cmd->argv[ft_arrlen(cmd->argv) - 1]);
+	//need to set _ to the last argument of the command, if it exists, otherwise to the command name
+	//-----------end antonina
 	ms_execute_single_cmd(cmd, env, shell);
 /*	while (cmd)
 	{

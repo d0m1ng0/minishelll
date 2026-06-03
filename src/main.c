@@ -6,7 +6,7 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 16:23:04 by anegorov          #+#    #+#             */
-/*   Updated: 2026/06/03 13:28:40 by anegorov         ###   ########.fr       */
+/*   Updated: 2026/06/03 13:39:40 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,19 +79,19 @@
 // 	env_clear(&shell.env);
 // 	return (0);
 // }
-
-int	execute_single_cmd(t_cmd *cmd, t_env **env, t_shell *shell)
-{
-	if (!cmd->argv || !cmd->argv[0])
-		return (0);
-	if (is_builtin(cmd->argv[0]))
-		return (run_builtin(cmd, env, shell));
-	return (0);
-}
+/* --- ANTONINA - EXECUTOR ----------------------------------------------*/
+// int	execute_single_cmd(t_cmd *cmd, t_env **env, t_shell *shell)
+// {
+// 	if (!cmd->argv || !cmd->argv[0])
+// 		return (0);
+// 	if (is_builtin(cmd->argv[0]))
+// 		return (run_builtin(cmd, env, shell));
+// 	return (0);
+// }
 // else
 	// 	run_external(cmd);
 
-/* --- ANTONINA - EXECUTOR ----------------------------------------------*/
+
 /*int	executor(t_cmd *cmd, t_env **env, t_shell *shell)
 {
 	int	status;
@@ -145,7 +145,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	if (init_shell(&shell, envp))
-		return (env_clear(&shell.env), perror("memory here: "), 1);
+		return (env_clear(&shell.env), perror("memory: "), 1);
 	ms_signals_setup();
 	while (1)
 	{
@@ -164,6 +164,5 @@ int	main(int argc, char **argv, char **envp)
 		free(line);
 		free_cmds(cmd);
 	}
-	env_clear(&shell.env);
-	return (shell.exit_status);
+	return (env_clear(&shell.env), shell.exit_status);
 }

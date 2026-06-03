@@ -6,7 +6,7 @@
 #    By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/05/16 12:07:21 by dverdini          #+#    #+#              #
-#    Updated: 2026/06/03 13:24:46 by anegorov         ###   ########.fr        #
+#    Updated: 2026/06/03 13:29:39 by anegorov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,6 @@ expander/expander.c expander/expander_utils.c expander/wildcard.c\
 expander/remove_quotes.c expander/wildcard_utils.c expander/wildcard_utils2.c\
 core/shell.c core/build_pipeline.c\
 main.c\
-debug/print_cmds.c\
 signals/signals.c\
 gnl/get_next_line.c gnl/get_next_line_utils.c
 

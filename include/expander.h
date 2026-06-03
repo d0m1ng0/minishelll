@@ -6,7 +6,7 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 14:14:15 by anegorov          #+#    #+#             */
-/*   Updated: 2026/05/30 22:41:07 by anegorov         ###   ########.fr       */
+/*   Updated: 2026/06/03 13:33:28 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ int		match(char *pattern, char *str);
 int		has_wildcard(char *s);
 void	init_wc(t_wc *wc, int status);
 void	ft_strswap(char **a, char **b);
-int		ft_strcmp(char *s1, char *s2);
 void	sort_matches(char **arr);
 char	*strip_pattern(char *pattern);
 int		remove_quotes_arg(char **arg);
