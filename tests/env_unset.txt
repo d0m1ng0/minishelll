@@ -1,5 +1,0 @@
-export X=42
-echo $X
-unset X
-echo $X
-env

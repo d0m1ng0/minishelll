@@ -1,6 +1,0 @@
-export A=c
-echo *.$A
-echo "*.$A"
-echo '*.$A'
-echo $A*.c
-echo "*$A"

@@ -1,7 +1,0 @@
-touch a.c b.c c.txt
-echo "*.c"
-echo '*.c'
-echo "*"
-echo '*'
-echo "*c"
-echo '*c'
