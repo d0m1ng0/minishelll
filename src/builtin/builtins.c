@@ -6,7 +6,7 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/21 12:12:24 by anegorov          #+#    #+#             */
-/*   Updated: 2026/06/03 14:57:52 by anegorov         ###   ########.fr       */
+/*   Updated: 2026/06/05 14:39:19 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	builtin_echo(char **argv)
 
 	i = 1;
 	newline = 1;
-	if (argv[i] && is_equal(argv[i], "-n"))
+	while (argv[i] && is_equal(argv[i], "-n"))
 	{
 		newline = 0;
 		i++;
@@ -27,8 +27,7 @@ int	builtin_echo(char **argv)
 	while (argv[i])
 	{
 		printf("%s", argv[i]);
-		if ((argv[i + 1] && argv[i + 1][0] != '\0' && !argv[i + 2]) ||
-			(argv[i + 1] && argv[i + 2]))
+		if (argv[i + 1])
 			printf(" ");
 		i++;
 	}
@@ -69,8 +68,10 @@ int	builtin_cd(char **argv, t_shell *shell)
 		if (chdir(home) != 0)
 			return (free(oldpwd), print_error("cd", home, strerror(errno)), 1);
 	}
-	else if (chdir(argv[1]) != 0)
+	else if (chdir(argv[1]) != 0 && !argv[2])
 		return (free(oldpwd), print_error("cd", argv[1], strerror(errno)), 1);
+	else if (argv[2])
+		return (free(oldpwd), print_error("cd", NULL, "too many arguments"), 1);
 	newpwd = getcwd(NULL, 0);
 	if (!newpwd)
 		return (free(oldpwd), print_error("cd", NULL, strerror(errno)), 1);

@@ -1,0 +1,4 @@
+/bin/ls
+/usr/bin/ls -la
+echo $PATH
+/usr/bin/ls | /usr/bin/wc

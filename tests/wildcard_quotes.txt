@@ -1,0 +1,7 @@
+cd file_to_test
+echo "*.c"
+echo '*.c'
+echo "*"
+echo '*'
+echo "*c"
+echo '*c'

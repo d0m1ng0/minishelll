@@ -1,0 +1,11 @@
+--- tests/results/redirections_bash.out	2026-06-05 17:37:54.557522467 +0200
++++ tests/results/redirections_mine.out	2026-06-05 17:37:54.565522154 +0200
+@@ -1,5 +1,5 @@
+ hello
+-hello
+-world
+-hello
++cat: file1: No such file or directory
+ world
++cat: file1: No such file or directory
++rm: cannot remove 'file1': No such file or directory

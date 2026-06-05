@@ -1,0 +1,20 @@
+export A=hello
+echo $A
+export B="hello world"
+echo $B
+export C='hello world'
+echo $C
+export D="bu"*.sh
+echo $D
+export F="a b c"
+echo $F $G
+export H='a b c'
+echo $H$F$E
+export
+export R
+export
+pwd
+export PWD="fake_pwd"
+pwd
+unset PWD
+pwd

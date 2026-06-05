@@ -6,7 +6,7 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/21 13:13:53 by anegorov          #+#    #+#             */
-/*   Updated: 2026/06/03 15:15:18 by anegorov         ###   ########.fr       */
+/*   Updated: 2026/06/05 13:56:31 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,6 @@ static int	handle_dollar(char *str, t_expand *exp, t_shell *shell)
 		value = ft_strdup("$");
 	if (!value)
 		return (1);
-	// if (value[0] == '\0' && exp->state == NO_QUOTE)
-	// {
-	// 	free(value);
-	// 	return (0);
-	// }
-	// printf("Expanding: %s\n", value);
 	if (append_str(exp, value))
 		return (free(value), 1);
 	free(value);
@@ -111,6 +105,7 @@ int	expand_var(t_cmd *cmd, t_shell *shell)
 				return (1);
 			i++;
 		}
+		remove_empty_args(cmd->argv);
 		cmd = cmd->next;
 	}
 	return (0);

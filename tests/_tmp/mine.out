@@ -1,0 +1,99 @@
+touch a.c b.c c.txt
+echo *.c
+a.c b.c
+echo *.txt
+c.txt
+echo *.xyz
+*.xyz
+echo *
+df includes README.md c.txt libft.a build.sh in ft_printf obj df out a.c libft Makefile tests run_tests.sh b.c bash_out
+echo hello
+hello
+echo a b c
+a b c
+pwd
+/sgoinfre/goinfre/Perso/anegorov/minishell_common
+ls
+echo ""
+
+echo ''
+
+echo "hello world"
+hello world
+echo 'hello world'
+hello world
+echo $$$$$
+$$$$$
+echo "* * * *"
+* * * *
+echo ""
+
+echo ''
+
+echo $?
+0
+echo $NOT_EXIST
+
+echo "*"
+*
+echo "* * *"
+* * *
+echo "***"
+***
+echo ""
+
+echo "   "
+   
+echo "$$$$$"
+$$$$$
+echo "$?"
+0
+export A=42
+echo $A
+42
+echo "$A"
+42
+echo '$A'
+$A
+echo $NOT_EXIST
+
+echo $?
+0
+export A=hello
+echo $A$A
+hellohello
+echo $A"world"
+helloworld
+export A=c
+echo *.$A
+a.c b.c
+echo "*.$A"
+*.c
+echo '*.$A'
+*.$A
+echo $A*.c
+c*.c
+echo "*$A"
+*c
+touch a.c b.c c.txt
+echo "*.c"
+*.c
+echo '*.c'
+*.c
+echo "*"
+*
+echo '*'
+*
+echo "*c"
+*c
+echo '*c'
+*c
+touch a.c b.c c.txt
+echo *.c
+a.c b.c
+echo *.txt
+c.txt
+echo *.xyz
+*.xyz
+echo *
+df includes README.md c.txt libft.a build.sh in ft_printf obj df out a.c libft Makefile tests run_tests.sh b.c bash_out

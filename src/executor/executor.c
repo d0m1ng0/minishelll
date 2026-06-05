@@ -6,7 +6,7 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/29 23:11:54 by dverdini          #+#    #+#             */
-/*   Updated: 2026/06/03 14:32:33 by anegorov         ###   ########.fr       */
+/*   Updated: 2026/06/05 15:41:23 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ void	ms_execute_in_child(t_cmd *cmd, char **envp, t_env **env, t_shell *shell)
 	if (!path)
 	{
 		ft_printf("%s: command not found\n", cmd->argv[0]);
+		shell->exit_status = 127;
 		exit(127);
 	}
 	execve(path, cmd->argv, envp);
@@ -187,11 +188,12 @@ void	ms_execute_pipe(t_cmd *cmd, char **envp, t_env **env, t_shell *shell)
 	waitpid(pid2, NULL, 0);
 }
 */
-void	ms_run_external(t_cmd *cmd, char **envp)
+void	ms_run_external(t_cmd *cmd, char **envp, t_shell *shell)
 {
 	int	fd;
 	pid_t	pid;
 	char	*path;
+	int 	status;
 	
 	path = ms_find_cmd_path(cmd->argv[0], envp);
 	if (!path)
@@ -252,9 +254,18 @@ void	ms_run_external(t_cmd *cmd, char **envp)
 		exit(EXIT_FAILURE);
 	}
 	else if (pid > 0)
-		waitpid(pid, NULL, 0);
-	free(path);
+	{
+		waitpid(pid, &status, 0);
+		//add status $? = exit status of the child process ANTININA
+		if (WIFEXITED(status))
+			shell->exit_status = WEXITSTATUS(status);
+		else if (WIFSIGNALED(status))
+			shell->exit_status = 128 + WTERMSIG(status);
+		//----ANTONINA
+	}
+			free(path);
 }
+
 
 void	ms_execute_single_cmd(t_cmd *cmd, t_env **env, t_shell *shell)
 {
@@ -295,7 +306,7 @@ void	ms_execute_single_cmd(t_cmd *cmd, t_env **env, t_shell *shell)
 		if (shell->exit_status == -1)
 			exit(1); // memory error
 		if (shell->should_exit && !cmd->next)//if only one command
-			exit(shell->exit_status);
+			return ;
 		//----------end code antonina exit
 		//check shell->should_exit if == 1 shouid exit if only one command
 		//and it needs to save exit_status to another next command
@@ -308,7 +319,7 @@ void	ms_execute_single_cmd(t_cmd *cmd, t_env **env, t_shell *shell)
 		envp = env_to_envp(*env);
 		if (!envp)
 			exit(1);//memmory error
-		ms_run_external(cmd, envp);
+		ms_run_external(cmd, envp, shell);
 		free_envp(envp);
 	}
 }

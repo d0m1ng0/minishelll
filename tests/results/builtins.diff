@@ -1,0 +1,18 @@
+--- tests/results/builtins_bash.out	2026-06-05 17:37:54.402528527 +0200
++++ tests/results/builtins_mine.out	2026-06-05 17:37:54.405528410 +0200
+@@ -21,9 +21,9 @@
+ 0HELLO
+ /sgoinfre/goinfre/Perso/anegorov/minishell_common
+ /sgoinfre/goinfre/Perso/anegorov/minishell_common
+-/bin/bash: line 26: export: `A-': not a valid identifier
+-/bin/bash: line 30: export: `HELLO-=123': not a valid identifier
+-/bin/bash: line 31: export: `=': not a valid identifier
+-/bin/bash: line 32: export: `123': not a valid identifier
+-/bin/bash: line 40: cd: too many arguments
+-/bin/bash: line 41: cd: 123123: No such file or directory
++minishell: export: 'A-': not a valid identifier
++minishell: export: 'HELLO-=123': not a valid identifier
++minishell: export: '123': not a valid identifier
++minishell: cd: too many arguments
++minishell: cd: '123123': No such file or directory
++exit

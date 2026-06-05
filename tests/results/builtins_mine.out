@@ -1,0 +1,29 @@
+hello world
+hello world
+hello world
+helloworld
+helloworld
+
+/sgoinfre/goinfre/Perso/anegorov/minishell_common
+$PWD
+aspas ->'
+aspas -> ' 
+aspas ->"
+aspas -> " 
+> >> < * ? [ ] | ; [ ] || && ( ) & # $ \ <<
+> >> < * ? [ ] | ; [ ] || && ( ) & # $ \ <<
+exit_code ->0 user ->anegorov home -> /home/anegorov
+exit_code ->$? user ->$USER home -> $HOME
+$
+$
+$
+0
+0HELLO
+/sgoinfre/goinfre/Perso/anegorov/minishell_common
+/sgoinfre/goinfre/Perso/anegorov/minishell_common
+minishell: export: 'A-': not a valid identifier
+minishell: export: 'HELLO-=123': not a valid identifier
+minishell: export: '123': not a valid identifier
+minishell: cd: too many arguments
+minishell: cd: '123123': No such file or directory
+exit

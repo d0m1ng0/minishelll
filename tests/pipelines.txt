@@ -1,0 +1,13 @@
+echo hello | cat -e
+ls | wc
+echo a b c | tr ' ' '\n' | wc -l
+echo hello > file1 | cat -e
+cat < file1 | wc
+export A="a b"
+echo $A | cat -e
+
+echo "a"*.c | wc -l
+
+ls | grep .c | wc -l
+echo $USER | cat -e > out.txt
+cat < out.txt | wc

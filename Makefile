@@ -6,7 +6,7 @@
 #    By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/05/16 12:07:21 by dverdini          #+#    #+#              #
-#    Updated: 2026/06/03 13:29:39 by anegorov         ###   ########.fr        #
+#    Updated: 2026/06/05 16:54:24 by anegorov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ lexer/lexer.c lexer/handle_operator.c lexer/handle_word.c lexer/lexer_utils.c le
 parser/parser.c parser/cmd_building.c\
 executor/executor.c \
 executor/path.c \
+executor/executor_ant.c executor/executor_single_ant.c \
 utils/free_split.c \
 builtin/builtins.c builtin/builtins2.c builtin/builtins_utils.c builtin/exit.c\
 env/env_init.c env/env_utils.c env/env_to_envp.c\

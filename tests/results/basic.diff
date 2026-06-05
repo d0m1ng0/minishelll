@@ -1,0 +1,20 @@
+--- tests/results/basic_bash.out	2026-06-05 17:37:54.369529818 +0200
++++ tests/results/basic_mine.out	2026-06-05 17:37:54.394528840 +0200
+@@ -35,8 +35,8 @@
+  130646 pts/2    00:00:00 as
+  158527 pts/0    00:00:00 minishell
+  158529 pts/0    00:00:00 run_tests.sh
+- 158532 pts/0    00:00:00 bash
+- 158542 pts/0    00:00:00 ps
++ 158544 pts/0    00:00:00 minishell
++ 158554 pts/0    00:00:00 ps
+ -     hello
+ builtin
+ cleanup
+@@ -52,5 +52,5 @@
+ read_line.c
+ signals
+ utils
+-/bin/bash: line 24: cd: too many arguments
++minishell: cd: too many arguments
+ /home/anegorov

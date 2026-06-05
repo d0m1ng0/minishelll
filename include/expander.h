@@ -6,7 +6,7 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 14:14:15 by anegorov          #+#    #+#             */
-/*   Updated: 2026/06/03 13:33:28 by anegorov         ###   ########.fr       */
+/*   Updated: 2026/06/05 13:56:55 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,6 @@ void	ft_strswap(char **a, char **b);
 void	sort_matches(char **arr);
 char	*strip_pattern(char *pattern);
 int		remove_quotes_arg(char **arg);
+void	remove_empty_args(char **argv);
 
 #endif

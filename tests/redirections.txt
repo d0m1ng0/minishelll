@@ -1,0 +1,8 @@
+cd file_to_test
+echo hello > file1
+cat file1
+echo world >> file1
+cat file1
+cat < file1
+rm file1
+cd ..

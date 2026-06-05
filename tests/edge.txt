@@ -1,0 +1,16 @@
+echo "*"
+echo "* * *"
+echo "***"
+echo ""
+echo "   "
+echo "$ $ $ $ $"
+echo "$?"
+echo "$USER"abc
+echo abc"$USER"
+echo "a'$USER'b"
+echo 'a"$USER"b'
+echo "$NONEXISTENT"
+echo '$NONEXISTENT'
+echo "$USER" "$NONEXISTENT" $USER
+echo "a"*"b"
+echo $A"$USER"'text'$?

@@ -6,7 +6,7 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 18:18:28 by anegorov          #+#    #+#             */
-/*   Updated: 2026/06/03 13:33:54 by anegorov         ###   ########.fr       */
+/*   Updated: 2026/06/05 13:56:41 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,22 @@ void	ft_strswap(char **a, char **b)
 	tmp = *a;
 	*a = *b;
 	*b = tmp;
+}
+
+void	remove_empty_args(char **argv)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (argv[i])
+	{
+		if (argv[i][0] != '\0')
+			argv[j++] = argv[i];
+		else
+			free(argv[i]);
+		i++;
+	}
+	argv[j] = NULL;
 }

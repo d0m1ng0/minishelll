@@ -1,0 +1,7 @@
+--- tests/results/syntax_error_bash.out	2026-06-05 17:37:54.573521841 +0200
++++ tests/results/syntax_error_mine.out	2026-06-05 17:37:54.576521724 +0200
+@@ -1,2 +1,2 @@
+-/bin/bash: line 1: syntax error near unexpected token `|'
+-/bin/bash: line 1: `|'
++syntax error near unexpected token `|'
++memory: : Inappropriate ioctl for device

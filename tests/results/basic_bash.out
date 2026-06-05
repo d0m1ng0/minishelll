@@ -1,0 +1,56 @@
+hello
+a b c
+/sgoinfre/goinfre/Perso/anegorov/minishell_common
+
+
+hello world
+hello world
+hello/sgoinfre/goinfre/Perso/anegorov/minishell_common/src /sgoinfre/goinfre/Perso/anegorov/minishell_common
+Filesystem                     1K-blocks       Used   Available Use% Mounted on
+/dev/mapper/vg0-os             102271752   30625512    71646240  30% /
+devtmpfs                         7913812          0     7913812   0% /dev
+tmpfs                            8024732      35404     7989328   1% /dev/shm
+efivarfs                             438        184         250  43% /sys/firmware/efi/efivars
+tmpfs                            3209896       2272     3207624   1% /run
+tmpfs                               1024          0        1024   0% /run/credentials/systemd-journald.service
+tmpfs                            8024736      24228     8000508   1% /tmp
+/dev/nvme0n1p2                    996780     483500      444468  53% /boot
+/dev/nvme0n1p1                   1046512       7764     1038748   1% /boot/efi
+tmpfs                               1024          0        1024   0% /run/credentials/systemd-resolved.service
+tmpfs                            1604944         68     1604876   1% /run/user/1422
+tmpfs                            1604944       9588     1595356   1% /run/user/44519380
+/dev/mapper/vg0-goinfre        393318740   94010736   299308004  24% /goinfre
+sgoinfre-1.paris.42.school:/ 20566297600 9645678592 10920619008  47% /sgoinfre
+/dev/sda                         4876288    3209708     1666580  66% /home/anegorov
+0
+0
+hi
+    PID TTY          TIME CMD
+  98756 tty2     00:00:00 gnome-session-b
+ 105842 pts/0    00:00:00 bash
+ 110282 pts/2    00:00:00 bash
+ 110386 pts/2    00:00:00 bash
+ 111248 pts/1    00:00:00 bash
+ 130258 pts/1    00:00:00 minishell
+ 130646 pts/2    00:00:00 as
+ 158527 pts/0    00:00:00 minishell
+ 158529 pts/0    00:00:00 run_tests.sh
+ 158532 pts/0    00:00:00 bash
+ 158542 pts/0    00:00:00 ps
+-     hello
+builtin
+cleanup
+core
+env
+executor
+expander
+gnl
+lexer
+main.c
+parser
+prompt
+read_line.c
+signals
+utils
+/bin/bash: line 24: cd: too many arguments
+/home/anegorov

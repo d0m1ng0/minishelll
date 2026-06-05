@@ -6,7 +6,7 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 09:33:49 by anegorov          #+#    #+#             */
-/*   Updated: 2026/05/28 10:46:45 by anegorov         ###   ########.fr       */
+/*   Updated: 2026/06/05 16:01:17 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	is_numeric(char *str)
 	i = 0;
 	if (!str || !str[0])
 		return (0);
-	if (str[0] == '-' || str[0] == '-')
+	if (str[0] == '-' || str[0] == '+')
 		i++;
 	if (!str[i])
 		return (0);
