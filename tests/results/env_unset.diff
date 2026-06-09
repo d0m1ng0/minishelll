@@ -1,22 +1,24 @@
---- tests/results/env_unset_bash.out	2026-06-05 17:37:54.457526377 +0200
-+++ tests/results/env_unset_mine.out	2026-06-05 17:37:54.460526259 +0200
-@@ -1,13 +1,12 @@
+--- tests/results/env_unset_bash.out	2026-06-09 12:35:08.948815384 +0200
++++ tests/results/env_unset_mine.out	2026-06-09 12:35:08.952815237 +0200
+@@ -1,15 +1,14 @@
  42
 -
 +42
  SHELL=/bin/bash
- SESSION_MANAGER=local/unix:@/tmp/.ICE-unix/98820,unix/unix:/tmp/.ICE-unix/98820
+ SESSION_MANAGER=local/unix:@/tmp/.ICE-unix/437396,unix/unix:/tmp/.ICE-unix/437396
  COLORTERM=truecolor
  HISTCONTROL=ignoredups
 -XDG_MENU_PREFIX=gnome-
+ TERM_PROGRAM_VERSION=1.123.0
+ COPILOT_DEBUG_NONCE=9db99986ff5a79639203730c99c1565f
  PTYXIS_PROFILE=9c2f61df4a0442ae3eda73ad69c25d0c
 -HISTSIZE=1000
- HOSTNAME=f4r7s14.paris.42.school
+ HOSTNAME=f4r7s12.paris.42.school
 +HISTSIZE=1000
  KPROXY_URL=https://kproxy.fr-par-2.42.school:8445
  SSH_AUTH_SOCK=/run/user/44519380/keyring/ssh
  MEMORY_PRESSURE_WRITE=c29tZSAyMDAwMDAgMjAwMDAwMAA=
-@@ -16,10 +15,10 @@
+@@ -19,10 +18,10 @@
  FT_MAIL=anegorov@learner.42.tech
  GPG_TTY=not a tty
  EDITOR=/usr/bin/nano
@@ -27,21 +29,21 @@
  XDG_SESSION_DESKTOP=gnome
 +LOGNAME=anegorov
  XDG_SESSION_TYPE=wayland
- SYSTEMD_EXEC_PID=99753
- XAUTHORITY=/run/user/44519380/.mutter-Xwaylandauth.LHKYQ3
-@@ -42,7 +41,7 @@
- LESSOPEN=||/usr/bin/lesspipe.sh %s
+ SYSTEMD_EXEC_PID=438364
+ XAUTHORITY=/run/user/44519380/.mutter-Xwaylandauth.55FUQ3
+@@ -52,7 +51,7 @@
  USER=anegorov
+ VSCODE_GIT_IPC_HANDLE=/run/user/44519380/vscode-git-bdd126b2fc.sock
  DISPLAY=:0
--SHLVL=4
-+SHLVL=3
+-SHLVL=8
++SHLVL=7
  QT_IM_MODULE=ibus
+ FC_FONTATIONS=1
  XDG_RUNTIME_DIR=/run/user/44519380
- DEBUGINFOD_URLS=https://debuginfod.fedoraproject.org/ 
-@@ -58,4 +57,5 @@
- PTYXIS_VERSION=48.5
+@@ -72,4 +71,5 @@
  FLATPAK_TTY_PROGRESS=1
  OLDPWD=/home/anegorov
+ TERM_PROGRAM=vscode
 -_=/usr/bin/env
 +_=./minishell
 +X=42

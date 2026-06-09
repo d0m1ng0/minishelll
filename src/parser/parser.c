@@ -6,7 +6,7 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 16:01:22 by anegorov          #+#    #+#             */
-/*   Updated: 2026/05/30 18:04:49 by anegorov         ###   ########.fr       */
+/*   Updated: 2026/06/09 15:38:03 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ static t_cmd	*create_cmd(void)
 	cmd->append = 0;
 	cmd->next = NULL;
 	cmd->heredoc_delimiter = NULL;
+	cmd->heredoc_fd = -1;
+	cmd->redirs = NULL;
 	return (cmd);
 }
 
@@ -58,15 +60,17 @@ static int	add_token_to_cmd(t_cmd *cmd, t_token *token)
 {
 	if (token->type == TOKEN_WORD)
 		return (add_word_to_cmd(cmd, token->value));
-	else if (token->type == TOKEN_REDIR_IN)
-		return (handle_redir_in(cmd, token));
-	else if (token->type == TOKEN_REDIR_OUT)
-		return (handle_redir_out(cmd, token));
-	else if (token->type == TOKEN_APPEND)
-		return (handle_redir_append(cmd, token));
-	else if (token->type == TOKEN_HEREDOC)
-		return (handle_heredoc(cmd, token));
-	ft_putstr_fd("Syntax error: unexpected token type\n", 2);
+	// else if (token->type == TOKEN_REDIR_IN)
+	// 	return (handle_redir_in(cmd, token));
+	// else if (token->type == TOKEN_REDIR_OUT)
+	// 	return (handle_redir_out(cmd, token));
+	// else if (token->type == TOKEN_APPEND)
+	// 	return (handle_redir_append(cmd, token));
+	// else if (token->type == TOKEN_HEREDOC)
+	// 	return (handle_heredoc(cmd, token));
+	else
+		return (add_redir_from_token(cmd, token));
+	// ft_putstr_fd("Syntax error: unexpected token type\n", 2);
 	return (1);
 }
 //void	print_error(char *cmd, char *arg, char *msg)
@@ -105,6 +109,12 @@ t_cmd	*parser(t_token *tokens)
 		{
 			if (add_token_to_cmd(current, tokens))
 				return (free_cmds(cmd), NULL);
+			// t_redir	*tmp = cmd->redirs;
+			// while (tmp)
+			// {
+			// 	printf("REDIR: %s Type: %d\n", tmp->file, tmp->type);
+			// 	tmp = tmp->next;
+			// }
 			if (tokens->type != TOKEN_WORD)
 				tokens = tokens->next;
 		}

@@ -18,32 +18,31 @@ run_tests.sh
 src
 tests
 test.txt
-total 337
-drwxr-xr-x. 13 anegorov anegorov     26 Jun  5 17:37 .
+total 202
+drwxr-xr-x. 13 anegorov anegorov     25 Jun  9 12:35 .
 drwx------. 13 anegorov anegorov     13 May 29 19:46 ..
 -rw-r--r--.  1 anegorov anegorov      0 Jun  5 15:29 a.out
 -rwxr-xr-x.  1 anegorov anegorov    952 May 30 19:35 build.sh
 -rw-r--r--.  1 anegorov anegorov      6 Jun  5 14:21 file
--rw-r--r--.  1 anegorov anegorov      6 Jun  5 17:33 file1
-drwxr-xr-x.  2 anegorov anegorov     18 Jun  5 17:33 file_to_test
+-rw-r--r--.  1 anegorov anegorov      6 Jun  9 12:33 file1
+drwxr-xr-x.  2 anegorov anegorov     18 Jun  9 12:33 file_to_test
 drwxr-xr-x.  2 anegorov anegorov     21 May 27 13:02 ft_printf
-drwxr-xr-x.  8 anegorov anegorov     16 Jun  3 15:16 .git
+drwxr-xr-x.  8 anegorov anegorov     16 Jun  5 17:43 .git
 -rw-r--r--.  1 anegorov anegorov     61 Jun  5 14:02 .gitignore
-drwxr-xr-x.  2 anegorov anegorov     15 Jun  3 13:22 include
+drwxr-xr-x.  2 anegorov anegorov     16 Jun  9 10:58 include
 drwxr-xr-x.  2 anegorov anegorov      3 May 27 12:20 includes
 drwxr-xr-x.  2 anegorov anegorov     48 May 27 12:20 libft
 -rw-r--r--.  1 anegorov anegorov  52742 May 17 20:19 libft.a
 -rw-r--r--.  1 anegorov anegorov   2239 Jun  5 16:54 Makefile
--rwxr-xr-x.  1 anegorov anegorov 248592 Jun  5 17:37 minishell
-drwxr-xr-x.  6 anegorov anegorov     20 Jun  5 16:01 minishell_tester
--rwxr-xr-x.  1 anegorov anegorov 235832 Jun  5 15:27 .nfs00000000017c491300000002
-drwxr-xr-x. 12 anegorov anegorov     14 Jun  5 17:33 obj
--rw-r--r--.  1 anegorov anegorov     10 Jun  5 17:33 out.txt
+-rwxr-xr-x.  1 anegorov anegorov 248080 Jun  9 12:35 minishell
+drwxr-xr-x.  6 anegorov anegorov     20 Jun  9 12:29 minishell_tester
+drwxr-xr-x. 12 anegorov anegorov     14 Jun  9 12:35 obj
+-rw-r--r--.  1 anegorov anegorov     10 Jun  9 12:33 out.txt
 -rw-r--r--.  1 anegorov anegorov     97 May 16 15:06 README.md
 -rwxr-xr-x.  1 anegorov anegorov   1098 May 29 19:59 run_tests.sh
 drwxr-xr-x. 14 anegorov anegorov     16 Jun  3 13:22 src
 drwxr-xr-x.  4 anegorov anegorov     20 Jun  5 16:02 tests
 -rw-r--r--.  1 anegorov anegorov     14 Jun  3 14:35 test.txt
 drwxr-xr-x.  2 anegorov anegorov      4 May 22 17:25 .vscode
-/usr/lib64/ccache:/usr/local/bin:/usr/bin
+/home/anegorov/.config/Code/User/globalStorage/github.copilot-chat/debugCommand:/home/anegorov/.config/Code/User/globalStorage/github.copilot-chat/copilotCli:/usr/lib64/ccache:/usr/local/bin:/usr/bin
      20      20     170

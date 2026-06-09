@@ -6,7 +6,7 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 09:33:49 by anegorov          #+#    #+#             */
-/*   Updated: 2026/06/05 16:01:17 by anegorov         ###   ########.fr       */
+/*   Updated: 2026/06/09 11:29:03 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,14 +68,18 @@ int	builtin_exit(char **argv, t_shell *shell)
 	if (!is_numeric(argv[1]))
 	{
 		print_error("exit", argv[1], "numeric argument required");
+		shell->should_exit = 1;
+		shell->exit_status = 2;
 		return (2);
 	}
 	if (argv[2])
 	{
 		print_error("exit", NULL, "too many arguments");
+		shell->exit_status = 1;
 		return (1);
 	}
 	shell->should_exit = 1;
 	code = ft_atoll(argv[1]);
+	shell->exit_status = (unsigned char)code;
 	return ((unsigned char)code);
 }

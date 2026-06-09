@@ -6,7 +6,7 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/29 14:42:39 by anegorov          #+#    #+#             */
-/*   Updated: 2026/06/03 12:50:46 by anegorov         ###   ########.fr       */
+/*   Updated: 2026/06/09 16:12:36 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,8 @@ int	expand_wildcards(t_cmd *cmd)
 {
 	int	i;
 	int	status;
+	t_wc	wc;
+	t_redir	*r;
 
 	while (cmd)
 	{
@@ -104,6 +106,29 @@ int	expand_wildcards(t_cmd *cmd)
 					continue ;
 			}
 			remove_quotes_arg(&cmd->argv[i++]);
+		}
+		r = cmd->redirs;
+		while (r)
+		{
+			if (r->file && has_wildcard(r->file))
+			{
+				wc = expand_wildcard(r->file);
+				if (wc.status == 2)
+					return (1);
+				// // ❗ bash rule: ambiguous redirect
+				// if (!wc.matches || !wc.matches[0] || wc.matches[1])
+				// {
+				// 	// print_error("minishell", r->file, "ambiguous redirect");
+				// 	free_split(wc.matches);
+				// 	return (1);
+				// }
+				free(r->file);
+				r->file = ft_strdup(wc.matches[0]);
+				free_split(wc.matches);
+			}
+			if (r->file)
+				remove_quotes_arg(&r->file);
+			r = r->next;
 		}
 		cmd = cmd->next;
 	}

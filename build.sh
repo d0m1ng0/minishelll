@@ -25,6 +25,7 @@ src/lexer
 src/parser
 src/main.c
 src/core
+src/executor/executor_*.c
 include
 "
 

@@ -6,7 +6,7 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/21 13:13:53 by anegorov          #+#    #+#             */
-/*   Updated: 2026/06/05 13:56:31 by anegorov         ###   ########.fr       */
+/*   Updated: 2026/06/09 16:12:05 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ static int	process_arg(char **arg, t_shell *shell)
 int	expand_var(t_cmd *cmd, t_shell *shell)
 {
 	size_t		i;
+	t_redir		*r;
 
 	while (cmd)
 	{
@@ -104,6 +105,16 @@ int	expand_var(t_cmd *cmd, t_shell *shell)
 			if (process_arg(&cmd->argv[i], shell))
 				return (1);
 			i++;
+		}
+		r = cmd->redirs;
+		while (r)
+		{
+			if (r->file)
+			{
+				if (process_arg(&r->file, shell))
+					return (1);
+			}
+			r = r->next;
 		}
 		remove_empty_args(cmd->argv);
 		cmd = cmd->next;

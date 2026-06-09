@@ -6,7 +6,7 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/21 12:12:24 by anegorov          #+#    #+#             */
-/*   Updated: 2026/06/05 14:39:19 by anegorov         ###   ########.fr       */
+/*   Updated: 2026/06/09 11:04:37 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ int	builtin_echo(char **argv)
 	}
 	while (argv[i])
 	{
-		printf("%s", argv[i]);
+		ft_printf("%s", argv[i]);
 		if (argv[i + 1])
-			printf(" ");
+			ft_printf(" ");
 		i++;
 	}
 	if (newline)
-		printf("\n");
+		ft_printf("\n");
 	return (0);
 }
 
@@ -43,9 +43,9 @@ int	builtin_pwd(t_shell *shell)
 
 	pwd = get_env_value(shell->env, "PWD");
 	if (getcwd(buf, sizeof(buf)))
-		printf("%s\n", buf);
+		ft_printf("%s\n", buf);
 	else if (pwd)
-		printf("%s\n", pwd);
+		ft_printf("%s\n", pwd);
 	else
 		return (print_error("pwd", NULL, strerror(errno)), 1);
 	return (0);
@@ -87,7 +87,7 @@ int	builtin_env(t_env *env)
 	while (env)
 	{
 		if (env->exported == 1 && env->key && env->value)
-			printf("%s=%s\n", env->key, env->value);
+			ft_printf("%s=%s\n", env->key, env->value);
 		env = env->next;
 	}
 	return (0);

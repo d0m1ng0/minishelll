@@ -1,5 +1,5 @@
---- tests/results/builtins_bash.out	2026-06-05 17:37:54.402528527 +0200
-+++ tests/results/builtins_mine.out	2026-06-05 17:37:54.405528410 +0200
+--- tests/results/builtins_bash.out	2026-06-09 12:35:08.871818216 +0200
++++ tests/results/builtins_mine.out	2026-06-09 12:35:08.881817849 +0200
 @@ -21,9 +21,9 @@
  0HELLO
  /sgoinfre/goinfre/Perso/anegorov/minishell_common

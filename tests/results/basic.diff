@@ -1,20 +1,33 @@
---- tests/results/basic_bash.out	2026-06-05 17:37:54.369529818 +0200
-+++ tests/results/basic_mine.out	2026-06-05 17:37:54.394528840 +0200
-@@ -35,8 +35,8 @@
-  130646 pts/2    00:00:00 as
-  158527 pts/0    00:00:00 minishell
-  158529 pts/0    00:00:00 run_tests.sh
-- 158532 pts/0    00:00:00 bash
-- 158542 pts/0    00:00:00 ps
-+ 158544 pts/0    00:00:00 minishell
-+ 158554 pts/0    00:00:00 ps
- -     hello
- builtin
- cleanup
-@@ -52,5 +52,5 @@
- read_line.c
- signals
- utils
+--- tests/results/basic_bash.out	2026-06-09 12:35:08.722823697 +0200
++++ tests/results/basic_mine.out	2026-06-09 12:35:08.735823219 +0200
+@@ -23,30 +23,3 @@
+ sgoinfre-1.paris.42.school:/ 20566289408 9617319936 10948969472  47% /sgoinfre
+ /dev/sda                         4876288    3212508     1663780  66% /home/anegorov
+ 0
+-0
+-hi
+-    PID TTY          TIME CMD
+- 437333 tty2     00:00:00 gnome-session-b
+- 453164 pts/2    00:00:00 bash
+- 456530 pts/2    00:00:00 bash
+- 459781 pts/2    00:00:00 bash
+- 493727 pts/2    00:00:00 run_tests.sh
+- 493730 pts/2    00:00:00 bash
+- 493740 pts/2    00:00:00 ps
+--     hello
+-builtin
+-cleanup
+-core
+-env
+-executor
+-expander
+-gnl
+-lexer
+-main.c
+-parser
+-prompt
+-read_line.c
+-signals
+-utils
 -/bin/bash: line 24: cd: too many arguments
-+minishell: cd: too many arguments
- /home/anegorov
+-/home/anegorov

@@ -1,5 +1,5 @@
---- tests/results/pipelines_bash.out	2026-06-05 17:37:54.532523444 +0200
-+++ tests/results/pipelines_mine.out	2026-06-05 17:37:54.541523092 +0200
+--- tests/results/pipelines_bash.out	2026-06-09 12:35:09.031812331 +0200
++++ tests/results/pipelines_mine.out	2026-06-09 12:35:09.040812000 +0200
 @@ -1,8 +1,6 @@
  hello$
       20      20     170

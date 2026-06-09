@@ -6,7 +6,7 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/17 15:16:35 by anegorov          #+#    #+#             */
-/*   Updated: 2026/05/30 21:45:41 by anegorov         ###   ########.fr       */
+/*   Updated: 2026/06/09 10:58:52 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include "env.h"
 # include <errno.h>
 # include <string.h>
+# include <ft_printf.h>
 
 typedef struct s_builtin
 {

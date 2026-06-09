@@ -6,7 +6,7 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/21 10:08:07 by anegorov          #+#    #+#             */
-/*   Updated: 2026/05/28 12:57:31 by anegorov         ###   ########.fr       */
+/*   Updated: 2026/06/09 10:52:50 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,9 @@ int	print_export(t_env *env)
 		if (arr[i]->exported)
 		{
 			if (arr[i]->value)
-				printf("declare -x %s=\"%s\"\n", arr[i]->key, arr[i]->value);
+				ft_printf("declare -x %s=\"%s\"\n", arr[i]->key, arr[i]->value);
 			else
-				printf("declare -x %s\n", arr[i]->key);
+				ft_printf("declare -x %s\n", arr[i]->key);
 		}
 		i++;
 	}

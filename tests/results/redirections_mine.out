@@ -1,5 +1,5 @@
 hello
-cat: file1: No such file or directory
+hello
 world
-cat: file1: No such file or directory
-rm: cannot remove 'file1': No such file or directory
+hello
+world

@@ -6,7 +6,7 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 16:46:04 by dverdini          #+#    #+#             */
-/*   Updated: 2026/06/05 16:55:52 by anegorov         ###   ########.fr       */
+/*   Updated: 2026/06/09 12:52:56 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,7 @@ int	ms_run_heredoc(t_cmd *cmd);
 
 void	executor(t_cmd *cmd, t_shell *shell);
 void	executor_single(t_cmd *cmd, t_shell *shell, t_env **env);
+void	handle_status(t_shell *shell, int status);
+void	handle_status(t_shell *shell, int status);
 
 #endif

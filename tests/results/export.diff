@@ -1,36 +1,36 @@
---- tests/results/export_bash.out	2026-06-05 17:37:54.468525947 +0200
-+++ tests/results/export_mine.out	2026-06-05 17:37:54.472525790 +0200
-@@ -50,7 +50,7 @@
+--- tests/results/export_bash.out	2026-06-09 12:35:08.960814943 +0200
++++ tests/results/export_mine.out	2026-06-09 12:35:08.969814612 +0200
+@@ -56,7 +56,7 @@
  declare -x QT_IM_MODULE="ibus"
- declare -x SESSION_MANAGER="local/unix:@/tmp/.ICE-unix/98820,unix/unix:/tmp/.ICE-unix/98820"
+ declare -x SESSION_MANAGER="local/unix:@/tmp/.ICE-unix/437396,unix/unix:/tmp/.ICE-unix/437396"
  declare -x SHELL="/bin/bash"
--declare -x SHLVL="4"
-+declare -x SHLVL="3"
+-declare -x SHLVL="8"
++declare -x SHLVL="7"
  declare -x SSH_AUTH_SOCK="/run/user/44519380/keyring/ssh"
- declare -x SYSTEMD_EXEC_PID="99753"
+ declare -x SYSTEMD_EXEC_PID="438364"
  declare -x TERM="xterm-256color"
-@@ -68,6 +68,7 @@
+@@ -81,6 +81,7 @@
  declare -x XDG_SESSION_DESKTOP="gnome"
  declare -x XDG_SESSION_TYPE="wayland"
  declare -x XMODIFIERS="@im=ibus"
 +declare -x _="./minishell"
+ declare -x a=""
  declare -x A="hello"
  declare -x B="hello world"
- declare -x C="hello world"
-@@ -115,7 +116,7 @@
+@@ -135,7 +136,7 @@
  declare -x R
- declare -x SESSION_MANAGER="local/unix:@/tmp/.ICE-unix/98820,unix/unix:/tmp/.ICE-unix/98820"
+ declare -x SESSION_MANAGER="local/unix:@/tmp/.ICE-unix/437396,unix/unix:/tmp/.ICE-unix/437396"
  declare -x SHELL="/bin/bash"
--declare -x SHLVL="4"
-+declare -x SHLVL="3"
+-declare -x SHLVL="8"
++declare -x SHLVL="7"
  declare -x SSH_AUTH_SOCK="/run/user/44519380/keyring/ssh"
- declare -x SYSTEMD_EXEC_PID="99753"
+ declare -x SYSTEMD_EXEC_PID="438364"
  declare -x TERM="xterm-256color"
-@@ -133,6 +134,7 @@
+@@ -160,6 +161,7 @@
  declare -x XDG_SESSION_DESKTOP="gnome"
  declare -x XDG_SESSION_TYPE="wayland"
  declare -x XMODIFIERS="@im=ibus"
 +declare -x _="./minishell"
- /sgoinfre/goinfre/Perso/anegorov/minishell_common
+ declare -x a=""
  /sgoinfre/goinfre/Perso/anegorov/minishell_common
  /sgoinfre/goinfre/Perso/anegorov/minishell_common
