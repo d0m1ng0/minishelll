@@ -6,51 +6,24 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/05 16:53:42 by anegorov          #+#    #+#             */
-/*   Updated: 2026/06/09 16:38:05 by anegorov         ###   ########.fr       */
+/*   Updated: 2026/06/11 00:00:00 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executor.h"
 
-void	handle_builtin(t_cmd *cmd, t_shell *shell, t_env **env)
+static int	open_redirect(t_redir *r)
 {
-	int	status;
-
-	status = run_builtin(cmd, env, shell);
-	if (status == -1)
-	{
-		shell->exit_status = 1;
-		perror("minishell");
-		exit(1);
-	}
-	shell->exit_status = status;
-	return ;
+	if (r->type == TOKEN_REDIR_IN)
+		return (open(r->file, O_RDONLY));
+	if (r->type == TOKEN_REDIR_OUT)
+		return (open(r->file, O_WRONLY | O_CREAT | O_TRUNC, 0644));
+	if (r->type == TOKEN_APPEND)
+		return (open(r->file, O_WRONLY | O_CREAT | O_APPEND, 0644));
+	return (-1);
 }
 
-static void	exec_child(t_cmd *cmd, char **envp)
-{
-	char	*path;
-
-	path = ms_find_cmd_path(cmd->argv[0], envp);
-	if (!path)
-	{
-		perror("command not found");
-		exit(127);
-	}
-	execve(path, cmd->argv, envp);
-	perror("execve");
-	exit(127);
-}
-
-void	handle_status(t_shell *shell, int status)
-{
-	if (WIFEXITED(status))
-		shell->exit_status = WEXITSTATUS(status);
-	else if (WIFSIGNALED(status))
-		shell->exit_status = 128 + WTERMSIG(status);
-}
-
-int apply_redirections(t_cmd *cmd)
+int	apply_redirections(t_cmd *cmd)
 {
 	t_redir	*r;
 	int		fd;
@@ -58,85 +31,93 @@ int apply_redirections(t_cmd *cmd)
 	r = cmd->redirs;
 	while (r)
 	{
-		fd = -1;
-		// printf("file: %s type(%d)\n", r->file, r->type);
-		if (r->type == TOKEN_REDIR_IN)
-			fd = open(r->file, O_RDONLY);
-		else if (r->type == TOKEN_REDIR_OUT)
-			fd = open(r->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-		else if (r->type == TOKEN_APPEND)
-			fd = open(r->file, O_WRONLY | O_CREAT | O_APPEND, 0644);
-		// else if (r->type == TOKEN_HEREDOC)
-		//     fd = ms_run_heredoc(r);
-		if (fd == -1)
-		{
-			print_error(NULL, r->file, strerror(errno));
-			return (1);
-		}
+		if (r->type == TOKEN_HEREDOC)
+			fd = cmd->heredoc_fd;
 		else
-		{
-			if (r->type == TOKEN_REDIR_IN || r->type == TOKEN_HEREDOC)
-				dup2(fd, STDIN_FILENO);
-			else
-				dup2(fd, STDOUT_FILENO);
+			fd = open_redirect(r);
+		if (fd == -1)
+			return (print_error(NULL, r->file, strerror(errno)), 1);
+		if (r->type == TOKEN_REDIR_IN || r->type == TOKEN_HEREDOC)
+			dup2(fd, STDIN_FILENO);
+		else
+			dup2(fd, STDOUT_FILENO);
+		if (r->type != TOKEN_HEREDOC)
 			close(fd);
-		}
 		r = r->next;
 	}
 	return (0);
 }
 
-void executor_single(t_cmd *cmd, t_shell *shell, t_env **env)
+static void	handle_builtin_with_redirs(t_cmd *cmd, t_shell *shell, t_env **env)
 {
-    char **envp;
-    pid_t pid;
-    int status;
+	int	saved_in;
+	int	saved_out;
+	int	ret;
 
-	if (!cmd || !cmd->argv || !cmd->argv[0])
-		return;
+	saved_in = dup(STDIN_FILENO);
+	saved_out = dup(STDOUT_FILENO);
+	if (apply_redirections(cmd))
+	{
+		shell->exit_status = 1;
+		dup2(saved_in, STDIN_FILENO);
+		dup2(saved_out, STDOUT_FILENO);
+		close(saved_in);
+		close(saved_out);
+		return ;
+	}
+	ret = run_builtin(cmd, env, shell);
+	dup2(saved_in, STDIN_FILENO);
+	dup2(saved_out, STDOUT_FILENO);
+	close(saved_in);
+	close(saved_out);
+	shell->exit_status = ret;
+}
+
+static void	exec_in_fork(t_cmd *cmd, t_shell *shell, t_env **env)
+{
+	char	**envp;
+	pid_t	pid;
+	int		status;
+
 	pid = fork();
 	if (pid == 0)
 	{
-		if(apply_redirections(cmd) == 1)
-		{
-			// shell->exit_status = 1;
-			exit(1) ;
-		}
-		if (is_builtin(cmd->argv[0]))
-		{
-			shell->exit_status = run_builtin(cmd, env, shell);
-			exit(shell->exit_status);
-		}
+		if (apply_redirections(cmd))
+			exit(1);
 		envp = env_to_envp(*env);
 		if (!envp)
 			exit(1);
 		exec_child(cmd, envp);
 	}
 	waitpid(pid, &status, 0);
-	handle_status(shell, status);
+	if (WIFEXITED(status))
+		shell->exit_status = WEXITSTATUS(status);
+	else if (WIFSIGNALED(status))
+		shell->exit_status = 128 + WTERMSIG(status);
 }
 
-// void	executor_single(t_cmd *cmd, t_shell *shell, t_env **env)
-// {
-// 	char	**envp;
-// 	pid_t	pid;
-// 	int		status;
+void	executor_single(t_cmd *cmd, t_shell *shell, t_env **env)
+{
+	int	sv_in;
+	int	sv_out;
 
-// 	if (!cmd || !cmd->argv || !cmd->argv[0])
-// 		return ;
-// 	if (is_builtin(cmd->argv[0]))
-// 		return (handle_builtin(cmd, shell, env));
-// 	envp = env_to_envp(*env);
-// 	if (!envp)
-// 	{
-// 		shell->error_fatal = 1;
-// 		perror("minishell");
-// 		return ;//exit(1);
-// 	}
-// 	pid = fork();
-// 	if (pid == 0)
-// 		exec_child(cmd, envp);
-// 	waitpid(pid, &status, 0);
-// 	handle_status(shell, status);
-// 	free_envp(envp);
-// }
+	if (!cmd)
+		return ;
+	if (!cmd->argv || !cmd->argv[0])
+	{
+		if (!cmd->redirs)
+			return ;
+		sv_in = dup(STDIN_FILENO);
+		sv_out = dup(STDOUT_FILENO);
+		if (apply_redirections(cmd))
+			shell->exit_status = 1;
+		dup2(sv_in, STDIN_FILENO);
+		dup2(sv_out, STDOUT_FILENO);
+		close(sv_in);
+		close(sv_out);
+		return ;
+	}
+	if (is_builtin(cmd->argv[0]))
+		return (handle_builtin_with_redirs(cmd, shell, env));
+	exec_in_fork(cmd, shell, env);
+}

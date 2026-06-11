@@ -42,6 +42,8 @@ int	is_var_valid(char *s)
 			return (0);
 		i++;
 	}
+	if (i == 0)
+		return (0);
 	return (1);
 }
 
@@ -86,7 +88,10 @@ void	env_init(t_env **env, char **envp)
 		new_env = env_new(envp[i]);
 		if (!new_env)
 			return (env_clear(env));
-		new_env->exported = 1;
+		if (ft_strncmp(new_env->key, "_", 2) == 0)
+			new_env->exported = 0;
+		else
+			new_env->exported = 1;
 		env_add_back(env, new_env);
 		i++;
 	}

@@ -1,6 +1,14 @@
+minishell> export MY_VAR=78
+minishell> echo $MY_VAR
 78
+minishell> echo "* * * *"
 * * * *
+minishell> echo ""
 
+minishell> echo ''
 
+minishell> echo $?
 0
+minishell> echo $NOT_EXIST
 
+minishell> 

@@ -1,8 +1,8 @@
 hello world
 hello world
 hello world
-/home/anegorov
-/home/anegorov
+/home/runner
+/home/runner
 $HOME
 abcd
 abcdef
@@ -17,9 +17,9 @@ hello world
 3. single quotes
 hello world
 4. $ expansion
-/home/anegorov
+/home/runner
 5. double quotes + $
-/home/anegorov
+/home/runner
 6. single quotes + $ (MUST NOT EXPAND)
 $HOME
 7. mixed quotes
@@ -30,6 +30,6 @@ abcdef
 
 9. tricky $ inside text
 a
-aanegorovb
+ab
 10. literal dollar
 $

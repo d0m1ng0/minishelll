@@ -5,12 +5,12 @@
    
 $ $ $ $ $
 0
-anegorovabc
-abcanegorov
-a'anegorov'b
+abc
+abc
+a''b
 a"$USER"b
 
 $NONEXISTENT
-anegorov  anegorov
+ 
 a*b
-anegorovtext0
+text0

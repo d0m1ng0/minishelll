@@ -1,6 +1,22 @@
+minishell> echo hello | cat -e
 hello$
-     20      20     170
+minishell> ls | wc
+     19      19     193
+minishell> echo a b c | tr ' ' '\n' | wc -l
 3
-hello$
-      6      28     103
-
+minishell> echo hello > file1 | cat -e
+minishell> cat < file1 | wc
+      1       1       6
+minishell> export A="a b"
+minishell> echo $A | cat -e
+a b$
+minishell> 
+minishell> echo "a"*.c | wc -l
+1
+minishell> 
+minishell> ls | grep .c | wc -l
+4
+minishell> echo $USER | cat -e > out.txt
+minishell> cat < out.txt | wc
+      1       1       2
+minishell> 

@@ -63,6 +63,8 @@ void	remove_empty_args(char **argv)
 	int	i;
 	int	j;
 
+	if (!argv)
+		return ;
 	i = 0;
 	j = 0;
 	while (argv[i])

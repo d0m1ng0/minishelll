@@ -12,18 +12,18 @@
 
 #include "expander.h"
 
-static DIR	*open_wc_dir(t_wc *res)
-{
-	DIR	*dir;
+// static DIR	*open_wc_dir(t_wc *res)
+// {
+// 	DIR	*dir;
 
-	dir = opendir(".");
-	if (!dir)
-	{
-		perror("minishell: wildcard");
-		res->status = 2;
-	}
-	return (dir);
-}
+// 	dir = opendir(".");
+// 	if (!dir)
+// 	{
+// 		perror("minishell: wildcard");
+// 		res->status = 2;
+// 	}
+// 	return (dir);
+// }
 
 static int	handle_entry(t_wc *res, struct dirent *entry, char *pattern)
 {
@@ -37,6 +37,8 @@ static int	handle_entry(t_wc *res, struct dirent *entry, char *pattern)
 	return (0);
 }
 
+// dir = open_wc_dir(&res);
+
 t_wc	expand_wildcard(char *pattern)
 {
 	t_wc			res;
@@ -48,9 +50,10 @@ t_wc	expand_wildcard(char *pattern)
 	clean = strip_pattern(pattern);
 	if (!clean)
 		return (res.status = 2, res);
-	dir = open_wc_dir(&res);
+	dir = opendir(".");
 	if (!dir)
-		return (free(clean), res);
+		return (res.status = 2, perror("minishell: wildcard"),
+			free(clean), res);
 	entry = readdir(dir);
 	while (entry)
 	{
@@ -85,12 +88,39 @@ static int	process_wildcard(t_cmd *cmd, int *i)
 	return (0);
 }
 
+static int	handle_redirs(t_cmd *cmd)
+{
+	t_redir	*r;
+	t_wc	wc;
+
+	r = cmd->redirs;
+	while (r)
+	{
+		if (r->file && has_wildcard(r->file))
+		{
+			wc = expand_wildcard(r->file);
+			if (wc.status == 2)
+				return (1);
+			if (!wc.matches || !wc.matches[0])
+				free_split(wc.matches);
+			else
+			{
+				free(r->file);
+				r->file = ft_strdup(wc.matches[0]);
+				free_split(wc.matches);
+			}
+		}
+		if (r->file)
+			remove_quotes_arg(&r->file);
+		r = r->next;
+	}
+	return (0);
+}
+
 int	expand_wildcards(t_cmd *cmd)
 {
-	int	i;
-	int	status;
-	t_wc	wc;
-	t_redir	*r;
+	int		i;
+	int		status;
 
 	while (cmd)
 	{
@@ -107,29 +137,8 @@ int	expand_wildcards(t_cmd *cmd)
 			}
 			remove_quotes_arg(&cmd->argv[i++]);
 		}
-		r = cmd->redirs;
-		while (r)
-		{
-			if (r->file && has_wildcard(r->file))
-			{
-				wc = expand_wildcard(r->file);
-				if (wc.status == 2)
-					return (1);
-				// // ❗ bash rule: ambiguous redirect
-				// if (!wc.matches || !wc.matches[0] || wc.matches[1])
-				// {
-				// 	// print_error("minishell", r->file, "ambiguous redirect");
-				// 	free_split(wc.matches);
-				// 	return (1);
-				// }
-				free(r->file);
-				r->file = ft_strdup(wc.matches[0]);
-				free_split(wc.matches);
-			}
-			if (r->file)
-				remove_quotes_arg(&r->file);
-			r = r->next;
-		}
+		if (handle_redirs(cmd))
+			return (1);
 		cmd = cmd->next;
 	}
 	return (0);

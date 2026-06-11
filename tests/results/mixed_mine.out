@@ -1,5 +1,12 @@
+minishell> export A=c
+minishell> echo *.$A
 *.c
+minishell> echo "*.$A"
 *.c
+minishell> echo '*.$A'
 *.$A
+minishell> echo $A*.c
 c*.c
+minishell> echo "*$A"
 *c
+minishell> 

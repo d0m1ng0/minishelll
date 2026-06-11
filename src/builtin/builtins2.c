@@ -6,100 +6,70 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/21 10:08:07 by anegorov          #+#    #+#             */
-/*   Updated: 2026/06/09 10:52:50 by anegorov         ###   ########.fr       */
+/*   Updated: 2026/06/11 19:27:32 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/builtin.h"
+#include <unistd.h>
 
-static	t_env	**env_to_arr(t_env *env)
+// int	value_needs_dollar_quote(const char *v)
+// {
+// 	while (*v)
+// 	{
+// 		if (*v == '\n' || *v == '\r' || *v == '\t')
+// 			return (1);
+// 		v++;
+// 	}
+// 	return (0);
+// }
+
+static void	write_str(int fd, const char *s, size_t n)
 {
-	size_t	i;
-	size_t	size;
-	t_env	**arr;
+	ssize_t	r;
 
-	size = env_size(env);
-	arr = (t_env **)malloc(sizeof(t_env *) * (size + 1));
-	if (!arr)
-		return (NULL);
-	i = 0;
-	while (env)
-	{
-		arr[i++] = env;
-		env = env->next;
-	}
-	arr[i] = NULL;
-	return (arr);
+	r = write(fd, s, n);
+	(void)r;
 }
 
-static void	sort_env_arr(t_env **arr)
+// void	print_dollar_quoted(const char *v)
+// {
+// 	write_str(1, "$'", 2);
+// 	while (*v)
+// 	{
+// 		if (*v == '\\')
+// 			write_str(1, "\\\\", 2);
+// 		else if (*v == '\'')
+// 			write_str(1, "\\'", 2);
+// 		else if (*v == '\n')
+// 			write_str(1, "\\n", 2);
+// 		else if (*v == '\r')
+// 			write_str(1, "\\r", 2);
+// 		else if (*v == '\t')
+// 			write_str(1, "\\t", 2);
+// 		else
+// 			write_str(1, v, 1);
+// 		v++;
+// 	}
+// 	write_str(1, "'", 1);
+// }
+
+void	print_double_quoted(const char *v)
 {
-	size_t	i;
-	size_t	j;
-	size_t	len;
-	int		cmp;
-
-	i = 0;
-	while (arr[i])
+	write_str(1, "\"", 1);
+	while (*v)
 	{
-		j = i + 1;
-		while (arr[j])
-		{
-			len = ft_strlen(arr[i]->key);
-			cmp = ft_strncmp(arr[i]->key, arr[j]->key, len + 1);
-			if (cmp > 0)
-				swap_env(&arr[i], &arr[j]);
-			j++;
-		}
-		i++;
+		if (*v == '\\')
+			write_str(1, "\\\\", 2);
+		else if (*v == '"')
+			write_str(1, "\\\"", 2);
+		else if (*v == '$')
+			write_str(1, "\\$", 2);
+		else
+			write_str(1, v, 1);
+		v++;
 	}
-}
-
-int	print_export(t_env *env)
-{
-	t_env	**arr;
-	size_t	i;
-
-	arr = env_to_arr(env);
-	if (!arr)
-		return (-1);
-	sort_env_arr(arr);
-	i = 0;
-	while (arr[i])
-	{
-		if (arr[i]->exported)
-		{
-			if (arr[i]->value)
-				ft_printf("declare -x %s=\"%s\"\n", arr[i]->key, arr[i]->value);
-			else
-				ft_printf("declare -x %s\n", arr[i]->key);
-		}
-		i++;
-	}
-	free(arr);
-	return (0);
-}
-
-static int	handle_export_arg(t_env **env, char *arg)
-{
-	t_env	*new_env;
-	t_env	*old;
-
-	if (!is_var_valid(arg))
-	{
-		print_error("export", arg, "not a valid identifier");
-		return (1);
-	}
-	new_env = env_new(arg);
-	if (!new_env)
-		return (-1);
-	new_env->exported = 1;
-	old = find_env(*env, new_env->key);
-	if (update_env_value(old, new_env))
-		return (-1);
-	if (!old)
-		env_add_back(env, new_env);
-	return (0);
+	write_str(1, "\"", 1);
 }
 
 int	builtin_export(t_env **env, char **ar)

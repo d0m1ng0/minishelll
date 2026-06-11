@@ -1,0 +1,37 @@
+--- tests/results/edge_bash.out	2026-06-11 07:19:48.941122616 +0000
++++ tests/results/edge_mine.out	2026-06-11 07:19:49.122122616 +0000
+@@ -1,16 +1,33 @@
++minishell> echo "*"
+ *
++minishell> echo "* * *"
+ * * *
++minishell> echo "***"
+ ***
++minishell> echo ""
+ 
++minishell> echo "   "
+    
++minishell> echo "$ $ $ $ $"
+ $ $ $ $ $
++minishell> echo "$?"
+ 0
++minishell> echo "$USER"abc
+ abc
++minishell> echo abc"$USER"
+ abc
++minishell> echo "a'$USER'b"
+ a''b
++minishell> echo 'a"$USER"b'
+ a"$USER"b
++minishell> echo "$NONEXISTENT"
+ 
++minishell> echo '$NONEXISTENT'
+ $NONEXISTENT
++minishell> echo "$USER" "$NONEXISTENT" $USER
+  
++minishell> echo "a"*"b"
+ a*b
++minishell> echo $A"$USER"'text'$?
+ text0
++minishell> 
+\ No newline at end of file

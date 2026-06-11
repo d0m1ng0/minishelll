@@ -4,7 +4,7 @@ hello world
 helloworld
 helloworld
 
-/sgoinfre/goinfre/Perso/anegorov/minishell_common
+/home/runner/workspace/minishell_extracted/minishell
 $PWD
 aspas ->'
 aspas -> ' 
@@ -12,15 +12,15 @@ aspas ->"
 aspas -> " 
 > >> < * ? [ ] | ; [ ] || && ( ) & # $ \ <<
 > >> < * ? [ ] | ; [ ] || && ( ) & # $ \ <<
-exit_code ->0 user ->anegorov home -> /home/anegorov
+exit_code ->0 user -> home -> /home/runner
 exit_code ->$? user ->$USER home -> $HOME
 $
 $
 $
 0
 0HELLO
-/sgoinfre/goinfre/Perso/anegorov/minishell_common
-/sgoinfre/goinfre/Perso/anegorov/minishell_common
+/home/runner/workspace/minishell_extracted/minishell
+/home/runner/workspace/minishell_extracted/minishell
 /bin/bash: line 26: export: `A-': not a valid identifier
 /bin/bash: line 30: export: `HELLO-=123': not a valid identifier
 /bin/bash: line 31: export: `=': not a valid identifier

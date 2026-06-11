@@ -1,0 +1,75 @@
+--- tests/results/echo_bash.out	2026-06-11 07:19:48.574122616 +0000
++++ tests/results/echo_mine.out	2026-06-11 07:19:48.860122616 +0000
+@@ -1,35 +1,71 @@
++minishell> echo hello world
+ hello world
++minishell> echo "hello world"
+ hello world
++minishell> echo 'hello world'
+ hello world
++minishell> echo $HOME
+ /home/runner
++minishell> echo "$HOME"
+ /home/runner
++minishell> echo '$HOME'
+ $HOME
++minishell> echo "ab"cd
+ abcd
++minishell> echo ab"cd"ef
+ abcdef
++minishell> echo "a$b"
+ a
++minishell> echo ""
+ 
++minishell> echo ''
+ 
++minishell> echo "$"
+ $
++minishell> echo '$'echo "1. simple"
+ $echo 1. simple
++minishell> echo hello world
+ hello world
++minishell> echo "2. double quotes"
+ 2. double quotes
++minishell> echo "hello world"
+ hello world
++minishell> echo "3. single quotes"
+ 3. single quotes
++minishell> echo 'hello world'
+ hello world
++minishell> echo "4. $ expansion"
+ 4. $ expansion
++minishell> echo $HOME
+ /home/runner
++minishell> echo "5. double quotes + $"
+ 5. double quotes + $
++minishell> echo "$HOME"
+ /home/runner
++minishell> echo "6. single quotes + $ (MUST NOT EXPAND)"
+ 6. single quotes + $ (MUST NOT EXPAND)
++minishell> echo '$HOME'
+ $HOME
++minishell> echo "7. mixed quotes"
+ 7. mixed quotes
++minishell> echo "ab"cd
+ abcd
++minishell> echo ab"cd"ef
+ abcdef
++minishell> echo "8. empty quotes"
+ 8. empty quotes
++minishell> echo ""
+ 
++minishell> echo ''
+ 
++minishell> echo "9. tricky $ inside text"
+ 9. tricky $ inside text
++minishell> echo "a$b$c"
+ a
++minishell> echo a"$USER"b
+ ab
++minishell> echo "10. literal dollar"
+ 10. literal dollar
++minishell> echo '$'
+ $
++minishell> 
+\ No newline at end of file

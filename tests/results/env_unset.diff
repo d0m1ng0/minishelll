@@ -1,49 +1,113 @@
---- tests/results/env_unset_bash.out	2026-06-09 12:35:08.948815384 +0200
-+++ tests/results/env_unset_mine.out	2026-06-09 12:35:08.952815237 +0200
-@@ -1,15 +1,14 @@
+--- tests/results/env_unset_bash.out	2026-06-11 07:19:49.418122616 +0000
++++ tests/results/env_unset_mine.out	2026-06-11 07:19:49.554122616 +0000
+@@ -1,5 +1,10 @@
++minishell> export X=42
++minishell> echo $X
  42
--
-+42
- SHELL=/bin/bash
- SESSION_MANAGER=local/unix:@/tmp/.ICE-unix/437396,unix/unix:/tmp/.ICE-unix/437396
++minishell> unset X
++minishell> echo $X
+ 
++minishell> env
+ POETRY_PIP_NO_ISOLATE=1
  COLORTERM=truecolor
+ POETRY_PIP_NO_PREFIX=1
+@@ -7,8 +12,8 @@
  HISTCONTROL=ignoredups
--XDG_MENU_PREFIX=gnome-
- TERM_PROGRAM_VERSION=1.123.0
- COPILOT_DEBUG_NONCE=9db99986ff5a79639203730c99c1565f
- PTYXIS_PROFILE=9c2f61df4a0442ae3eda73ad69c25d0c
--HISTSIZE=1000
- HOSTNAME=f4r7s12.paris.42.school
-+HISTSIZE=1000
- KPROXY_URL=https://kproxy.fr-par-2.42.school:8445
- SSH_AUTH_SOCK=/run/user/44519380/keyring/ssh
- MEMORY_PRESSURE_WRITE=c29tZSAyMDAwMDAgMjAwMDAwMAA=
-@@ -19,10 +18,10 @@
- FT_MAIL=anegorov@learner.42.tech
- GPG_TTY=not a tty
- EDITOR=/usr/bin/nano
--KRB5CCNAME=KCM:
- PWD=/sgoinfre/goinfre/Perso/anegorov/minishell_common
--LOGNAME=anegorov
-+KRB5CCNAME=KCM:
- XDG_SESSION_DESKTOP=gnome
-+LOGNAME=anegorov
- XDG_SESSION_TYPE=wayland
- SYSTEMD_EXEC_PID=438364
- XAUTHORITY=/run/user/44519380/.mutter-Xwaylandauth.55FUQ3
-@@ -52,7 +51,7 @@
- USER=anegorov
- VSCODE_GIT_IPC_HANDLE=/run/user/44519380/vscode-git-bdd126b2fc.sock
+ POETRY_PIP_USE_PIP_CACHE=1
+ REPL_OWNER=u1925816327
+-configureFlags=
+ DATABASE_URL=postgresql://postgres:password@helium/heliumdb?sslmode=disable
++configureFlags=
+ NIXPKGS_ALLOW_UNFREE=1
+ mesonFlags=
+ HISTSIZE=10000
+@@ -33,8 +38,8 @@
+ shellHook=
+ NPM_CONFIG_REGISTRY=http://package-firewall.replit.local/npm/
+ GIT_CONFIG_GLOBAL=/run/replit/user/60680000/.config/git/config
+-phases=buildPhase
+ REPLIT_USER=u1925816327
++phases=buildPhase
+ PWD=/home/runner/workspace/minishell_extracted/minishell
+ SOURCE_DATE_EPOCH=315532800
+ NIX_ENFORCE_NO_NATIVE=1
+@@ -47,8 +52,8 @@
+ system=x86_64-linux
+ PIP_CONFIG_FILE=/nix/store/z0d7kvaycmw342xmz4xwwybm6p3p0zcs-pip.conf
+ HOST_PATH=/nix/store/c4ibx1x2y2xn21zij6nnpcmnrclp58wq-ncurses-6.5-dev/bin:/nix/store/4mys0gv17cn0lrdvlhks0zx27854nmkg-ncurses-6.5/bin:/nix/store/1faijjgr6ai43v0mr3k0f8xajp5clh21-readline-8.2p13/bin:/nix/store/cpwib3zazj49fm0y04y53w4xkbqsgrgm-mesa-25.0.7/bin:/nix/store/3r2184gwq0cjmwf9f819xdm2ggqnjijg-libcap-2.75/bin:/nix/store/px08h5pmb6vr98y751ck1gwn0852iqqq-pulseaudio-17.0/bin:/nix/store/mp7ba85zcqdj2sqwa29pql02s6nqpcxy-coreutils-9.7/bin:/nix/store/7fjnb79r7p38piiyn5xwgcj5w7fpfi02-findutils-4.10.0/bin:/nix/store/1pi99mlqimxmqm1jvllbcaj8v16w2nbv-diffutils-3.12/bin:/nix/store/x23s7lcvhf18zz3rj543680jgrj71vil-gnused-4.9/bin:/nix/store/8b4vn1iyn6kqiisjvlmv67d1c0p3j6wj-gnugrep-3.11/bin:/nix/store/n8825s8qprf8p70m0hq6pz7rvlnsxdjm-gawk-5.3.2/bin:/nix/store/7nilh5hvnfbsx3vn020pkjkgx9rgsizb-gnutar-1.35/bin:/nix/store/gqpd9ax2s6jjf7mjyv1q7bwbsycyaxic-gzip-1.14/bin:/nix/store/28z6bx9sg0lsr7wra22pbjsk6fzfphy4-bzip2-1.0.8-bin/bin:/nix/store/8dl5ryfna3hjqhvnkw7srm6wnka6agxl-gnumake-4.4.1/bin:/nix/store/ih68ar79msmj0496pgld4r3vqfr7bbin-bash-5.2p37/bin:/nix/store/kc8h52p4dfgajrg3qlgx246hl0znr213-patch-2.7.6/bin:/nix/store/cmv326slnswzsjm2sqgbz16hzzqvkfjy-xz-5.8.1-bin/bin:/nix/store/v5skl3bspzhm2y13vcxcrw8w29g6phi0-file-5.45/bin
+-doInstallCheck=
+ REPLIT_PYTHON_LD_LIBRARY_PATH=/nix/store/pya3p1ihjm446jpqpql93542cirqyn23-cpplibs/lib:/nix/store/c2qsgf2832zi4n29gfkqgkjpvmbmxam6-zlib-1.3.1/lib:/nix/store/f7rcazhd826xlcz43il4vafv28888cgj-glib-2.86.3/lib:/nix/store/ii3ybky5dqjikcrw7vdnh1j76ssy0ycm-libx11-1.8.12/lib:/nix/store/zshby6nalhw4mvap0rr97hv042808c2k-libxext-1.3.6/lib:/nix/store/0r6d7iw0q9wgxxj28zy87n1gjwvk0klp-libxinerama-1.1.5/lib:/nix/store/bb5xxw11ndww7iivcmdpxga9n1da24vg-libxcursor-1.2.3/lib:/nix/store/dyn0y5clf5b556yqwmj4841h43hz75p6-libxrandr-1.5.4/lib:/nix/store/x1f9a0qsj6a1y5nf178naagm2vbxnazc-libxi-1.8.2/lib:/nix/store/pv432a54y6di3n12iqix2dglkswvq1px-libxxf86vm-1.1.6/lib
++doInstallCheck=
+ REPLIT_PYTHONPATH=/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages:/nix/store/lxnbcmx15m3yascasf4c9qh7zk19pd2b-python3.11-setuptools-80.9.0/lib/python3.11/site-packages
+ HOME=/home/runner
+ NIX_BINTOOLS=/nix/store/2gkh9v7wrzjq6ws312c6z6ajwnjvwcmb-binutils-wrapper-2.44
+@@ -85,8 +90,8 @@
+ NIX_PS1=\[\033[01;34m\]\w\[\033[00m\]\$ 
+ doCheck=
+ REPLIT_RTLD_LOADER=1
+-depsBuildBuild=
+ POETRY_PIP_FROM_PATH=1
++depsBuildBuild=
+ POETRY_VIRTUALENVS_CREATE=0
+ REPLIT_DEV_DOMAIN=38047d3e-d34e-4974-b7b1-96bc1cf7414e-00-asdvq7mj7lns.kirk.replit.dev
+ PYTHONPATH=/nix/store/y50fwh2sha400s38m12psfxpvk2c8w39-sitecustomize/lib/python/site-packages:/nix/store/sqs1z4grvym0nv6r3ksdc990m8sr5wgx-python3.11-pip-25.0.1/lib/python3.11/site-packages
+@@ -99,8 +104,8 @@
+ REPL_LANGUAGE=nix
+ strictDeps=
+ SESSION_SECRET=63aIaM5hVsWw1+NxRocdCYpZ9WgS92Y/krW7PcmMfScqKlTSzj1j2o2YlLH129FoquUUm/L+3ZC+R+PFLJkiqg==
+-POETRY_CONFIG_DIR=/nix/store/cyg6h5fbgsfqdimyrc1gflmpx8p0hbkv-poetry-config
+ GIT_PAGER=
++POETRY_CONFIG_DIR=/nix/store/cyg6h5fbgsfqdimyrc1gflmpx8p0hbkv-poetry-config
+ REPL_HOME=/home/runner/workspace
+ TZDIR=/etc/zoneinfo
+ REPLIT_PID1_VERSION=0.0.278
+@@ -109,18 +114,18 @@
+ AS=as
+ PIP_INDEX_URL=http://package-firewall.replit.local/pypi/simple/
+ GOPROXY=http://package-firewall.replit.local/go/
+-NIX_BINTOOLS_WRAPPER_TARGET_HOST_x86_64_unknown_linux_gnu=1
  DISPLAY=:0
--SHLVL=8
-+SHLVL=7
- QT_IM_MODULE=ibus
- FC_FONTATIONS=1
- XDG_RUNTIME_DIR=/run/user/44519380
-@@ -72,4 +71,5 @@
- FLATPAK_TTY_PROGRESS=1
- OLDPWD=/home/anegorov
- TERM_PROGRAM=vscode
--_=/usr/bin/env
-+_=./minishell
-+X=42
++NIX_BINTOOLS_WRAPPER_TARGET_HOST_x86_64_unknown_linux_gnu=1
+ SHLVL=3
+ NIX_BUILD_TOP=/tmp/nix-shell-916-1344536456
+ NM=nm
+-REPLIT_NIX_CHANNEL=stable-25_05
+ GIT_EDITOR=replit-git-editor
++REPLIT_NIX_CHANNEL=stable-25_05
+ PAGER=cat
+-UV_PYTHON_PREFERENCE=only-system
+ NIX_CFLAGS_COMPILE= -frandom-seed=fdqfp2ifaz -isystem /nix/store/yz93n2svi7sqzrsjyvvfb35y4bbqr51f-readline-8.2p13-dev/include -isystem /nix/store/c4ibx1x2y2xn21zij6nnpcmnrclp58wq-ncurses-6.5-dev/include -isystem /nix/store/cpwib3zazj49fm0y04y53w4xkbqsgrgm-mesa-25.0.7/include -isystem /nix/store/akn28bf4vh2q3p2czwkm37acmf33bvgd-libglvnd-1.7.0-dev/include -isystem /nix/store/5h8ny2nvix2vz1s3rbpvqj25ri7jh8km-pulseaudio-17.0-dev/include -isystem /nix/store/5p91yhpd1hpjzlshrwbd0ivkhx8d0588-libcap-2.75-dev/include -isystem /nix/store/yz93n2svi7sqzrsjyvvfb35y4bbqr51f-readline-8.2p13-dev/include -isystem /nix/store/c4ibx1x2y2xn21zij6nnpcmnrclp58wq-ncurses-6.5-dev/include -isystem /nix/store/cpwib3zazj49fm0y04y53w4xkbqsgrgm-mesa-25.0.7/include -isystem /nix/store/akn28bf4vh2q3p2czwkm37acmf33bvgd-libglvnd-1.7.0-dev/include -isystem /nix/store/5h8ny2nvix2vz1s3rbpvqj25ri7jh8km-pulseaudio-17.0-dev/include -isystem /nix/store/5p91yhpd1hpjzlshrwbd0ivkhx8d0588-libcap-2.75-dev/include
+-patches=
++UV_PYTHON_PREFERENCE=only-system
+ PGDATABASE=heliumdb
++patches=
+ REPLIT_USERID=60680000
+ PROMPT_DIRTRIM=2
+ REPL_IN_MICROVM=true
+@@ -128,8 +133,8 @@
+ LIBGL_DRIVERS_PATH=/nix/store/cpwib3zazj49fm0y04y53w4xkbqsgrgm-mesa-25.0.7/lib/dri
+ buildInputs=/nix/store/yz93n2svi7sqzrsjyvvfb35y4bbqr51f-readline-8.2p13-dev /nix/store/cpwib3zazj49fm0y04y53w4xkbqsgrgm-mesa-25.0.7 /nix/store/akn28bf4vh2q3p2czwkm37acmf33bvgd-libglvnd-1.7.0-dev /nix/store/5h8ny2nvix2vz1s3rbpvqj25ri7jh8km-pulseaudio-17.0-dev
+ REPLIT_MODE=agent
+-preferLocalBuild=1
+ LOCALE_ARCHIVE=/usr/lib/locale/locale-archive
++preferLocalBuild=1
+ REPLIT_CONNECTORS_HOSTNAME=connectors.replit.com
+ REPLIT_RUN_PATH=/run/replit
+ REPLIT_PID2=true
+@@ -154,8 +159,8 @@
+ __ETC_PROFILE_SOURCED=1
+ depsBuildTargetPropagated=
+ depsBuildBuildPropagated=
+-NIX_CC_WRAPPER_TARGET_HOST_x86_64_unknown_linux_gnu=1
+ GLIBC_TUNABLES=glibc.rtld.optional_static_tls=10000
++NIX_CC_WRAPPER_TARGET_HOST_x86_64_unknown_linux_gnu=1
+ npm_config_registry=http://package-firewall.replit.local/npm/
+ UV_PYTHON_DOWNLOADS=never
+ POETRY_USE_USER_SITE=1
+@@ -171,4 +176,4 @@
+ NIX_LDFLAGS=-rpath /nix/store/fdqfp2ifazkb6zasx4sjd0jyrk05xy8v-nix-shell/lib  -L/nix/store/4mys0gv17cn0lrdvlhks0zx27854nmkg-ncurses-6.5/lib -L/nix/store/1faijjgr6ai43v0mr3k0f8xajp5clh21-readline-8.2p13/lib -L/nix/store/cpwib3zazj49fm0y04y53w4xkbqsgrgm-mesa-25.0.7/lib -L/nix/store/7227amwg7k4sbl6mhglq17v5x5ki54ks-libglvnd-1.7.0/lib -L/nix/store/q2ps6hq2jr2xwvs60m39fnjrnsx94a3w-libcap-2.75-lib/lib -L/nix/store/px08h5pmb6vr98y751ck1gwn0852iqqq-pulseaudio-17.0/lib -L/nix/store/4mys0gv17cn0lrdvlhks0zx27854nmkg-ncurses-6.5/lib -L/nix/store/1faijjgr6ai43v0mr3k0f8xajp5clh21-readline-8.2p13/lib -L/nix/store/cpwib3zazj49fm0y04y53w4xkbqsgrgm-mesa-25.0.7/lib -L/nix/store/7227amwg7k4sbl6mhglq17v5x5ki54ks-libglvnd-1.7.0/lib -L/nix/store/q2ps6hq2jr2xwvs60m39fnjrnsx94a3w-libcap-2.75-lib/lib -L/nix/store/px08h5pmb6vr98y751ck1gwn0852iqqq-pulseaudio-17.0/lib
+ nativeBuildInputs=
+ depsHostHostPropagated=
+-_=/nix/store/mp7ba85zcqdj2sqwa29pql02s6nqpcxy-coreutils-9.7/bin/env
++minishell> 
+\ No newline at end of file

@@ -1,33 +1,72 @@
---- tests/results/basic_bash.out	2026-06-09 12:35:08.722823697 +0200
-+++ tests/results/basic_mine.out	2026-06-09 12:35:08.735823219 +0200
-@@ -23,30 +23,3 @@
- sgoinfre-1.paris.42.school:/ 20566289408 9617319936 10948969472  47% /sgoinfre
- /dev/sda                         4876288    3212508     1663780  66% /home/anegorov
+--- tests/results/basic_bash.out	2026-06-11 07:19:47.561122616 +0000
++++ tests/results/basic_mine.out	2026-06-11 07:19:47.915122616 +0000
+@@ -1,11 +1,24 @@
++minishell> echo hello
+ hello
++minishell> echo a b c
+ a b c
++minishell> pwd
+ /home/runner/workspace/minishell_extracted/minishell
++minishell> echo ""
+ 
++minishell> echo ''
+ 
++minishell> echo "hello world"
+ hello world
++minishell> echo 'hello world'
+ hello world
+-hello/home/runner/workspace/minishell_extracted/minishell/src /home/runner/workspace/minishell_extracted/minishell
++minishell> echo -n hello
++hellominishell> export HELLO=123
++minishell> export HELLO="beautiful world"
++minishell> cd src
++minishell> echo $PWD $OLDPWD
++/home/runner/workspace/minishell_extracted/minishell/src /home/runner/workspace/minishell_extracted/minishell
++minishell> df
+ Filesystem      1K-blocks       Used Available Use% Mounted on
+ overlay              4096          0      4096   0% /
+ overlay         268435456     484288 266013504   1% /nix/store
+@@ -36,9 +49,14 @@
+ /dev/vdv        268435456     484288 266013504   1% /home/runner/workspace
+ /dev/vdv        268435456     484288 266013504   1% /mnt/nix
+ /dev/vdv        268435456     484288 266013504   1% /var/lib/docker
++minishell> echo $?
  0
--0
--hi
--    PID TTY          TIME CMD
-- 437333 tty2     00:00:00 gnome-session-b
-- 453164 pts/2    00:00:00 bash
-- 456530 pts/2    00:00:00 bash
-- 459781 pts/2    00:00:00 bash
-- 493727 pts/2    00:00:00 run_tests.sh
-- 493730 pts/2    00:00:00 bash
-- 493740 pts/2    00:00:00 ps
---     hello
--builtin
--cleanup
--core
--env
--executor
--expander
--gnl
--lexer
--main.c
--parser
--prompt
--read_line.c
--signals
--utils
++minishell> $EMPTY
++minishell> echo $?
+ 0
++minishell> echo "hi" | cat | cat | cat | cat | cat | cat | cat
+ hi
++minishell> ps -a
+     PID TTY          TIME CMD
+     175 pts/2    00:00:01 MainThread
+     176 pts/1    00:00:00 MainThread
+@@ -46,9 +64,14 @@
+     250 pts/1    00:00:00 MainThread
+    5843 pts/3    00:00:00 bash
+    5844 pts/3    00:00:00 tail
+-   5847 pts/3    00:00:00 bash
+-   5857 pts/3    00:00:00 ps
++   5859 pts/3    00:00:00 minishell
++   5869 pts/3    00:00:00 ps
++minishell> echo - "" "  " hello
+ -     hello
++minishell> unset USER
++minishell> unset PATH
++minishell> unset PWD
++minishell> /bin/ls
+ builtin
+ cleanup
+ core
+@@ -63,5 +86,9 @@
+ read_line.c
+ signals
+ utils
 -/bin/bash: line 24: cd: too many arguments
--/home/anegorov
++minishell> cd .. hi
++minishell: cd: too many arguments
++minishell> cd
++minishell> pwd
+ /home/runner
++minishell> 
+\ No newline at end of file

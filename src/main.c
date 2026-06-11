@@ -23,77 +23,78 @@
 #include "debug.h"
 #include "signals.h"
 
-// void	print_cmd(t_cmd *cmd)
+// void print_cmd(t_cmd *cmd)
 // {
-// 	size_t	i;
-// 	t_cmd	*tmp;
+//      size_t  i;
+//      t_cmd   *tmp;
 
-// 	tmp = cmd;
-// 	while (tmp)
-// 	{
-// 		printf("----- CMD -----\n");
-// 		i = 0;
-// 		while (tmp->argv && tmp->argv[i])
-// 		{
-// 			printf("ARGV[%zu]: %s\n", i, tmp->argv[i]);
-// 			i++;
-// 		}
-// 		printf("INFILE: %s\n", tmp->infile ? tmp->infile : "NULL");
-// 		printf("OUTFILE: %s\n", tmp->outfile ? tmp->outfile : "NULL");
-// 		tmp = tmp->next;
-// 	}
+//      tmp = cmd;
+//      while (tmp)
+//      {
+//              printf("----- CMD -----\n");
+//              i = 0;
+//              while (tmp->argv && tmp->argv[i])
+//              {
+//                      printf("ARGV[%zu]: %s\n", i, tmp->argv[i]);
+//                      i++;
+//              }
+//              printf("INFILE: %s\n", tmp->infile ? tmp->infile : "NULL");
+//              printf("OUTFILE: %s\n", tmp->outfile ? tmp->outfile : "NULL");
+//              tmp = tmp->next;
+//      }
 // }
 
-// void	print_env(t_env *env)
+// void print_env(t_env *env)
 // {
-// 	while (env)
-// 	{
-// 		if (env->exported == 1)
-// 			printf("Key = %s Value = %s\n", env->key, env->value);
-// 		env = env->next;
-// 	}
+//      while (env)
+//      {
+//              if (env->exported == 1)
+//                      printf("Key = %s Value = %s\n", env->key, env->value);
+//              env = env->next;
+//      }
 // }
 
-// int	main(int argc, char **argv, char **envp)
+// int  main(int argc, char **argv, char **envp)
 // {
-// 	t_cmd	*cmd;
-// 	char	*line;
-// 	t_shell	shell;
+//      t_cmd   *cmd;
+//      char    *line;
+//      t_shell shell;
 
-// 	(void)argc;
-// 	(void)argv;
-// 	if (init_shell(&shell, envp))
-// 		return (env_clear(&shell.env), perror("memory here: "), 1);
-// 	while (1)
-// 	{
-// 		line = readline("minishell> ");
-// 		if (!line)
-// 			break ;
-// 		cmd = build_pipeline(line, &shell);
-// 		if (!cmd)
-// 			return (free(line), env_clear(&shell.env), perror("memory: "), 1);
-// 		ms_executor(cmd, &shell.env, &shell);
-// 		free(line);
-// 		free_cmds(cmd);
-// 	}
-// 	env_clear(&shell.env);
-// 	return (0);
+//      (void)argc;
+//      (void)argv;
+//      if (init_shell(&shell, envp))
+//              return (env_clear(&shell.env), perror("memory here: "), 1);
+//      while (1)
+//      {
+//              line = readline("minishell> ");
+//              if (!line)
+//                      break ;
+//              cmd = build_pipeline(line, &shell);
+//              if (!cmd)
+//                      return (free(line), env_clear(&shell.env),
+							// perror("memory: "), 1);
+//              ms_executor(cmd, &shell.env, &shell);
+//              free(line);
+//              free_cmds(cmd);
+//      }
+//      env_clear(&shell.env);
+//      return (0);
 // }
 /* --- ANTONINA - EXECUTOR ----------------------------------------------*/
-// int	execute_single_cmd(t_cmd *cmd, t_env **env, t_shell *shell)
+// int  execute_single_cmd(t_cmd *cmd, t_env **env, t_shell *shell)
 // {
-// 	if (!cmd->argv || !cmd->argv[0])
-// 		return (0);
-// 	if (is_builtin(cmd->argv[0]))
-// 		return (run_builtin(cmd, env, shell));
-// 	return (0);
+//      if (!cmd->argv || !cmd->argv[0])
+//              return (0);
+//      if (is_builtin(cmd->argv[0]))
+//              return (run_builtin(cmd, env, shell));
+//      return (0);
 // }
 // else
-	// 	run_external(cmd);
+	//      run_external(cmd);
 
-/*int	executor(t_cmd *cmd, t_env **env, t_shell *shell)
+/*int   executor(t_cmd *cmd, t_env **env, t_shell *shell)
 {
-	int	status;
+	int     status;
 
 	while (cmd)
 	{
@@ -116,28 +117,67 @@
 char	*get_line(void)
 {
 	char	*line;
-	size_t	len;
 
-	if (isatty(STDIN_FILENO))
-		line = readline("minishell> ");
-	else
-		line = get_next_line(STDIN_FILENO);
+	line = readline("minishell> ");
 	if (!line)
 		return (NULL);
-	len = ft_strlen(line);
-	if (len > 0 && line[len - 1] == '\n')
-		line[len - 1] = '\0';
 	return (line);
 }
 
-// char	*get_line(void)
-// {
-// 	return (readline("minish-1.0$ "));
-// }
+static int	find_or_op(const char *line)
+{
+	int	i;
+	int	in_single;
+	int	in_double;
+
+	i = 0;
+	in_single = 0;
+	in_double = 0;
+	while (line[i])
+	{
+		if (line[i] == '\'' && !in_double)
+			in_single = !in_single;
+		else if (line[i] == '"' && !in_single)
+			in_double = !in_double;
+		else if (!in_single && !in_double
+			&& line[i] == '|' && line[i + 1] == '|')
+			return (i);
+		i++;
+	}
+	return (-1);
+}
+
+static void	run_or_chain(char *line, t_shell *shell)
+{
+	int		or_pos;
+	char	*segment;
+	t_cmd	*cmd;
+
+	while (line && *line)
+	{
+		or_pos = find_or_op(line);
+		if (or_pos >= 0)
+			segment = ft_substr(line, 0, or_pos);
+		else
+			segment = ft_strdup(line);
+		if (segment && *segment)
+		{
+			cmd = build_pipeline(segment, shell);
+			if (cmd)
+			{
+				executor(cmd, shell);
+				free_cmds(cmd);
+			}
+		}
+		free(segment);
+		if (or_pos < 0 || shell->exit_status == 0)
+			break ;
+		line = line + or_pos + 2;
+	}
+}
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_cmd	*cmd;
 	char	*line;
 	t_shell	shell;
 
@@ -156,17 +196,8 @@ int	main(int argc, char **argv, char **envp)
 			free(line);
 			continue ;
 		}
-		cmd = build_pipeline(line, &shell);
-		if (!cmd)
-		{
-			free(line);
-			shell.exit_status = 1;
-			continue ;
-		}
-		// ms_executor(cmd, &shell.env, &shell);
-		executor(cmd, &shell);
+		run_or_chain(line, &shell);
 		free(line);
-		free_cmds(cmd);
 		if (shell.should_exit)
 			break ;
 	}

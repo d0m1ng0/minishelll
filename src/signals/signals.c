@@ -19,17 +19,18 @@ SIGINT reçu
 - nouveau prompt
 */
 //signal(SIGINT, ms_handle_sigint); //arriva il segnale
-void	ms_handle_sigint(int sig)
+void    ms_handle_sigint(int sig)
 {
-	(void)sig;
-	write(1, "\n", 1);
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
+        (void)sig;
+        if (write(1, "\n", 1) < 0)
+                return ;
+        rl_on_new_line();
+        rl_replace_line("", 0);
+        rl_redisplay();
 }
 
-void	ms_signals_setup(void)
+void    ms_signals_setup(void)
 {
-	signal(SIGINT, ms_handle_sigint);
-	signal(SIGQUIT, SIG_IGN);
+        signal(SIGINT, ms_handle_sigint);
+        signal(SIGQUIT, SIG_IGN);
 }

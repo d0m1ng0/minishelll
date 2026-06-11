@@ -23,9 +23,9 @@
 
 //#include <stddef.h>
 
-static int	ft_strcmp(char *s1, char *s2)
+static int      ft_strcmp(char *s1, char *s2)
 {
-	int	i;
+	int     i;
 
 	i = 0;
 	while (s1[i] && s1[i] == s2[i])
@@ -35,11 +35,11 @@ static int	ft_strcmp(char *s1, char *s2)
 	return ((unsigned)s1[i] - (unsigned)s2[i]);
 }
 
-int	ms_run_heredoc(t_cmd *cmd)
+int     ms_run_heredoc(t_cmd *cmd)
 {
-	int		fd_pipe[2];
+	int             fd_pipe[2];
 
-	char	*line;
+	char    *line;
 	if (pipe(fd_pipe) <0)
 		return (1);
 	ft_printf("DELIMITER=[%s]\n", cmd->heredoc_delimiter);
@@ -53,8 +53,10 @@ int	ms_run_heredoc(t_cmd *cmd)
 			free(line);
 			break ;
 		}
-		write(fd_pipe[1], line, ft_strlen(line));
-		write(fd_pipe[1], "\n", 1);
+		if (write(fd_pipe[1], line, ft_strlen(line)) < 0)
+			break ;
+		if (write(fd_pipe[1], "\n", 1) < 0)
+			break ;
 		free(line);
 	}
 	close(fd_pipe[1]);
@@ -84,13 +86,13 @@ pms_execute_pipe()
 		closefd[0]
 		close fd[1]
 		waitpid child1
-		waitpid child2		
+		waitpid child2          
 }
 */
 
-void	ms_execute_in_child(t_cmd *cmd, char **envp, t_env **env, t_shell *shell)
+void    ms_execute_in_child(t_cmd *cmd, char **envp, t_env **env, t_shell *shell)
 {
-	char	*path;
+	char    *path;
 
 	if (!cmd || !cmd->argv || !cmd->argv[0])
 		exit(EXIT_SUCCESS);
@@ -111,11 +113,11 @@ void	ms_execute_in_child(t_cmd *cmd, char **envp, t_env **env, t_shell *shell)
 	free(path);
 	exit(EXIT_FAILURE);
 }
-void	ms_execute_pipe(t_cmd *cmd, char **envp, t_env **env, t_shell *shell)
+void    ms_execute_pipe(t_cmd *cmd, char **envp, t_env **env, t_shell *shell)
 {
-	int	fd_prev;
-	int	fd[2];
-	pid_t	pid;
+	int     fd_prev;
+	int     fd[2];
+	pid_t   pid;
 
 	fd_prev = -1;
 	while(cmd)
@@ -151,11 +153,11 @@ void	ms_execute_pipe(t_cmd *cmd, char **envp, t_env **env, t_shell *shell)
 	while (wait(NULL) > 0)
 		;
 }
-/*void	ms_execute_pipe(t_cmd *cmd, char **envp, t_env **env)
+/*void  ms_execute_pipe(t_cmd *cmd, char **envp, t_env **env)
 {
-	int	fd[2];
-	pid_t	pid1;
-	pid_t	pid2;
+	int     fd[2];
+	pid_t   pid1;
+	pid_t   pid2;
 
 	if (pipe(fd) < 0)
 		return ;
@@ -188,12 +190,12 @@ void	ms_execute_pipe(t_cmd *cmd, char **envp, t_env **env, t_shell *shell)
 	waitpid(pid2, NULL, 0);
 }
 */
-void	ms_run_external(t_cmd *cmd, char **envp, t_shell *shell)
+void    ms_run_external(t_cmd *cmd, char **envp, t_shell *shell)
 {
-	int	fd;
-	pid_t	pid;
-	char	*path;
-	int 	status;
+	int     fd;
+	pid_t   pid;
+	char    *path;
+	int     status;
 	
 	path = ms_find_cmd_path(cmd->argv[0], envp);
 	if (!path)
@@ -201,11 +203,11 @@ void	ms_run_external(t_cmd *cmd, char **envp, t_shell *shell)
 		ft_printf("%s: command not found\n", cmd->argv[0]);
 		return ;
 	}
-//	// --- DEBUG MSG-----------------
-//	ft_printf("#=======================================================\n");
-//	ft_printf("external command launched\n");
-//	ft_printf("#=======================================================\n");
-//	// ------------------------------
+//      // --- DEBUG MSG-----------------
+//      ft_printf("#=======================================================\n");
+//      ft_printf("external command launched\n");
+//      ft_printf("#=======================================================\n");
+//      // ------------------------------
 	pid = fork();
 	if (pid == 0)
 	{
@@ -267,11 +269,11 @@ void	ms_run_external(t_cmd *cmd, char **envp, t_shell *shell)
 }
 
 
-void	ms_execute_single_cmd(t_cmd *cmd, t_env **env, t_shell *shell)
+void    ms_execute_single_cmd(t_cmd *cmd, t_env **env, t_shell *shell)
 {
-	int	stdout_saved;
-	int	fd_file;
-	char	**envp;
+	int     stdout_saved;
+	int     fd_file;
+	char    **envp;
 
 	stdout_saved = -1;
 	// ft_printf("ENTER SINGLE\n");
@@ -293,7 +295,7 @@ void	ms_execute_single_cmd(t_cmd *cmd, t_env **env, t_shell *shell)
 						O_CREAT | O_WRONLY | O_TRUNC, 0644);
 
 			if (fd_file < 0)
-			{	
+			{       
 				perror("open");
 				close(stdout_saved);
 				return ;
@@ -324,14 +326,14 @@ void	ms_execute_single_cmd(t_cmd *cmd, t_env **env, t_shell *shell)
 	}
 }
 
-void	ms_executor(t_cmd *cmd, t_env **env, t_shell *shell)
+void    ms_executor(t_cmd *cmd, t_env **env, t_shell *shell)
 {
 	// --- DEBUG MSG-----------------
-//	ft_printf("#=======================================================\n");
-//	ft_printf("executor launched\n");
-//	ft_printf("#=======================================================\n");
+//      ft_printf("#=======================================================\n");
+//      ft_printf("executor launched\n");
+//      ft_printf("#=======================================================\n");
 	// ------------------------------
-	char	**envp;
+	char    **envp;
 
 	if (!cmd)
 		return ;
@@ -348,11 +350,11 @@ void	ms_executor(t_cmd *cmd, t_env **env, t_shell *shell)
 	}
 	//-----antonina----------
 	// else
-	// 	set_env_value(env, "_", cmd->argv[ft_arrlen(cmd->argv) - 1]);
+	//      set_env_value(env, "_", cmd->argv[ft_arrlen(cmd->argv) - 1]);
 	//need to set _ to the last argument of the command, if it exists, otherwise to the command name
 	//-----------end antonina
 	ms_execute_single_cmd(cmd, env, shell);
-/*	while (cmd)
+/*      while (cmd)
 	{
 		if (cmd && cmd->next)
 			ms_execute_pipe(cmd, envp, env);

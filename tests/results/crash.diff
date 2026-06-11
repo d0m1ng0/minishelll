@@ -1,0 +1,18 @@
+--- tests/results/crash_bash.out	2026-06-11 07:19:48.415122616 +0000
++++ tests/results/crash_mine.out	2026-06-11 07:19:48.501122616 +0000
+@@ -1,6 +1,14 @@
++minishell> export MY_VAR=78
++minishell> echo $MY_VAR
+ 78
++minishell> echo "* * * *"
+ * * * *
++minishell> echo ""
+ 
++minishell> echo ''
+ 
++minishell> echo $?
+ 0
++minishell> echo $NOT_EXIST
+ 
++minishell> 
+\ No newline at end of file

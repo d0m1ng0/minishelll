@@ -21,12 +21,12 @@
 # include "env.h"
 # include <unistd.h>
 # include <sys/wait.h>
+# include <sys/stat.h>
 # include <fcntl.h>
 # include <stdlib.h>
 # include <readline/readline.h>
 # include "expander.h"
 
-/* --------------------------------------------------------------------------*/
 void	ms_executor(t_cmd *cmd, t_env **env, t_shell *shell);
 void	ms_execute_single_cmd(t_cmd *cmd, t_env **env, t_shell *shell);
 void	ms_execute_pipe(t_cmd *cmd, char **envp, t_env **env, t_shell *shell);
@@ -34,12 +34,12 @@ char	*ms_get_path_value(char **envp);
 char	*ms_create_path_candidate(char *dir, char *cmd);
 char	*ms_find_cmd_path(char *cmd, char **envp);
 void	ms_run_external(t_cmd *cmd, char **envp, t_shell *shell);
-int	ms_run_heredoc(t_cmd *cmd);
-/* --------------------------------------------------------------------------*/
+int		ms_run_heredoc(t_cmd *cmd);
 
 void	executor(t_cmd *cmd, t_shell *shell);
 void	executor_single(t_cmd *cmd, t_shell *shell, t_env **env);
-void	handle_status(t_shell *shell, int status);
-void	handle_status(t_shell *shell, int status);
+void	exec_child(t_cmd *cmd, char **envp);
+void	wait_pipe_children(t_shell *shell, pid_t last_pid);
+int		apply_redirections(t_cmd *cmd);
 
 #endif

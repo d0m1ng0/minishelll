@@ -21,7 +21,7 @@ void	remove_env_var(t_env **env, char *key)
 	prev = NULL;
 	while (curr)
 	{
-		if (ft_strncmp(curr->key, key, ft_strlen(key)) == 0)
+		if (ft_strncmp(curr->key, key, ft_strlen(key) + 1) == 0)
 		{
 			if (!prev)
 				*env = curr->next;
@@ -39,7 +39,7 @@ void	remove_env_var(t_env **env, char *key)
 	}
 }
 
-size_t	env_size(t_env	*env)
+size_t	env_size(t_env *env)
 {
 	size_t	i;
 

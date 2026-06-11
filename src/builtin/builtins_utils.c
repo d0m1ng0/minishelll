@@ -43,22 +43,34 @@ int	is_builtin(char *cmd)
 
 int	run_builtin(t_cmd *cmd, t_env **env, t_shell *shell)
 {
+	int		status;
+
+	status = 0;
+	if (!cmd || !cmd->argv || !cmd->argv[0])
+		return (0);
 	if (is_equal(cmd->argv[0], "echo"))
-		return (builtin_echo(cmd->argv));
+		status = (builtin_echo(cmd->argv));
 	else if (is_equal(cmd->argv[0], "pwd"))
-		return (builtin_pwd(shell));
+		status = (builtin_pwd(shell));
 	else if (is_equal(cmd->argv[0], "cd"))
-		return (builtin_cd(cmd->argv, shell));
+		status = (builtin_cd(cmd->argv, shell));
 	else if (is_equal(cmd->argv[0], "env"))
-		return (builtin_env(*env));
+		status = (builtin_env(*env));
 	else if (is_equal(cmd->argv[0], "export"))
-		return (builtin_export(env, cmd->argv));
+		status = (builtin_export(env, cmd->argv));
 	else if (is_equal(cmd->argv[0], "unset"))
-		return (builtin_unset(env, cmd->argv));
+		status = (builtin_unset(env, cmd->argv));
 	else if (is_equal(cmd->argv[0], "exit"))
-		return (builtin_exit(cmd->argv, shell));
-	return (0);
+		status = (builtin_exit(cmd->argv, shell));
+	return (status);
 }
+
+// if (status == -1)
+// {
+// 	shell->should_exit = 1;
+// 	shell->exit_status = 1;
+// }
+// shell->exit_status = status;
 
 void	print_error(char *cmd, char *arg, char *msg)
 {

@@ -1,7 +1,15 @@
---- tests/results/syntax_error_bash.out	2026-06-09 12:35:09.076810676 +0200
-+++ tests/results/syntax_error_mine.out	2026-06-09 12:35:09.080810528 +0200
-@@ -1,2 +1,2 @@
+--- tests/results/syntax_error_bash.out	2026-06-11 07:19:54.431122616 +0000
++++ tests/results/syntax_error_mine.out	2026-06-11 07:19:54.478122616 +0000
+@@ -1,2 +1,9 @@
 -/bin/bash: line 1: syntax error near unexpected token `|'
 -/bin/bash: line 1: `|'
-+syntax error near unexpected token `|'
-+memory: : Inappropriate ioctl for device
++minishell> |
++ syntax error near unexpected token `|'
++minishell> echo hello |
++ syntax error near unexpected token `|'
++minishell> | ls
++ syntax error near unexpected token `|'
++minishell> echo "unterminated
++unterminated
++minishell> 
+\ No newline at end of file

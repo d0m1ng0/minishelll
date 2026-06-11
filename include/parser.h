@@ -25,18 +25,18 @@ typedef struct s_redir
 {
 	char			*file;
 	int				type;
-	struct s_redir 	*next;
+	struct s_redir	*next;
 }	t_redir;
 
 typedef struct s_cmd
 {
 	char			**argv;
-	t_redir         *redirs;
+	t_redir			*redirs;
 	char			*infile;
 	char			*outfile;
 	int				append;
 	char			*heredoc_delimiter;
-	int				heredoc_fd; 
+	int				heredoc_fd;
 	struct s_cmd	*next;
 }	t_cmd;
 
@@ -49,5 +49,7 @@ int		handle_redir_append(t_cmd *cmd, t_token *token);
 int		handle_heredoc(t_cmd *cmd, t_token *token);
 int		add_redir(t_cmd *cmd, char *file, int type);
 int		add_redir_from_token(t_cmd *cmd, t_token *token);
+int		handle_redir(t_cmd *cmd, t_token *redir);
+t_cmd	*create_cmd(void);
 
 #endif

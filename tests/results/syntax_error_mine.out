@@ -1,2 +1,9 @@
-syntax error near unexpected token `|'
-memory: : Inappropriate ioctl for device
+minishell> |
+ syntax error near unexpected token `|'
+minishell> echo hello |
+ syntax error near unexpected token `|'
+minishell> | ls
+ syntax error near unexpected token `|'
+minishell> echo "unterminated
+unterminated
+minishell> 

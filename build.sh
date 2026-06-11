@@ -19,13 +19,16 @@ echo "===================="
 
 FILES="
 src/builtin
+src/core
 src/env
+src/executor/executor_*.c
 src/expander
+src/gnl
 src/lexer
 src/parser
 src/main.c
-src/core
-src/executor/executor_*.c
+src/utils
+ft_printf
 include
 "
 

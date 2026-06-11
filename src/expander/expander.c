@@ -109,11 +109,8 @@ int	expand_var(t_cmd *cmd, t_shell *shell)
 		r = cmd->redirs;
 		while (r)
 		{
-			if (r->file)
-			{
-				if (process_arg(&r->file, shell))
-					return (1);
-			}
+			if (r->file && process_arg(&r->file, shell))
+				return (1);
 			r = r->next;
 		}
 		remove_empty_args(cmd->argv);

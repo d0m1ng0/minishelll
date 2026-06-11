@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dverdini <dverdini@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/24 11:25:52 by dverdini          #+#    #+#             */
-/*   Updated: 2026/05/24 13:54:22 by dverdini         ###   ########.fr       */
+/*   Updated: 2026/06/11 19:36:19 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ char	*ms_get_path_value(char **envp)
 	}
 	return (NULL);
 }
+
 char	*ms_create_path_candidate(char *dir, char *cmd)
 {
 	char	*tmp;

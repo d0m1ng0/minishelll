@@ -1,38 +1,53 @@
 hello
 a b c
-/sgoinfre/goinfre/Perso/anegorov/minishell_common
+/home/runner/workspace/minishell_extracted/minishell
 
 
 hello world
 hello world
-hello/sgoinfre/goinfre/Perso/anegorov/minishell_common/src /sgoinfre/goinfre/Perso/anegorov/minishell_common
-Filesystem                     1K-blocks       Used   Available Use% Mounted on
-/dev/mapper/vg0-os             102271752   30073468    72198284  30% /
-devtmpfs                         7913812          0     7913812   0% /dev
-tmpfs                            8024728      39836     7984892   1% /dev/shm
-efivarfs                             438        300         134  70% /sys/firmware/efi/efivars
-tmpfs                            3209892       2256     3207636   1% /run
-tmpfs                               1024          0        1024   0% /run/credentials/systemd-journald.service
-tmpfs                            8024728      20908     8003820   1% /tmp
-/dev/nvme0n1p2                    996780     483500      444468  53% /boot
-/dev/nvme0n1p1                   1046512       7764     1038748   1% /boot/efi
-tmpfs                               1024          0        1024   0% /run/credentials/systemd-resolved.service
-tmpfs                            1604944         72     1604872   1% /run/user/1422
-tmpfs                            1604944       5956     1598988   1% /run/user/44519380
-/dev/mapper/vg0-goinfre        393318740  102256808   291061932  26% /goinfre
-sgoinfre-1.paris.42.school:/ 20566289408 9617319936 10948969472  47% /sgoinfre
-/dev/sda                         4876288    3212508     1663780  66% /home/anegorov
+hello/home/runner/workspace/minishell_extracted/minishell/src /home/runner/workspace/minishell_extracted/minishell
+Filesystem      1K-blocks       Used Available Use% Mounted on
+overlay              4096          0      4096   0% /
+overlay         268435456     484288 266013504   1% /nix/store
+/dev/vds         33554432       8900  33010492   1% /mnt/72d1419b-7f8d-4306-a01d-fb17f3ff1cb5
+/dev/vds         33554432       8900  33010492   1% /mnt/scratch
+/dev/vdt           236908     236908         0 100% /mnt/bf1b4296-b34c-4682-b00f-2078f42c2e6a
+/dev/vdq          4974980    4974980         0 100% /mnt/18901ccf-0dd0-4beb-a718-3a8e99452b40
+overlay            236908     236908         0 100% /mnt/pid1
+/dev/vdr           250980     250980         0 100% /mnt/pid2
+/dev/vdp         21748736   21748736         0 100% /mnt/nixmodules
+/dev/vdu       1856694196 1722441292 134236520  93% /mnt/snix
+overlay                 4          0         4   0% /mnt/cacache/nix/store
+tmpfs                   4          0         4   0% /mnt/cacache/nix/store/.links
+tmpfs                   4          0         4   0% /mnt/26ee3524-34a2-4600-89c7-49ab68136822
+overlay            236908     236908         0 100% /etc
+overlay            236908     236908         0 100% /usr/bin
+overlay          33554432       8900  33010492   1% /home/runner
+tmpfs               51200        100     51100   1% /run
+tmpfs                1024          0      1024   0% /io/conman
+tmpfs               65536          0     65536   0% /dev
+shm               4062708          0   4062708   0% /dev/shm
+tmpfs             4062708        736   4061972   1% /etc/hosts
+devtmpfs          4059260          0   4059260   0% /dev/tty
+tmpfs             4062708          0   4062708   0% /proc/acpi
+tmpfs             4062708          0   4062708   0% /proc/scsi
+tmpfs             4062708          0   4062708   0% /sys/firmware
+/dev/vdv        268435456     484288 266013504   1% /mnt/9ffaef93-1305-4bd2-bdeb-9732bcd833c6
+/dev/vdv        268435456     484288 266013504   1% /home/runner/workspace
+/dev/vdv        268435456     484288 266013504   1% /mnt/nix
+/dev/vdv        268435456     484288 266013504   1% /var/lib/docker
 0
 0
 hi
     PID TTY          TIME CMD
- 437333 tty2     00:00:00 gnome-session-b
- 453164 pts/2    00:00:00 bash
- 456530 pts/2    00:00:00 bash
- 459781 pts/2    00:00:00 bash
- 493727 pts/2    00:00:00 run_tests.sh
- 493730 pts/2    00:00:00 bash
- 493740 pts/2    00:00:00 ps
+    175 pts/2    00:00:01 MainThread
+    176 pts/1    00:00:00 MainThread
+    213 pts/2    00:00:02 esbuild
+    250 pts/1    00:00:00 MainThread
+   5843 pts/3    00:00:00 bash
+   5844 pts/3    00:00:00 tail
+   5847 pts/3    00:00:00 bash
+   5857 pts/3    00:00:00 ps
 -     hello
 builtin
 cleanup
@@ -49,4 +64,4 @@ read_line.c
 signals
 utils
 /bin/bash: line 24: cd: too many arguments
-/home/anegorov
+/home/runner

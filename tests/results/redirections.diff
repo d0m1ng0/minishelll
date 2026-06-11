@@ -1,0 +1,18 @@
+--- tests/results/redirections_bash.out	2026-06-11 07:19:54.206122616 +0000
++++ tests/results/redirections_mine.out	2026-06-11 07:19:54.372122616 +0000
+@@ -1,5 +1,14 @@
++minishell> cd file_to_test
++minishell> echo hello > file1
++minishell> cat file1
+ hello
++minishell> echo world >> file1
++minishell> cat file1
+ hello
+ world
++minishell> cat < file1
+ hello
+ world
++minishell> rm file1
++minishell> cd ..
++minishell> 
+\ No newline at end of file
