@@ -1,7 +1,0 @@
-export MY_VAR=78
-echo $MY_VAR
-echo "* * * *"
-echo ""
-echo ''
-echo $?
-echo $NOT_EXIST
