@@ -8,3 +8,8 @@ vgcore.*
 debug
 *.swp
 tags
+tests
+minishell_*
+file_to_test
+obj
+run_tests.sh
