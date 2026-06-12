@@ -9,7 +9,7 @@ debug
 *.swp
 tags
 tests
-minishell_*
+minishell*
 file_to_test
 obj
 run_tests.sh

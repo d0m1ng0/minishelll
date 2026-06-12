@@ -6,7 +6,7 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/21 10:08:07 by anegorov          #+#    #+#             */
-/*   Updated: 2026/06/11 19:35:34 by anegorov         ###   ########.fr       */
+/*   Updated: 2026/06/12 15:00:04 by anegorov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ static void	print_export_entry(t_env *e)
 	if (e->value)
 	{
 		ft_putstr_fd("=", 1);
+		print_double_quoted(e->value);
 	}
 	ft_putstr_fd("\n", 1);
 }

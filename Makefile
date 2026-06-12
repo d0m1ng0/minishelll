@@ -6,7 +6,7 @@
 #    By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/05/16 12:07:21 by dverdini          #+#    #+#              #
-#    Updated: 2026/06/11 19:17:46 by anegorov         ###   ########.fr        #
+#    Updated: 2026/06/11 19:51:00 by anegorov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,10 +50,7 @@ OBJ = $(SRC:src/%.c=$(OBJ_DIR)/%.o)
 OBJS=$(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
 DEP = $(OBJS:.o=.d)
 
-
 all: $(NAME)
-
-bonus: $(NAME_BNS)
 
 $(LIB):
 	@make -C $(LIBFT_DIR)
@@ -62,9 +59,6 @@ $(FT_PRINTF):
 	@make -C $(FT_PRINTF_DIR)
 
 $(NAME): $(OBJS) $(LIB) $(FT_PRINTF)
-	$(CC) $(OBJS) $(LIB) $(FT_PRINTF) -o $(NAME) -lreadline
-
-$(NAME_BNS): $(OBJS) $(LIB) $(FT_PRINTF)
 	$(CC) $(OBJS) $(LIB) $(FT_PRINTF) -o $(NAME) -lreadline
 
 # $(CC) $(OBJS) $(LIB) $(FT_PRINTF) -o $(NAME) -L$(READLINE_LIB) -lreadline -Wl,-rpath,$(READLINE_LIB)
