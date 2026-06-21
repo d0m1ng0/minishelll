@@ -6,7 +6,7 @@
 /*   By: dverdini <dverdini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/29 23:11:54 by dverdini          #+#    #+#             */
-/*   Updated: 2026/05/30 19:08:33 by dverdini         ###   ########.fr       */
+/*   Updated: 2026/06/21 15:19:50 by dverdini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ int	ms_run_heredoc(t_cmd *cmd)
 	char	*line;
 	if (pipe(fd_pipe) <0)
 		return (1);
-	ft_printf("DELIMITER=[%s]\n", cmd->heredoc_delimiter);
 	while (1)
 	{
 		line = readline("> ");
@@ -62,31 +61,6 @@ int	ms_run_heredoc(t_cmd *cmd)
 	return (0);
 }
 
-/*
-pms_execute_pipe()
-{
-	creo pipe fd[2]
-
-	fork primo child:
-		dup2(fd[1], STDOUT_FILENO)
-		close fd[0]
-		close fd[1]
-		eseguo cmd1
-
-	fork second child:
-		dup2(fd[0], STDIN_FILENO)
-		close fd[0]
-		close fd[1]
-		eseguo cmd2
-
-	parent:
-		closefd[0]
-		close fd[1]
-		waitpid child1
-		waitpid child2		
-}
-*/
-
 void	ms_execute_in_child(t_cmd *cmd, char **envp, t_env **env, t_shell *shell)
 {
 	char	*path;
@@ -101,7 +75,7 @@ void	ms_execute_in_child(t_cmd *cmd, char **envp, t_env **env, t_shell *shell)
 	path = ms_find_cmd_path(cmd->argv[0], envp);
 	if (!path)
 	{
-		ft_printf("%s: command not found\n", cmd->argv[0]);
+		ft_printf("minish: %s: command not found\n", cmd->argv[0]);
 		exit(127);
 	}
 	execve(path, cmd->argv, envp);
@@ -149,73 +123,28 @@ void	ms_execute_pipe(t_cmd *cmd, char **envp, t_env **env, t_shell *shell)
 	while (wait(NULL) > 0)
 		;
 }
-/*void	ms_execute_pipe(t_cmd *cmd, char **envp, t_env **env)
-{
-	int	fd[2];
-	pid_t	pid1;
-	pid_t	pid2;
 
-	if (pipe(fd) < 0)
-		return ;
-	pid1 = fork();
-	if (pid1 == 0)
-	{
-		dup2(fd[1], STDOUT_FILENO);
-		close(fd[0]);
-		close(fd[1]);
-		//ft_printf("child1\n");
-		//ms_execute_single_cmd(cmd, envp, env);
-		ms_execute_in_child(cmd, envp, env);
-		exit(EXIT_SUCCESS);
-	}
-	pid2 = fork();
-	if (pid2 == 0)
-	{
-		dup2(fd[0], STDIN_FILENO);
-		close(fd[0]);
-		close(fd[1]);
-		//ft_printf("child2\n");
-		//ms_execute_single_cmd(cmd->next, envp, env);
-		ms_execute_in_child(cmd->next, envp, env);
-		exit(EXIT_SUCCESS);
-	}
-	close(fd[0]);
-	close(fd[1]);
-
-	waitpid(pid1, NULL, 0);
-	waitpid(pid2, NULL, 0);
-}
-*/
-void	ms_run_external(t_cmd *cmd, char **envp)
+void	ms_run_external(t_cmd *cmd, char **envp, t_shell *shell)
 {
 	int	fd;
 	pid_t	pid;
 	char	*path;
+	int	status;
 	
 	path = ms_find_cmd_path(cmd->argv[0], envp);
 	if (!path)
 	{
-		ft_printf("%s: command not found\n", cmd->argv[0]);
+		ft_printf("minish: %s: command not found\n", cmd->argv[0]);
+		shell->exit_status = 127;
 		return ;
 	}
-//	// --- DEBUG MSG-----------------
-//	ft_printf("#=======================================================\n");
-//	ft_printf("external command launched\n");
-//	ft_printf("#=======================================================\n");
-//	// ------------------------------
 	pid = fork();
 	if (pid == 0)
 	{
-		/* --- HEREDOC -----------------------------------------*/
 		if (cmd->heredoc_delimiter)
 			ms_run_heredoc(cmd);
-
-		// --- HARDCODED -----------------------
-		//execve("/usr/bin/ls", cmd->argv, envp);
-		// -------------------------------------
 		if (cmd->outfile)
 		{
-
 			if (cmd->append)
 				fd = open(cmd->outfile,
 						O_CREAT | O_WRONLY | O_APPEND, 0644);
@@ -227,7 +156,7 @@ void	ms_run_external(t_cmd *cmd, char **envp)
 				perror("open");
 				exit(1);
 			}
-			dup2(fd, STDOUT_FILENO);// --- ADD DEBUG: if (... < 0)
+			dup2(fd, STDOUT_FILENO);
 			close(fd);
 		}
 		if (cmd->infile)
@@ -251,7 +180,13 @@ void	ms_run_external(t_cmd *cmd, char **envp)
 		exit(EXIT_FAILURE);
 	}
 	else if (pid > 0)
-		waitpid(pid, NULL, 0);
+	{
+		waitpid(pid, &status, 0);
+		if (WIFEXITED(status))
+			shell->exit_status = WEXITSTATUS(status);
+		else if (WIFSIGNALED(status))
+			shell->exit_status = 128 + WTERMSIG(status);
+	}
 	free(path);
 }
 
@@ -262,12 +197,10 @@ void	ms_execute_single_cmd(t_cmd *cmd, t_env **env, t_shell *shell)
 	char	**envp;
 
 	stdout_saved = -1;
-	ft_printf("ENTER SINGLE\n");
 	if (!cmd->argv || !cmd->argv[0])
 		return ;
 	if (is_builtin(cmd->argv[0]))
 	{
-		ft_printf("ENTER BUILTIN\n");
 		stdout_saved = dup(STDOUT_FILENO);
 		if (stdout_saved < 0)
 			return ;
@@ -290,30 +223,21 @@ void	ms_execute_single_cmd(t_cmd *cmd, t_env **env, t_shell *shell)
 			close(fd_file);
 		}
 		shell->exit_status = run_builtin(cmd, env, shell);
-		//shell->exit_status == -1 exit;memmory error
-		//check shell->should_exit if == 1 shouid exit if only one command
-		//and it needs to save exit_status to another next command
 		dup2(stdout_saved, STDOUT_FILENO);
 		close(stdout_saved);
 	}
 	else
 	{
-		ft_printf("ENTER EXTERNAL\n");
 		envp = env_to_envp(*env);
 		if (!envp)
 			exit(1);//memmory error
-		ms_run_external(cmd, envp);
+		ms_run_external(cmd, envp, shell);
 		free_envp(envp);
 	}
 }
 
 void	ms_executor(t_cmd *cmd, t_env **env, t_shell *shell)
 {
-	// --- DEBUG MSG-----------------
-//	ft_printf("#=======================================================\n");
-//	ft_printf("executor launched\n");
-//	ft_printf("#=======================================================\n");
-	// ------------------------------
 	char	**envp;
 
 	if (!cmd)
@@ -330,14 +254,4 @@ void	ms_executor(t_cmd *cmd, t_env **env, t_shell *shell)
 		return ;
 	}
 	ms_execute_single_cmd(cmd, env, shell);
-/*	while (cmd)
-	{
-		if (cmd && cmd->next)
-			ms_execute_pipe(cmd, envp, env);
-		else
-			ms_execute_single_cmd(cmd, envp, env);
-		ms_execute_single_cmd(cmd, env, shell);
-		cmd = cmd->next;
-	}
-*/
 }

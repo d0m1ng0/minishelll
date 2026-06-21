@@ -6,7 +6,7 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 16:23:04 by anegorov          #+#    #+#             */
-/*   Updated: 2026/05/30 18:17:30 by dverdini         ###   ########.fr       */
+/*   Updated: 2026/06/21 15:35:46 by dverdini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 #include "executor.h"
 #include "shell.h"
 #include "get_next_line.h"
-#include "debug.h"
 #include "signals.h"
 
 // void	print_cmd(t_cmd *cmd)
@@ -158,10 +157,15 @@ int	main(int argc, char **argv, char **envp)
 			continue ;
 		}
 		cmd = build_pipeline(line, &shell);
-		print_cmds(cmd);
 		if (!cmd)
 			return (free(line), env_clear(&shell.env), perror("memory: "), 1);
 		ms_executor(cmd, &shell.env, &shell);
+		if (shell.should_exit)
+		{
+			free(line);
+			free_cmds(cmd);
+			break ;
+		}
 		free(line);
 		free_cmds(cmd);
 	}

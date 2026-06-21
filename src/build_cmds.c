@@ -6,21 +6,12 @@
 /*   By: anegorov <anegorov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 18:50:40 by anegorov          #+#    #+#             */
-/*   Updated: 2026/05/27 15:02:08 by anegorov         ###   ########.fr       */
+/*   Updated: 2026/06/21 15:20:39 by dverdini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 #include "parser.h"
-
-// void	print_tokens(t_token *tokens)
-// {
-// 	while (tokens)
-// 	{
-// 		printf("Token: Type=%d, Value=%s\n", tokens->type, tokens->value);
-// 		tokens = tokens->next;
-// 	}
-// }
 
 t_cmd	*build_cmds(char *line)
 {
@@ -45,6 +36,3 @@ t_cmd	*build_cmds(char *line)
 	}
 	return (cmd);
 }
-	//--- print tokes to debug ---
-	//print_tokens(lexer->tokens);
-	//----------------------------
